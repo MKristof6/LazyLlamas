@@ -31,14 +31,13 @@ De valamiért egy üres stringet érzékel-->
 
 
         <textarea id="txt" rows="5" cols="10" name="txt"></textarea>
-        <input type="button" onclick="responsiveVoice.speak(textSpeak())" value="submit">
+        <input type="button" onclick="responsiveVoice.speak(textSpeak())" value="Let me hear it!">
 
 <!--        <input type="button" onclick="responsiveVoice.speak(document.getElementById('txt').textContent)" value="submit">-->
 
         <script>
             function textSpeak() {
-                
-                responsiveVoice.speak(document.getElementById("txt").textContent);
+                responsiveVoice.speak(document.getElementById("txt").value);
             }
         </script>
     </body>
