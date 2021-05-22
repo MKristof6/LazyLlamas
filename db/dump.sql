@@ -1,0 +1,2 @@
+INSERT INTO teacher (name, email, password) VALUES ('balintovics', 'molnar99b@gmail.com', '$2b$12$2K/wNJVJlW85R2XpzJmmsOa4dKvHjS3.gFU4079avMp5QQnsJTRMe');
+INSERT INTO student (name, email, password, birthday) VALUES ('Barna', 'barna.urmossy@gmail.com', '$2b$12$GEgi6u3iUyUQU0QusefE1.6MeMPhJzLrhOhovID.IHKukCfW91T1i', '1940.02.29.');

@@ -1,0 +1,26 @@
+/*1. COLOR PALETTE:*/
+/*#538723 base green*/
+/*#5C9129 lighter green*/
+/*#8BBF58 even lighter green*/
+/*#B2C7A3 pale green i guess*/
+/*#993166 freakin purple, man*/
+/*#000000 as black as it gets*/
+/*#FFDE59 yellowish*/
+/*#D62828 red?*/
+
+
+/*2. Font*/
+/*heading, amatic sc*/
+/*Subheading, Lato*/
+/*Body Text, Lato Bold*/
+
+h1 {
+    font-family: 'Amatic SC', cursive;
+}
+h2 h3 h4 h5 h6 {
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+body {
+    font-family: 'Lato', sans-serif;
+}

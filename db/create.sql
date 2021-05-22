@@ -3,16 +3,16 @@ CREATE TABLE teacher(
     teacher_id INT GENERATED ALWAYS AS IDENTITY,
     "name" CHAR(50) NOT NULL,
     email CHAR(50) NOT NULL,
-    password char,
+    password text,
     PRIMARY KEY(teacher_id)
 );
 
 DROP TABLE IF EXISTS student;
 CREATE TABLE student(
     student_id INT GENERATED ALWAYS AS IDENTITY,
-    "name" CHAR(50) NOT NULL,
-    email CHAR(50) NOT NULL,
-    password char,
+    "name" CHAR NOT NULL,
+    email CHAR NOT NULL,
+    password text,
     birthday DATE,
         PRIMARY KEY(student_id)
 );

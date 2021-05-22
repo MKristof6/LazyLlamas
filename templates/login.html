@@ -1,0 +1,10 @@
+{% extends 'template.html' %}
+{% block title %} Login {% endblock %}
+{% block head %} {{ super() }} {% endblock %}
+{% block content %}
+<form action="/login" method="post">
+    <input type="text" name="email" placeholder="email address"><br>
+    <input type="password" name="password" placeholder="password"><br>
+    <input type="submit" value="Login">
+</form>
+{% endblock %}
