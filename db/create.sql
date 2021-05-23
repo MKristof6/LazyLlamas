@@ -1,13 +1,18 @@
 ALTER TABLE IF EXISTS ONLY public.feedback
-    DROP CONSTRAINT IF EXISTS feedback_student_id_fkey CASCADE;
-ALTER TABLE IF EXISTS ONLY public.feedback
-    DROP CONSTRAINT IF EXISTS feedback_teacher_id_fkey CASCADE;
+    DROP CONSTRAINT IF EXISTS fk_multiple_answer_question_id CASCADE,
+    DROP CONSTRAINT IF EXISTS fk_teacher_id CASCADE,
+    DROP CONSTRAINT IF EXISTS fk_student_id CASCADE,
+    DROP CONSTRAINT IF EXISTS fk_one_answer_question_id CASCADE,
+    DROP CONSTRAINT IF EXISTS fk_memory_game_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.pair_solution
-    DROP CONSTRAINT IF EXISTS pair_solution_student_id_fkey CASCADE;
-ALTER TABLE IF EXISTS ONLY public.solution
-    DROP CONSTRAINT IF EXISTS solution_student_id_fkey CASCADE;
-ALTER TABLE IF EXISTS ONLY public.student_languages
-    DROP CONSTRAINT IF EXISTS student_languages_student_id_fkey CASCADE;
+    DROP CONSTRAINT IF EXISTS fk_multiple_answer_question_id CASCADE,
+    DROP CONSTRAINT IF EXISTS fk_student_id CASCADE,
+    DROP CONSTRAINT IF EXISTS fk_one_answer_question_id CASCADE,
+    DROP CONSTRAINT IF EXISTS fk_memory_game_completion_time CASCADE;
+ALTER TABLE IF EXISTS ONLY public.student
+    DROP CONSTRAINT IF EXISTS fk_languages CASCADE,
+    DROP CONSTRAINT IF EXISTS fk_language_id CASCADE,
+    DROP CONSTRAINT IF EXISTS fk_pair_solution CASCADE;
 
 DROP TABLE IF EXISTS public.student;
 DROP TABLE IF EXISTS public.teacher;
@@ -21,6 +26,7 @@ DROP TABLE IF EXISTS public.multiple_answer_question;
 DROP TABLE IF EXISTS public.word_pair;
 DROP TABLE IF EXISTS public.one_answer_answer;
 DROP TABLE IF EXISTS public.multiple_answer_answer;
+DROP TABLE IF EXISTS public.memory_game;
 
 
 
@@ -49,26 +55,24 @@ CREATE TABLE student
 
 CREATE TABLE solution
 (
+    id                          INT GENERATED ALWAYS AS IDENTITY,
     one_answer_question_id      INT,
     multiple_answer_question_id INT,
     student_id                  INT,
     student_answer              INT,
-    FOREIGN KEY (student_id)
-        REFERENCES student (id)
+    memory_game_completion_time INT,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE feedback
 (
-    id                 INT,
+    id                          INT,
     teacher_id                  INT,
     student_id                  INT,
     feedback                    text,
     one_answer_question_id      INT,
     multiple_answer_question_id INT,
-    FOREIGN KEY (teacher_id)
-        REFERENCES teacher (id),
-    FOREIGN KEY (student_id)
-        REFERENCES student (id)
+    memory_game_id              INT
 );
 
 
@@ -83,24 +87,18 @@ CREATE TABLE language
 CREATE TABLE student_languages
 (
     id          INT GENERATED ALWAYS AS IDENTITY,
-    student_id  INT,
-    language_id INT,
-    PRIMARY KEY (id),
-    FOREIGN KEY (student_id)
-        REFERENCES student (id),
-    FOREIGN KEY (language_id)
-        REFERENCES language (id)
+    student_id  INT UNIQUE,
+    language_id INT UNIQUE,
+    PRIMARY KEY (id)
 );
 
 
 CREATE TABLE pair_solution
 (
     question_id  INT,
-    student_id   INT,
+    student_id   INT UNIQUE,
     foreign_text text,
-    hun_text     text,
-    FOREIGN KEY (student_id)
-        REFERENCES student (id)
+    hun_text     text
 );
 
 CREATE TABLE one_answer_question
@@ -142,12 +140,41 @@ CREATE TABLE multiple_answer_answer
     correct     BOOLEAN,
     PRIMARY KEY (id)
 );
-ALTER TABLE ONLY feedback ADD CONSTRAINT fk_one_answer_question_id FOREIGN KEY (one_answer_question_id)
-        REFERENCES one_answer_question (id);
-ALTER TABLE ONLY solution ADD CONSTRAINT fk_one_answer_question_id FOREIGN KEY (one_answer_question_id)
-        REFERENCES one_answer_question (id);
 
-ALTER TABLE ONLY feedback ADD CONSTRAINT fk_multiple_answer_question_id FOREIGN KEY (multiple_answer_question_id)
-        REFERENCES multiple_answer_question(id);
-ALTER TABLE ONLY solution ADD CONSTRAINT fk_multiple_answer_question_id FOREIGN KEY (multiple_answer_question_id)
-        REFERENCES multiple_answer_question (id);
+CREATE TABLE memory_game
+(
+    id        INT GENERATED ALWAYS AS IDENTITY,
+    filename1 text NOT NULL,
+    text1     text,
+    filename2 text NOT NULL,
+    text2     text,
+    filename3 text NOT NULL,
+    text3     text,
+    filename4 text NOT NULL,
+    text5     text,
+    filename5 text NOT NULL,
+    text6     text,
+    filename6 text NOT NULL,
+    completion_time INT UNIQUE,
+    PRIMARY KEY (id)
+);
+
+
+ALTER TABLE ONLY public.feedback
+    ADD CONSTRAINT fk_multiple_answer_question_id FOREIGN KEY (multiple_answer_question_id) REFERENCES multiple_answer_question (id),
+    ADD CONSTRAINT fk_teacher_id FOREIGN KEY (teacher_id) REFERENCES teacher (id),
+    ADD CONSTRAINT fk_student_id FOREIGN KEY (student_id) REFERENCES student (id),
+    ADD CONSTRAINT fk_one_answer_question_id FOREIGN KEY (one_answer_question_id) REFERENCES one_answer_question (id),
+    ADD CONSTRAINT fk_memory_game_id FOREIGN KEY (memory_game_id) REFERENCES memory_game (id);
+
+ALTER TABLE ONLY public.solution
+    ADD CONSTRAINT fk_multiple_answer_question_id FOREIGN KEY (multiple_answer_question_id) REFERENCES multiple_answer_question (id),
+    ADD CONSTRAINT fk_student_id FOREIGN KEY (student_id) REFERENCES student (id),
+    ADD CONSTRAINT fk_one_answer_question_id FOREIGN KEY (one_answer_question_id) REFERENCES one_answer_question (id),
+    ADD CONSTRAINT fk_memory_game_completion_time FOREIGN KEY (memory_game_completion_time) REFERENCES memory_game (completion_time);
+
+ALTER TABLE public.student
+    ADD CONSTRAINT fk_languages FOREIGN KEY (id) REFERENCES student_languages (student_id),
+    ADD CONSTRAINT fk_language_id FOREIGN KEY (language_id) REFERENCES language (id),
+    ADD CONSTRAINT fk_pair_solution FOREIGN KEY (id) REFERENCES pair_solution (student_id);
+
