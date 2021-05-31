@@ -35,12 +35,15 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('speech'))
+    return redirect(url_for('login'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    amigo = int(request.args.get('amigo'))
+    if request.args:
+        amigo = int(request.args.get('amigo'))
+    else:
+        amigo = 1
     if request.method == 'POST':
         error = None
         email = request.form['email']
@@ -48,17 +51,27 @@ def register():
         pw = util.hash_it(request.form['password'])
         bday = request.form['bday']
         # TODO: modify SQL table to accept int[] as language_ids
-        languages = [request.form['eng'], request.form['fra'], request.form['ita'], request.form['esp']]
-        for i in range(len(languages)):
-            if languages[i] is None:
-                languages.pop(i)
+        languages = []
+        try:
+            if request.form['eng']:
+                print(request.form['eng'])
+                languages.append(int(request.form['eng']))
+            if request.form['fra']:
+                languages.append(int(request.form['fra']))
+            if request.form['ita']:
+                languages.append(int(request.form['ita']))
+            if request.form['esp']:
+                languages.append(int(request.form['esp']))
+        except KeyError:
+            pass
         if not validate_email(email):
             error = "Ezzel az e-mail címmel már regisztráltak a rendszerünkbe. Kérjük, próbáld újra egy másik fiókkal."
-            return render_template('register.html', error=error)
+            return render_template('register.html')
         else:
             data_handler.register_student(name, email, pw, bday, languages)
             return redirect(url_for('speech'))
     else:
+
         return render_template('register.html', amigo=amigo)
 
 
