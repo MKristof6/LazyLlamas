@@ -3,8 +3,11 @@
 {% block head %} {{ super() }} {% endblock %}
 {% block content %}
 <form action="/login" method="post">
-    <input type="text" name="email" placeholder="email address"><br>
-    <input type="password" name="password" placeholder="password"><br>
-    <input type="submit" value="Login">
+    <input type="email" name="email" placeholder="E-mail cím"><br>
+    <input type="password" name="password" placeholder="Jelszó"><br>
+    <input type="submit" value="Belépés">
 </form>
+
+<h4>Tanulnál, de még nem vagy tag? Csatlakozz hozzánk <a href="{{ url_for('register')}}">itt</a>!</h4><br>
+<!--<h4>Amigo separate register page?</h4>-->
 {% endblock %}

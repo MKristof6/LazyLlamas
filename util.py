@@ -7,4 +7,4 @@ def hash_it(psw):
 
 
 def verify_pw(stored_pw, pw):
-    return bcrypt.checkpw(pw.encode('utf-8'), stored_pw.encode('utf-8'))
+    return bcrypt.checkpw(stored_pw.encode('utf-8'), pw.encode('utf-8'))

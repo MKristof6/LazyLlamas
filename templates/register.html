@@ -1,0 +1,27 @@
+{% extends 'template.html' %}
+{% block title %} Register {% endblock %}
+{% block head %} {{ super() }} {% endblock %}
+{% block content %}
+<form action="/register" method="post">
+    <input type="text" name="name" placeholder="Név" required><br>
+    <input type="email" name="email" placeholder="E-mail cím" required><br>
+    <input type="password" name="password" placeholder="Jelszó" required><br>
+    <input type="date" name="bday" placeholder="Mikor születtél?" required><br>
+    <input id="eng" type="checkbox" name="languages" value="Angol">
+    <label for="eng">Angol</label><br>
+    <input id="fra" type="checkbox" name="languages" value="Francia">
+    <label for="fra">Francia</label><br>
+    <input id="ita" type="checkbox" name="languages" value="Olasz">
+    <label for="ita">Olasz</label><br>
+    <input id="esp" type="checkbox" name="languages" value="Spanyol">
+    <label for="esp">Spanyol</label><br><br>
+
+    <input type="submit" value="Csatlakozom">
+</form>
+
+{% with messages = get_flashed_messages() %}
+{% if error %}
+    <p class=error><strong>Hiba:</strong> {{ error }}<br>
+  {% endif %}
+{% endwith %}
+{% endblock %}
