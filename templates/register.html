@@ -8,13 +8,13 @@
     <input type="password" name="password" placeholder="Jelszó" required><br>
     {% if amigo > 0 %}
     <input type="date" name="bday" placeholder="Mikor születtél?" required><br>
-    <input id="eng" type="checkbox" name="languages" value="Angol">
+    <input id="eng" type="checkbox" name="languages" value="1" required>
     <label for="eng">Angol</label><br>
-    <input id="fra" type="checkbox" name="languages" value="Francia">
+    <input id="fra" type="checkbox" name="languages" value="2" required>
     <label for="fra">Francia</label><br>
-    <input id="ita" type="checkbox" name="languages" value="Olasz">
+    <input id="ita" type="checkbox" name="languages" value="3" required>
     <label for="ita">Olasz</label><br>
-    <input id="esp" type="checkbox" name="languages" value="Spanyol">
+    <input id="esp" type="checkbox" name="languages" value="4" required>
     <label for="esp">Spanyol</label><br><br>
     {% endif %}
 
@@ -26,4 +26,5 @@
     <p class=error><strong>Figyelem:</strong> {{ error }}<br>
   {% endif %}
 {% endwith %}
+        <script src="/static/checkbox.js" defer></script>
 {% endblock %}
