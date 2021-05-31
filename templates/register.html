@@ -6,6 +6,7 @@
     <input type="text" name="name" placeholder="Név" required><br>
     <input type="email" name="email" placeholder="E-mail cím" required><br>
     <input type="password" name="password" placeholder="Jelszó" required><br>
+    {% if amigo > 0 %}
     <input type="date" name="bday" placeholder="Mikor születtél?" required><br>
     <input id="eng" type="checkbox" name="languages" value="Angol">
     <label for="eng">Angol</label><br>
@@ -15,13 +16,14 @@
     <label for="ita">Olasz</label><br>
     <input id="esp" type="checkbox" name="languages" value="Spanyol">
     <label for="esp">Spanyol</label><br><br>
+    {% endif %}
 
     <input type="submit" value="Csatlakozom">
 </form>
 
 {% with messages = get_flashed_messages() %}
 {% if error %}
-    <p class=error><strong>Hiba:</strong> {{ error }}<br>
+    <p class=error><strong>Figyelem:</strong> {{ error }}<br>
   {% endif %}
 {% endwith %}
 {% endblock %}

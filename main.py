@@ -40,6 +40,7 @@ def logout():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    amigo = int(request.args.get('amigo'))
     if request.method == 'POST':
         error = None
         email = request.form['email']
@@ -54,7 +55,7 @@ def register():
             data_handler.register_student(name, email, pw, bday)
             return redirect(url_for('speech'))
     else:
-        return render_template('register.html')
+        return render_template('register.html', amigo=amigo)
 
 
 def validate_email(email):
