@@ -47,12 +47,16 @@ def register():
         name = request.form['name']
         pw = util.hash_it(request.form['password'])
         bday = request.form['bday']
-        # TODO: figure out language_id-s
+        # TODO: modify SQL table to accept int[] as language_ids
+        languages = [request.form['eng'], request.form['fra'], request.form['ita'], request.form['esp']]
+        for i in range(len(languages)):
+            if languages[i] is None:
+                languages.pop(i)
         if not validate_email(email):
             error = "Ezzel az e-mail címmel már regisztráltak a rendszerünkbe. Kérjük, próbáld újra egy másik fiókkal."
             return render_template('register.html', error=error)
         else:
-            data_handler.register_student(name, email, pw, bday)
+            data_handler.register_student(name, email, pw, bday, languages)
             return redirect(url_for('speech'))
     else:
         return render_template('register.html', amigo=amigo)
