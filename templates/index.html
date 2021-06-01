@@ -1,0 +1,41 @@
+{% extends 'template.html' %}
+{% block title %} Llamigos para los niños {% endblock %}
+{% block head %} {{ super() }} {% endblock %}
+{% block content %}
+<div class="green-background">
+{% if session['amigo'] == False %}
+<div class="row">
+    <div class="student-card column">
+        <a class="blacklink" href="{{url_for('my_exercises')}}"><h2>Feladatok</h2></a>
+    </div>
+    <div class="student-card column">
+        <a class="blacklink" href="{{url_for('profile')}}"><h2>Profilom</h2></a>
+    </div>
+    <div class="student-card column">
+        <a class="blacklink" href="{{url_for('logout')}}"><h2>Kijelentkezés</h2></a>
+    </div>
+</div>
+
+{% elif session['amigo'] %}
+<div class="student-card column">
+    <a class="blacklink" href="{{url_for('new_exercise')}}"><h2>Új feladat</h2></a>
+</div>
+<div class="student-card column">
+    <a class="blacklink" href="{{url_for('exercises')}}"><h2>Feladatok</h2></a>
+</div>
+<div class="student-card column">
+    <a class="blacklink" href="{{url_for('solutions')}}"><h2>Megoldások</h2></a>
+</div>
+<div class="student-card column">
+    <a class="blacklink" href="{{url_for('students')}}"><h2>Diákok</h2></a>
+</div>
+<div class="student-card column">
+    <a class="blacklink" href="{{url_for('profile')}}"><h2>Profilom</h2></a>
+</div>
+<div class="student-card column">
+    <a class="blacklink" href="{{url_for('logout')}}"><h2>Kijelentkezés</h2></a>
+</div>
+{% endif %}
+</div>
+
+{% endblock %}

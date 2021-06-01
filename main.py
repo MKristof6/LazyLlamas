@@ -15,19 +15,26 @@ def speech():
     return render_template('speech.html')
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    users = [data_handler.get_teachers(), data_handler.get_students()]
+    teachers = data_handler.get_teachers()
+    students = data_handler.get_students()
     if request.method == 'POST':
+        session['pw'] = request.form['password']
         session['email'] = request.form['email']
-        for userz in users:
-            for user in userz:
-                if session['email'] == user['email']:
-                    session['pw'] = request.form['password']
-                    if util.verify_pw(session['pw'], user['password']):
-                        return redirect(url_for('speech'))
-                else:
-                    return 'Wrong password!<br><br><a href="/login">Go back</a>'
+        for user in teachers:
+            if session['email'] == user['email']:
+                session['amigo'] = True
+                if util.verify_pw(session['pw'], user['password']):
+                    return redirect(url_for('home'))
+        for user in students:
+            if session['email'] == user['email']:
+                session['amigo'] = False
+                print(session['amigo'])
+                if util.verify_pw(session['pw'], user['password']):
+                    return redirect(url_for('home'))
+        else:
+            return 'Fuck off, register first!'
     else:
         return render_template('login.html')
 
@@ -50,11 +57,9 @@ def register():
         name = request.form['name']
         pw = util.hash_it(request.form['password'])
         bday = request.form['bday']
-        # TODO: modify SQL table to accept int[] as language_ids
         languages = []
         try:
             if request.form['eng']:
-                print(request.form['eng'])
                 languages.append(int(request.form['eng']))
             if request.form['fra']:
                 languages.append(int(request.form['fra']))
@@ -82,6 +87,44 @@ def validate_email(email):
             if email == user['email']:
                 return False
     return True
+
+
+@app.route('/')
+def home():
+    if not session:
+        return redirect(url_for('login'))
+    else:
+        return render_template('index.html')
+
+
+@app.route('/my_exercises')
+def my_exercises():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/profile')
+def profile():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/new_exercise')
+def new_exercise():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/solutions')
+def solutions():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/students')
+def students():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/exercises')
+def exercises():
+    return 'Implementation in process. Don\'t be an impatient dick!'
 
 
 if __name__ == "__main__":
