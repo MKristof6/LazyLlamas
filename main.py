@@ -52,40 +52,48 @@ def register():
         email = request.form['email']
         name = request.form['name']
         pw = str(util.hash_it(request.form['password']))[2:-1]
-        bday = request.form['bday']
-        languages = []
-        try:
-            if request.form['eng']:
-                languages.append(int(request.form['eng']))
-        except KeyError:
-            pass
-        try:
-            if request.form['fra']:
-                languages.append(int(request.form['fra']))
-        except KeyError:
-            pass
-        try:
-            if request.form['ita']:
-                languages.append(int(request.form['ita']))
-        except KeyError:
-            pass
-        try:
-            if request.form['esp']:
-                languages.append(int(request.form['esp']))
-        except KeyError:
-            pass
         if not validate_email(email):
             error = "Ezzel az e-mail címmel már regisztráltak a rendszerünkbe. Kérjük, próbáld újra egy másik fiókkal."
             return render_template('register.html')
         else:
-            student_id = data_handler.get_latest_id()['id'] + 1
-            data_handler.register_student(name, email, pw, bday, languages, student_id)
+            if int(request.form['amigo']) == 0:
+                data_handler.register_teacher(name, email, pw)
+                session['amigo'] = True
+            else:
+                bday, languages = student_register()
+                student_id = data_handler.get_latest_id()['id'] + 1
+                data_handler.register_student(name, email, pw, bday, languages, student_id)
+                session['amigo'] = False
             session['email'] = email
-            session['amigo'] = False
             return redirect(url_for('home'))
     else:
-
         return render_template('register.html', amigo=amigo)
+
+
+def student_register():
+    bday = request.form['bday']
+    languages = []
+    try:
+        if request.form['eng']:
+            languages.append(int(request.form['eng']))
+    except KeyError:
+        pass
+    try:
+        if request.form['fra']:
+            languages.append(int(request.form['fra']))
+    except KeyError:
+        pass
+    try:
+        if request.form['ita']:
+            languages.append(int(request.form['ita']))
+    except KeyError:
+        pass
+    try:
+        if request.form['esp']:
+            languages.append(int(request.form['esp']))
+    except KeyError:
+        pass
+    return bday, languages
 
 
 def validate_email(email):
