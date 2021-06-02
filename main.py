@@ -1,6 +1,3 @@
-import time
-
-import flask
 from flask import Flask, render_template, url_for, redirect, session, request, flash
 
 import data_handler
@@ -30,7 +27,6 @@ def login():
         for user in students:
             if session['email'] == user['email']:
                 session['amigo'] = False
-                print(session['amigo'])
                 if util.verify_pw(session['pw'], user['password']):
                     return redirect(url_for('home'))
         else:
@@ -55,16 +51,25 @@ def register():
         error = None
         email = request.form['email']
         name = request.form['name']
-        pw = util.hash_it(request.form['password'])
+        pw = str(util.hash_it(request.form['password']))[2:-1]
         bday = request.form['bday']
         languages = []
         try:
             if request.form['eng']:
                 languages.append(int(request.form['eng']))
+        except KeyError:
+            pass
+        try:
             if request.form['fra']:
                 languages.append(int(request.form['fra']))
+        except KeyError:
+            pass
+        try:
             if request.form['ita']:
                 languages.append(int(request.form['ita']))
+        except KeyError:
+            pass
+        try:
             if request.form['esp']:
                 languages.append(int(request.form['esp']))
         except KeyError:
@@ -73,8 +78,11 @@ def register():
             error = "Ezzel az e-mail címmel már regisztráltak a rendszerünkbe. Kérjük, próbáld újra egy másik fiókkal."
             return render_template('register.html')
         else:
-            data_handler.register_student(name, email, pw, bday, languages)
-            return redirect(url_for('speech'))
+            student_id = data_handler.get_latest_id()['id'] + 1
+            data_handler.register_student(name, email, pw, bday, languages, student_id)
+            session['email'] = email
+            session['amigo'] = False
+            return redirect(url_for('home'))
     else:
 
         return render_template('register.html', amigo=amigo)

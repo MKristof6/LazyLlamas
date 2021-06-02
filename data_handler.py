@@ -9,8 +9,7 @@ def get_students():
     return connection.execute_select('SELECT email, password FROM student;')
 
 
-def register_student(name, email, password, bday, languages):
-    student_id = get_latest_id() + 1
+def register_student(name, email, password, bday, languages, student_id):
     update_student_languages(student_id, languages)
     return connection.execute_dml_statement("""INSERT INTO student(name, email, password, birthday, points, language_id) VALUES(%s, %s, %s, %s, 0, %s)""", [name, email, password, bday, languages])  # TODO: figure out language_id -s
 
@@ -24,4 +23,4 @@ def update_student_languages(student_id, languages):
 
 
 def get_latest_id():
-    return connection.execute_select('SELECT id FROM student ORDER BY id DESC LIMIT 1')
+    return connection.execute_select('SELECT id FROM student ORDER BY id DESC LIMIT 1', fetchall=False)
