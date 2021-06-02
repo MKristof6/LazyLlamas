@@ -143,6 +143,36 @@ def exercises():
     return 'Implementation in process. Don\'t be an impatient dick!'
 
 
+@app.route('/matching_-ame')
+def matching_game():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/memory-game')
+def memory_game():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/sorting-game')
+def sorting_game():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/listening-game')
+def listening_game():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/comprehensive-reading')
+def comprehensive_reading():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/filling-game')
+def filling_game():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
 if __name__ == "__main__":
     app.run(
         debug=True,

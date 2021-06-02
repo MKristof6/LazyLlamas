@@ -11,7 +11,7 @@ def get_students():
 
 def register_student(name, email, password, bday, languages, student_id):
     update_student_languages(student_id, languages)
-    return connection.execute_dml_statement("""INSERT INTO student(name, email, password, birthday, points, language_id) VALUES(%s, %s, %s, %s, 0, %s)""", [name, email, password, bday, languages])  # TODO: figure out language_id -s
+    return connection.execute_dml_statement("""INSERT INTO student(name, email, password, birthday, points, language_id) VALUES(%s, %s, %s, %s, 0, %s)""", [name, email, password, bday, languages])
 
 
 def register_teacher(name, email, password):
