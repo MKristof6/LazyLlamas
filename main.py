@@ -123,11 +123,6 @@ def profile():
     return 'Implementation in process. Don\'t be an impatient dick!'
 
 
-@app.route('/new_exercise')
-def new_exercise():
-    return 'Implementation in process. Don\'t be an impatient dick!'
-
-
 @app.route('/solutions')
 def solutions():
     return 'Implementation in process. Don\'t be an impatient dick!'
@@ -143,9 +138,30 @@ def exercises():
     return 'Implementation in process. Don\'t be an impatient dick!'
 
 
-@app.route('/matching_-ame')
+@app.route('/matching-game', methods=['GET', 'POST'])
 def matching_game():
-    return 'Implementation in process. Don\'t be an impatient dick!'
+    if request.method == 'POST':
+        words = []
+        images = []
+        for i in range(1, 7):
+            words.append(request.form['text' + str(i)])
+            images.append(util.get_image(request.files['img' + str(i)]))
+        word1 = words[0]
+        word2 = words[1]
+        word3 = words[2]
+        word4 = words[3]
+        word5 = words[4]
+        word6 = words[5]
+        image1 = images[0]
+        image2 = images[1]
+        image3 = images[2]
+        image4 = images[3]
+        image5 = images[4]
+        image6 = images[5]
+        data_handler.new_matching_exercise(word1, word2, word3, word4, word5, word6, image1, image2, image3, image4, image5, image6)
+        return 'shit'
+    else:
+        return render_template('matching.html')
 
 
 @app.route('/memory-game')

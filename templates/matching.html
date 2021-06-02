@@ -1,0 +1,44 @@
+{% extends 'template.html' %}
+{% block title %} Párosítás {% endblock %}
+{% block head %} {{ super() }} {% endblock %}
+{% block content %}
+<form action="/matching-game" method="post" enctype="multipart/form-data">
+    <label for="text1">Szó</label>
+    <input id="text1" type="text" maxlength="15" name="text1" required>
+
+    <label for="img1">Kép kiválasztása</label>
+    <input id="img1" type="file" name="img1" accept="image/png, image/jpg"><br>
+
+    <label for="text2">Szó</label>
+    <input id="text2" type="text" maxlength="15" name="text2" required>
+
+    <label for="img2">Kép kiválasztása</label>
+    <input id="img2" type="file" name="img2" accept="image/png, image/jpg"><br>
+
+    <label for="text3">Szó</label>
+    <input id="text3" type="text" maxlength="15" name="text3" required>
+
+    <label for="img3">Kép kiválasztása</label>
+    <input id="img3" type="file" name="img3" accept="image/png, image/jpg"><br>
+
+    <label for="text4">Szó</label>
+    <input id="text4" type="text" maxlength="15" name="text4" required>
+
+    <label for="img4">Kép kiválasztása</label>
+    <input id="img4" type="file" name="img4" accept="image/png, image/jpg"><br>
+
+    <label for="text5">Szó</label>
+    <input id="text5" type="text" maxlength="15" name="text5" required>
+
+    <label for="img5">Kép kiválasztása</label>
+    <input id="img5" type="file" name="img5" accept="image/png, image/jpg"><br>
+
+    <label for="text6">Szó</label>
+    <input id="text6" type="text" maxlength="15" name="text6" required>
+    <label for="img6">Kép kiválasztása</label>
+    <input id="img6" type="file" name="img6" accept="image/png, image/jpg"><br>
+    <input type="submit" value="Feltöltés">
+</form><br>
+
+<script src="/static/js/matchingGame.js"></script>
+{% endblock %}
