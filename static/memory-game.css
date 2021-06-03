@@ -1,18 +1,57 @@
-.memory{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    border: 2px solid ;
 }
 
 body{
-    height: 60vh;
+    display: flex;
     background: #5C9129;
 }
 
 
-
-
-img{
-    width: 100px;
+.memory-game{
+    perspective: 1000px;
+    width: 900px;
+    height: 900px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
 }
+
+.memory-card{
+    transform-style: preserve-3d;
+    width: 25%;
+    height: 33.33333%;
+    position: relative;
+    display: flex;
+    transform: scale(1);
+    transition: transform .1s ;
+    backface-visibility: hidden;
+}
+
+.front-face{
+    position: relative;
+    margin: auto;
+    width: 120px;
+    height: 90px;
+    transform: rotateY(180deg);
+}
+
+.memory-card:active {
+    transform: scale(.97);
+    transition: transform .2s;
+}
+
+
+.back-face{
+    position: absolute;
+    margin: auto;
+    width: 215px;
+    height: 215px;
+}
+
+.memory-card.flip {
+    transform: rotateY(180deg);
+}
+
