@@ -144,20 +144,23 @@ CREATE TABLE multiple_answer_answer
 CREATE TABLE memory_game
 (
     id        INT GENERATED ALWAYS AS IDENTITY,
-    filename1 text NOT NULL,
-    text1     text,
+    filename text NOT NULL,
+    text     text,
     filename2 text NOT NULL,
     text2     text,
     filename3 text NOT NULL,
     text3     text,
     filename4 text NOT NULL,
-    text5     text,
+    text4     text,
     filename5 text NOT NULL,
-    text6     text,
+    text5     text,
     filename6 text NOT NULL,
-    completion_time INT UNIQUE,
+    text6     text,
     PRIMARY KEY (id)
 );
+
+INSERT INTO memory_game(filename1, text1, filename2, text2, filename3, text3, filename4, text4, filename5, text5, filename6, text6)
+VALUES ('../static/images/memory_sample/cat.png', 'cat', '../static/images/memory_sample/dolphin.png', 'dolphin', '../static/images/memory_sample/fox.png', 'fox', '../static/images/memory_sample/horse.png', 'horse', '../static/images/memory_sample/owl.png', 'owl', '../static/images/memory_sample/wolf.png', 'wolf' );
 
 INSERT INTO language(name) VALUES ('English');
 INSERT INTO language(name) VALUES ('French');
@@ -181,8 +184,7 @@ ALTER TABLE ONLY public.feedback
 ALTER TABLE ONLY public.solution
     ADD CONSTRAINT fk_multiple_answer_question_id FOREIGN KEY (multiple_answer_question_id) REFERENCES multiple_answer_question (id),
     ADD CONSTRAINT fk_student_id FOREIGN KEY (student_id) REFERENCES student (id),
-    ADD CONSTRAINT fk_one_answer_question_id FOREIGN KEY (one_answer_question_id) REFERENCES one_answer_question (id),
-    ADD CONSTRAINT fk_memory_game_completion_time FOREIGN KEY (memory_game_completion_time) REFERENCES memory_game (completion_time);
+    ADD CONSTRAINT fk_one_answer_question_id FOREIGN KEY (one_answer_question_id) REFERENCES one_answer_question (id);
 
 ALTER TABLE public.student
     ADD CONSTRAINT fk_languages FOREIGN KEY (id) REFERENCES student_languages (student_id),
