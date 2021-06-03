@@ -35,6 +35,11 @@ def login():
         return render_template('login.html')
 
 
+@app.route('/memory-game')
+def memory_game():
+    cards = data_handler.get_memory_cards(1)
+    return render_template('memory-game.html', cards)
+
 @app.route('/logout')
 def logout():
     session.clear()
