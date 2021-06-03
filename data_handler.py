@@ -24,3 +24,11 @@ def update_student_languages(student_id, languages):
 
 def get_latest_id():
     return connection.execute_select('SELECT id FROM student ORDER BY id DESC LIMIT 1', fetchall=False)
+
+
+def get_memory_cards(game_number):
+    query="""
+    SELECT * FROM memory_game
+    WHERE id = 1
+    """
+    return connection.execute_select(query)
