@@ -37,8 +37,12 @@ def login():
 
 @app.route('/memory-game')
 def memory_game():
-    cards = data_handler.get_memory_cards(1)
-    return render_template('memory-game.html', cards)
+    data = data_handler.get_memory_cards(1)
+    cards = []
+    for d in data:
+        for i in range(1, 7):
+            cards.append((d["filename"+str(i)], d["text"+str(i)]))
+    return render_template('memory-game.html', cards=cards)
 
 @app.route('/logout')
 def logout():
