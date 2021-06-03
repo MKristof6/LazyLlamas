@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Memory game</title>
+     <link rel="stylesheet" href="../static/memory-game.css"/>
+    <script src="/static/memory_game.js" defer></script>
+</head>
+<body>
+
+    <section class="memory-game">
+
+        {% for card in cards %}
+    <div class="memory-card">
+        <div class="front-face">
+            <img class ="front-face" src="{{ card[0] }}" />
+            <h6 class="front-face"> {{card[1] }}</h6>
+        </div>
+
+        <img class="back-face" src="../static/images/amigo_logo.png"/>
+    </div>
+            <div class="memory-card">
+        <div class="front-face">
+            <img class="front-face" src="{{ card[0] }}" />
+            <h6 class="front-face"> {{card[1] }}</h6>
+        </div>
+
+        <img class="back-face"  src="../static/images/amigo_logo.png"/>
+    </div>
+    {%endfor%}
+
+    </section>
+
+
+</body>
+</html>
