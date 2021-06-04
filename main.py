@@ -60,9 +60,9 @@ def register():
                 data_handler.register_teacher(name, email, pw)
                 session['amigo'] = True
             else:
-                bday, languages = student_register()
+                birthday, languages = student_register()
                 student_id = data_handler.get_latest_id()['id'] + 1
-                data_handler.register_student(name, email, pw, bday, languages, student_id)
+                data_handler.register_student(name, email, pw, birthday, languages, student_id)
                 session['amigo'] = False
             session['email'] = email
             return redirect(url_for('home'))
@@ -71,7 +71,7 @@ def register():
 
 
 def student_register():
-    bday = request.form['bday']
+    birthday = request.form['birthday']
     languages = []
     try:
         if request.form['eng']:
@@ -93,7 +93,7 @@ def student_register():
             languages.append(int(request.form['esp']))
     except KeyError:
         pass
-    return bday, languages
+    return birthday, languages
 
 
 def validate_email(email):
@@ -118,9 +118,22 @@ def my_exercises():
     return 'Implementation in process. Don\'t be an impatient dick!'
 
 
-@app.route('/profile')
+@app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    return 'Implementation in process. Don\'t be an impatient dick!'
+    if session['amigo']:
+        amigo = data_handler.get_teacher(request.form['email'])
+        if request.method == 'POST':
+            data_handler.update_teacher(request.form['name'], request.form['email'], request.form['birthday'])
+        else:
+            return render_template('amigo-profile.html', amigo=amigo)
+    else:
+        student = data_handler.update_get_student(request.form['email'])
+        if request.method == 'POST':
+            data_handler.register_student(request.form['name'], request.form['email'], request.form['birthday'])
+        else:
+            return render_template('amigo-profile.html')
+        return render_template('student-profile.html', student=student)
+
 
 
 @app.route('/new_exercise')
@@ -143,7 +156,7 @@ def exercises():
     return 'Implementation in process. Don\'t be an impatient dick!'
 
 
-@app.route('/matching_-ame')
+@app.route('/matching-game')
 def matching_game():
     return 'Implementation in process. Don\'t be an impatient dick!'
 
