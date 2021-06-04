@@ -28,6 +28,7 @@ def login():
             # Check if user is an amigo
             if session['email'] == user['email']:
                 session['amigo'] = True
+                session['id'] = user['id']
                 # Verify password
                 if util.verify_pw(session['pw'], user['password']):
                     return redirect(url_for('home'))
@@ -35,6 +36,7 @@ def login():
         for user in students:
             if session['email'] == user['email']:
                 session['amigo'] = False
+                session['id'] = user['id']
                 # Verify password
                 if util.verify_pw(session['pw'], user['password']):
                     return redirect(url_for('home'))
@@ -72,6 +74,7 @@ def register():
                 session['amigo'] = True
             else:
                 birthday, languages = student_register()
+                # TODO: sort out latest id
                 student_id = data_handler.get_latest_id()['id'] + 1
                 data_handler.register_student(name, email, pw, birthday, languages, student_id)
                 session['amigo'] = False
@@ -135,15 +138,15 @@ def profile():
     # Check if user is an amigo
     if session['amigo']:
         # Get the user data by email address
-        amigo = data_handler.get_teacher(session['email'])
+        amigo = data_handler.get_teacher(session['id'])
         # Update data if modifying post request was sent
         if request.method == 'POST':
-            data_handler.update_teacher(request.form['name'], request.form['email'], request.form['birthday'])
+            data_handler.update_teacher(request.form['name'], request.form['email'], request.form['birthday'], session['id'])
         else:
             return render_template('amigo-profile.html', amigo=amigo)
     else:
-        # Get the user data by email address
-        student = data_handler.get_student(session['email'])
+         # Get the user data by email address
+        student = data_handler.get_student(session['id'])
         # Update data if modifying post request was sent
         if request.method == 'POST':
             data_handler.update_student(request.form['name'], request.form['email'], request.form['birthday'])

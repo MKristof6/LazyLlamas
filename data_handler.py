@@ -2,11 +2,11 @@ import connection
 from psycopg2._psycopg import AsIs
 
 def get_teachers():
-    return connection.execute_select('SELECT email, password FROM teacher;')
+    return connection.execute_select('SELECT id, email, password FROM teacher;')
 
 
 def get_students():
-    return connection.execute_select('SELECT email, password FROM student;')
+    return connection.execute_select('SELECT id, email, password FROM student;')
 
 
 def register_student(name, email, password, bday, languages, student_id):
@@ -21,7 +21,7 @@ def register_teacher(name, email, password):
                 VALUES(%s, %s, %s)"""
     return connection.execute_dml_statement(query, [name, email, password])
 
-
+#TODO: student language managing
 def add_student_languages(student_id, languages):
     query = """INSERT INTO student_languages(student_id, language_id) VALUES(%s, %s)"""
     return connection.execute_dml_statement(query, [student_id, languages])
@@ -38,29 +38,29 @@ def get_latest_id():
     return connection.execute_select('SELECT id FROM student ORDER BY id DESC LIMIT 1', fetchall=False)
 
 
-def get_teacher(email):
+def get_teacher(id):
     query = """ SELECT * FROM teacher
-                WHERE email= (%s);
+                WHERE id = %(id)s;
     """
-    return connection.execute_select(query, email, fetchall=False)
+    return connection.execute_select(query, id, fetchall=False)
 
 
-def get_student(email):
+def get_student(student_id):
     query = """ SELECT * FROM student
-                WHERE email = %(eMail)s
+                WHERE id = %(student_id)s
     """
-    return connection.execute_select(query, email)
+    return connection.execute_select(query, student_id)
 
-def update_teacher(name, email, password):
+def update_teacher(name, email, password, id):
     query =""" UPDATE teacher
             SET name = %(name)s, email = %(email)s, password = %(password)s
-            WHERE email LIKE %(email)s
+            WHERE id = %(id)s
     """
-    return connection.execute_dml_statement(query, [name, email, password])
+    return connection.execute_dml_statement(query, [name, email, password, id])
 
-def update_student(name, email, password):
+def update_student(name, email, password, id):
     query =""" UPDATE student
             SET name = %(name)s, email = %(email)s, password = %(password)s
-            WHERE email = %(email)s
+            WHERE id = %(id)s
     """
-    return connection.execute_dml_statement(query, [name, email, password])
+    return connection.execute_dml_statement(query, [name, email, password, id])
