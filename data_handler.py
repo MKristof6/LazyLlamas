@@ -30,7 +30,15 @@ def get_latest_id():
     return connection.execute_select('SELECT id FROM student ORDER BY id DESC LIMIT 1', fetchall=False)
 
 
-def new_matching_exercise(word1, word2, word3, word4, word5, word6, image1, image2, image3, image4, image5, image6):
+def new_matching_exercise(theme, word1, word2, word3, word4, word5, word6, image1, image2, image3, image4, image5, image6):
     connection.execute_dml_statement(
-        """INSERT INTO matching_exercise(word1, word2, word3, word4, word5, word6, image1, image2, image3, image4, image5, image6) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
-        [word1, word2, word3, word4, word5, word6, image1, image2, image3, image4, image5, image6])
+        """INSERT INTO matching_exercise(theme, word1, word2, word3, word4, word5, word6, image1, image2, image3, image4, image5, image6) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
+        [theme, word1, word2, word3, word4, word5, word6, image1, image2, image3, image4, image5, image6])
+
+
+def get_matching_exercise(id):
+    return connection.execute_select('SELECT * FROM matching_exercise WHERE id = %s', [id], fetchall=False)
+
+
+def get_latest_matching_exercise_id():
+    return connection.execute_select('SELECT id FROM matching_exercise ORDER BY id DESC LIMIT 1', fetchall=False)

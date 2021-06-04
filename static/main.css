@@ -67,3 +67,19 @@ body {
     border-radius: 20px;
     text-align: center;
 }
+
+.game-container {
+    background: #5C9129;
+}
+
+.matching-game-container {
+    width: 90vw;
+    height: 80vh;
+    background-image: url("/static/images/math.jpg");
+}
+
+.flashcard {
+    width: 250px;
+    height: 175px;
+    border-radius: 10px;
+}

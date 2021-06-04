@@ -27,6 +27,7 @@ DROP TABLE IF EXISTS public.word_pair;
 DROP TABLE IF EXISTS public.one_answer_answer;
 DROP TABLE IF EXISTS public.multiple_answer_answer;
 DROP TABLE IF EXISTS public.memory_game;
+DROP TABLE IF EXISTS public.matching_exercise;
 
 
 
@@ -164,6 +165,7 @@ CREATE TABLE matching_exercise
     id     serial
         constraint matching_exercise_pk
             primary key,
+    theme text not null,
     word1  text not null,
     image1 text not null,
     word2  text not null,
@@ -218,8 +220,8 @@ ALTER TABLE ONLY public.solution
     ADD CONSTRAINT fk_memory_game_completion_time FOREIGN KEY (memory_game_completion_time) REFERENCES memory_game (completion_time);
 
 ALTER TABLE public.student
-    ADD CONSTRAINT fk_languages FOREIGN KEY (id) REFERENCES student_languages (student_id),
---     ADD CONSTRAINT fk_language_id FOREIGN KEY (language_id) REFERENCES language (id),
-    ADD CONSTRAINT fk_pair_solution FOREIGN KEY (id) REFERENCES pair_solution (student_id);
+    ADD CONSTRAINT fk_languages FOREIGN KEY (id) REFERENCES student_languages (student_id);
+--     ADD CONSTRAINT fk_language_id FOREIGN KEY (language_id) REFERENCES language (id);
+--     ADD CONSTRAINT fk_pair_solution FOREIGN KEY (id) REFERENCES pair_solution (student_id);
 
 

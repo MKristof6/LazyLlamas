@@ -138,30 +138,40 @@ def exercises():
     return 'Implementation in process. Don\'t be an impatient dick!'
 
 
-@app.route('/matching-game', methods=['GET', 'POST'])
-def matching_game():
-    if request.method == 'POST':
-        words = []
-        images = []
-        for i in range(1, 7):
-            words.append(request.form['text' + str(i)])
-            images.append(util.get_image(request.files['img' + str(i)]))
-        word1 = words[0]
-        word2 = words[1]
-        word3 = words[2]
-        word4 = words[3]
-        word5 = words[4]
-        word6 = words[5]
-        image1 = images[0]
-        image2 = images[1]
-        image3 = images[2]
-        image4 = images[3]
-        image5 = images[4]
-        image6 = images[5]
-        data_handler.new_matching_exercise(word1, word2, word3, word4, word5, word6, image1, image2, image3, image4, image5, image6)
-        return 'shit'
+@app.route('/matching-game-upload', methods=['GET', 'POST'])
+def matching_game_upload():
+    if request.method == 'POST':    # What if multiple amigos give the same theme? Folder path will be compromised, needs fix!
+        theme = request.form['theme']
+        word1 = request.form['word1']
+        word2 = request.form['word2']
+        word3 = request.form['word3']
+        word4 = request.form['word4']
+        word5 = request.form['word5']
+        word6 = request.form['word6']
+        # Saving image file to static/images/theme folder, and returning with the path + filename
+        image1 = util.get_image(theme, request.files['img1'])
+        image2 = util.get_image(theme, request.files['img2'])
+        image3 = util.get_image(theme, request.files['img3'])
+        image4 = util.get_image(theme, request.files['img4'])
+        image5 = util.get_image(theme, request.files['img5'])
+        image6 = util.get_image(theme, request.files['img6'])
+        # Inserting form data to database
+        data_handler.new_matching_exercise(theme, word1, word2, word3, word4, word5, word6, image1, image2, image3, image4,
+                                           image5, image6)
+        # Redirecting using the newly inserted row's id
+        id = data_handler.get_latest_matching_exercise_id()['id']
+        return redirect('/matching-game/' + str(id))
     else:
-        return render_template('matching.html')
+        return render_template('matching_upload.html')
+
+
+@app.route('/matching-game/<id>')
+def matching_game(id):
+    # Getting the data through row id
+    theme_and_images_and_words = data_handler.get_matching_exercise(id)
+    print(theme_and_images_and_words)
+    return render_template('matching_game.html', data=theme_and_images_and_words)
+
 
 
 @app.route('/memory-game')
