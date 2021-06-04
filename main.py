@@ -12,25 +12,34 @@ def speech():
     return render_template('speech.html')
 
 
+# Route for user login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    # get all amigos from database
     teachers = data_handler.get_teachers()
+    # get all students from database
     students = data_handler.get_students()
+
     if request.method == 'POST':
+        # Get login data from request form
         session['pw'] = request.form['password']
         session['email'] = request.form['email']
         for user in teachers:
+            # Check if user is an amigo
             if session['email'] == user['email']:
                 session['amigo'] = True
+                # Verify password
                 if util.verify_pw(session['pw'], user['password']):
                     return redirect(url_for('home'))
+        #Check if user is a student
         for user in students:
             if session['email'] == user['email']:
                 session['amigo'] = False
+                # Verify password
                 if util.verify_pw(session['pw'], user['password']):
                     return redirect(url_for('home'))
         else:
-            return 'Fuck off, register first!'
+            return 'A felhasználó nem található, próbáld újra. Ha nincs még profilod, regisztrálj!'
     else:
         return render_template('login.html')
 
@@ -44,8 +53,10 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.args:
+        #Check if user is trying to register as amigo
         amigo = int(request.args.get('amigo'))
     else:
+        #Ha nem amigo, akkor lesz 1 az amigo változó?
         amigo = 1
     if request.method == 'POST':
         error = None
@@ -118,22 +129,26 @@ def my_exercises():
     return 'Implementation in process. Don\'t be an impatient dick!'
 
 
+# Route for accessing user profile
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
+    # Check if user is an amigo
     if session['amigo']:
-        amigo = data_handler.get_teacher(request.form['email'])
+        # Get the user data by email address
+        amigo = data_handler.get_teacher(session['email'])
+        # Update data if modifying post request was sent
         if request.method == 'POST':
             data_handler.update_teacher(request.form['name'], request.form['email'], request.form['birthday'])
         else:
             return render_template('amigo-profile.html', amigo=amigo)
     else:
-        student = data_handler.update_get_student(request.form['email'])
+        # Get the user data by email address
+        student = data_handler.get_student(session['email'])
+        # Update data if modifying post request was sent
         if request.method == 'POST':
-            data_handler.register_student(request.form['name'], request.form['email'], request.form['birthday'])
+            data_handler.update_student(request.form['name'], request.form['email'], request.form['birthday'])
         else:
-            return render_template('amigo-profile.html')
-        return render_template('student-profile.html', student=student)
-
+            return render_template('student-profile.html', student=student)
 
 
 @app.route('/new_exercise')
