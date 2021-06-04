@@ -1,0 +1,26 @@
+
+<!--        <script src="https://code.responsivevoice.org/responsivevoice.js?key=wX75Gf01"></script>-->
+<!--        <input type="button" onclick="responsiveVoice.speak('apple','UK English Male')" value="Help">  &lt;!&ndash; Ha string-ként van megadva a szó akkor felolvassa &ndash;&gt;-->
+<!--&lt;!&ndash;                                                                         Male/Female -&ndash;&gt;-->
+
+
+{% extends 'template.html' %}
+{% block title %} Escúchame {% endblock %}
+{% block head %} {{ super() }} {% endblock %}
+{% block content %}
+
+         <script src="https://code.responsivevoice.org/responsivevoice.js?key=wX75Gf01"></script>
+
+
+
+        <textarea id="txt" rows="5" cols="10" name="txt"></textarea>
+        <input type="button" onclick="responsiveVoice.speak(textSpeak())" value="Let me hear it!">
+
+<!--        <input type="button" onclick="responsiveVoice.speak(document.getElementById('txt').textContent)" value="submit">-->
+
+        <script>
+            function textSpeak() {
+                responsiveVoice.speak(document.getElementById("txt").value);
+            }
+        </script>
+{% endblock %}
