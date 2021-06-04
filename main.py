@@ -169,7 +169,6 @@ def matching_game_upload():
 def matching_game(id):
     # Getting the data through row id
     theme_and_images_and_words = data_handler.get_matching_exercise(id)
-    print(theme_and_images_and_words)
     return render_template('matching_game.html', data=theme_and_images_and_words)
 
 

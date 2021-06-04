@@ -6,12 +6,12 @@
     <div class="matching-game-container">
         <div class="word-container">
             <h1 id="theme">{{ data.theme | title }}</h1><br>
-            <ul id="word1">{{ data.word1 | title }}</ul>
-            <ul id="word2">{{ data.word2 | title }}</ul>
-            <ul id="word3">{{ data.word3 | title }}</ul>
-            <ul id="word4">{{ data.word4 | title }}</ul>
-            <ul id="word5">{{ data.word5 | title }}</ul>
-            <ul id="word6">{{ data.word6 | title}}</ul>
+            <ul class="words-to-match" id="word1">{{ data.word1 | title }}</ul>
+            <ul class="words-to-match" id="word2">{{ data.word2 | title }}</ul>
+            <ul class="words-to-match" id="word3">{{ data.word3 | title }}</ul>
+            <ul class="words-to-match" id="word4">{{ data.word4 | title }}</ul>
+            <ul class="words-to-match" id="word5">{{ data.word5 | title }}</ul>
+            <ul class="words-to-match" id="word6">{{ data.word6 | title }}</ul>
         </div>
         <div class="image-container">
             <img class="flashcard" src="{{ url_for('static', filename=data.image1) }}" data-word="{{ data.word1}}"
@@ -29,4 +29,5 @@
         </div>
     </div>
 </div>
+<script src="/static/js/matchingGame.js"></script>
 {% endblock %}
