@@ -1,5 +1,5 @@
 import connection
-
+from psycopg2._psycopg import AsIs
 
 def get_teachers():
     return connection.execute_select('SELECT email, password FROM teacher;')
@@ -36,3 +36,19 @@ def update_student_languages(student_id, languages):
 
 def get_latest_id():
     return connection.execute_select('SELECT id FROM student ORDER BY id DESC LIMIT 1', fetchall=False)
+
+
+def get_teacher(email):
+    query = """ SELECT * FROM teacher
+                WHERE email= (%s);
+    """
+    return connection.execute_select(query, email, fetchall=False)
+
+
+def get_student(email):
+    query = """ SELECT * FROM student
+                WHERE email = %(eMail)s
+    """
+    return connection.execute_select(query, email)
+
+
