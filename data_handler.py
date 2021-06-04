@@ -51,4 +51,16 @@ def get_student(email):
     """
     return connection.execute_select(query, email)
 
+def update_teacher(name, email, password):
+    query =""" UPDATE teacher
+            SET name = %(name)s, email = %(email)s, password = %(password)s
+            WHERE email LIKE %(email)s
+    """
+    return connection.execute_dml_statement(query, [name, email, password])
 
+def update_student(name, email, password):
+    query =""" UPDATE student
+            SET name = %(name)s, email = %(email)s, password = %(password)s
+            WHERE email = %(email)s
+    """
+    return connection.execute_dml_statement(query, [name, email, password])
