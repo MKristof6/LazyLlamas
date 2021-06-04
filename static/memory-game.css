@@ -28,14 +28,24 @@ body{
     transform: scale(1);
     transition: transform .1s ;
     backface-visibility: hidden;
+    padding-bottom: 10%;
 }
 
 .front-face{
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
     margin: auto;
-    width: 120px;
-    height: 90px;
-    transform: rotateY(180deg);
+
+    transform: rotateY(180deg) ;
+}
+
+.front-face p{
+
+    margin-top: 10px;
+    /*transform: translateX(50%);*/
 }
 
 .memory-card:active {
