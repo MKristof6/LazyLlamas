@@ -2,31 +2,31 @@
 {% block title %} Párosítás {% endblock %}
 {% block head %} {{ super() }} {% endblock %}
 {% block content %}
-<div class="game-container">
-    <div class="matching-game-container">
-        <div class="word-container">
-            <h1 id="theme">{{ data.theme | title }}</h1><br>
-            <ul class="words-to-match" id="word1">{{ data.word1 | title }}</ul>
-            <ul class="words-to-match" id="word2">{{ data.word2 | title }}</ul>
-            <ul class="words-to-match" id="word3">{{ data.word3 | title }}</ul>
-            <ul class="words-to-match" id="word4">{{ data.word4 | title }}</ul>
-            <ul class="words-to-match" id="word5">{{ data.word5 | title }}</ul>
-            <ul class="words-to-match" id="word6">{{ data.word6 | title }}</ul>
-        </div>
-        <div class="image-container">
-            <img class="flashcard" src="{{ url_for('static', filename=data.image1) }}" data-word="{{ data.word1}}"
-                 id="image1">
-            <img class="flashcard" src="{{ url_for('static', filename=data.image2) }}" data-word="{{ data.word2}}"
-                 id="image2">
-            <img class="flashcard" src="{{ url_for('static', filename=data.image3) }}" data-word="{{ data.word3}}"
-                 id="image3">
-            <img class="flashcard" src="{{ url_for('static', filename=data.image4) }}" data-word="{{ data.word4}}"
-                 id="image4">
-            <img class="flashcard" src="{{ url_for('static', filename=data.image5) }}" data-word="{{ data.word5}}"
-                 id="image5">
-            <img class="flashcard" src="{{ url_for('static', filename=data.image6) }}" data-word="{{ data.word6}}"
-                 id="image6">
-        </div>
+<div class="matching-game-container">
+    <div class="word-container">
+        <h1 id="theme">{{ data.theme | title }}</h1><br><br><br><br>
+        <ul>
+            <li class="words-to-match" id="word1">{{ data.word1 | title }}</li><br><br><br>
+            <li class="words-to-match" id="word2">{{ data.word2 | title }}</li><br><br><br>
+            <li class="words-to-match" id="word3">{{ data.word3 | title }}</li><br><br><br>
+            <li class="words-to-match" id="word4">{{ data.word4 | title }}</li><br><br><br>
+            <li class="words-to-match" id="word5">{{ data.word5 | title }}</li><br><br><br>
+            <li class="words-to-match" id="word6">{{ data.word6 | title }}</li><br><br><br>
+        </ul>
+    </div>
+    <div class="image-container">
+        <img class="flashcard" src="{{ url_for('static', filename=data.image1) }}" data-word="{{ data.word1}}"
+             id="image1">
+        <img class="flashcard" src="{{ url_for('static', filename=data.image2) }}" data-word="{{ data.word2}}"
+             id="image2">
+        <img class="flashcard" src="{{ url_for('static', filename=data.image3) }}" data-word="{{ data.word3}}"
+             id="image3">
+        <img class="flashcard" src="{{ url_for('static', filename=data.image4) }}" data-word="{{ data.word4}}"
+             id="image4">
+        <img class="flashcard" src="{{ url_for('static', filename=data.image5) }}" data-word="{{ data.word5}}"
+             id="image5">
+        <img class="flashcard" src="{{ url_for('static', filename=data.image6) }}" data-word="{{ data.word6}}"
+             id="image6">
     </div>
 </div>
 <script src="/static/js/matchingGame.js"></script>

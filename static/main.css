@@ -1,12 +1,12 @@
-/*1. COLOR PALETTE:*/
-/*#538723 base green*/
-/*#5C9129 lighter green*/
-/*#8BBF58 even lighter green*/
-/*#B2C7A3 pale green i guess*/
-/*#993166 freakin purple, man*/
-/*#000000 as black as it gets*/
-/*#FFDE59 yellowish*/
-/*#D62828 red?*/
+/*1. COLOR PALETTE: */
+/* #538723 base green */
+/* #5C9129 lighter green */
+/* #8BBF58 even lighter green */
+/* #B2C7A3 pale green i guess */
+/* #993166 freakin purple, man */
+/* #000000 as black as it gets */
+/* #FFDE59 yellowish*/
+/* #D62828 red?*/
 
 
 /*2. Font*/
@@ -49,6 +49,7 @@ body {
     padding: 5px;
     border-radius: 20px;
 }
+
 .green-background {
     width: 99vw;
     height: 90vh;
@@ -68,18 +69,40 @@ body {
     text-align: center;
 }
 
-.game-container {
-    background: #5C9129;
+.matching-game-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    padding: 20px;
+    background-image: url("/static/images/math.jpg");
+    align-content: stretch;
 }
 
-.matching-game-container {
-    width: 90vw;
-    height: 80vh;
-    background-image: url("/static/images/math.jpg");
+.image-container {
+    background: #8BBF58;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 0.2fr;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+    padding: 30px;
+    justify-items: center;
 }
 
 .flashcard {
-    width: 250px;
-    height: 175px;
+    justify-content: center;
     border-radius: 10px;
+    width: 300px;
+    height: 200px;
+}
+
+.word-container {
+    background: white;
+    text-align: center;
+    padding: 20px;
+    grid-gap: 20px;
+}
+
+.words-to-match-active {
+    color: #5C9129;
+    display: grid;
+    grid-gap: 15px;
 }
