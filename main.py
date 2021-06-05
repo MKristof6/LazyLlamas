@@ -16,7 +16,7 @@ def speech():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     # get all amigos from database
-    teachers = data_handler.get_teachers()
+    amigos = data_handler.get_amigos()
     # get all students from database
     students = data_handler.get_students()
 
@@ -24,7 +24,7 @@ def login():
         # Get login data from request form
         session['pw'] = request.form['password']
         session['email'] = request.form['email']
-        for user in teachers:
+        for user in amigos:
             # Check if user is an amigo
             if session['email'] == user['email']:
                 session['amigo'] = True
@@ -70,7 +70,7 @@ def register():
             return render_template('register.html')
         else:
             if int(request.form['amigo']) == 0:
-                data_handler.register_teacher(name, email, pw)
+                data_handler.register_amigo(name, email, pw)
                 session['amigo'] = True
             else:
                 birthday, languages = student_register()
@@ -111,7 +111,7 @@ def student_register():
 
 
 def validate_email(email):
-    users = [data_handler.get_students(), data_handler.get_teachers()]
+    users = [data_handler.get_students(), data_handler.get_amigos()]
     for userz in users:
         for user in userz:
             if email == user['email']:
@@ -139,10 +139,10 @@ def profile():
     # Check if user is an amigo
     if session['amigo']:
         # Get the user data by email address
-        amigo = data_handler.get_teacher(session['id'])
+        amigo = data_handler.get_amigo(session['id'])
         # Update data if modifying post request was sent
         if request.method == 'POST':
-            data_handler.update_teacher(request.form['name'], request.form['birthday'], request.form['email'], session['id'])
+            data_handler.update_amigo(request.form['name'], request.form['birthday'], request.form['email'], session['id'])
         else:
             return render_template('amigo-profile.html', amigo=amigo)
     else:
