@@ -138,7 +138,7 @@ def my_exercises():
 def profile():
     # Check if user is an amigo
     if session['amigo']:
-        # Get the user data by email address
+        # Get the user data by amigo id
         amigo = data_handler.get_amigo(session['id'])
         # Update data if modifying post request was sent
         if request.method == 'POST':
@@ -146,15 +146,17 @@ def profile():
         else:
             return render_template('amigo-profile.html', amigo=amigo)
     else:
-         # Get the user data by email address
+         # Get the user data by student id
         student = data_handler.get_student(session['id'])
+         #Get studied languages by student id
+        languages = data_handler.get_student_languages(session['id'])
         # Update data if modifying post request was sent
         if request.method == 'POST':
             data_handler.update_student(request.form['name'], request.form['email'], request.form['birthday'], session['id'])
             student = data_handler.get_student(session['id'])
-            return render_template('student-profile.html', student=student)
+            return render_template('student-profile.html', student=student, languages=languages)
         else:
-            return render_template('student-profile.html', student=student)
+            return render_template('student-profile.html', student=student, languages=languages)
 
 
 @app.route('/new_exercise')
