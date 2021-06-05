@@ -24,3 +24,7 @@ def update_student_languages(student_id, languages):
 
 def get_latest_id():
     return connection.execute_select('SELECT id FROM student ORDER BY id DESC LIMIT 1', fetchall=False)
+
+
+
+

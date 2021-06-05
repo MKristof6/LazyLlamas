@@ -160,7 +160,8 @@ def sorting_game():
 
 @app.route('/listening-game')
 def listening_game():
-    return 'Implementation in process. Don\'t be an impatient dick!'
+    data = data_handler.
+    return render_template('listening_game.html')
 
 
 @app.route('/comprehensive-reading')
