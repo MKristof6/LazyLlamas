@@ -159,13 +159,13 @@ CREATE TABLE memory_game
 );
 
 INSERT INTO language(name) VALUES ('English');
-INSERT INTO language(name) VALUES ('French');
-INSERT INTO language(name) VALUES ('Italian');
-INSERT INTO language(name) VALUES ('Spanish');
+INSERT INTO language(name) VALUES ('Français');
+INSERT INTO language(name) VALUES ('Italiano');
+INSERT INTO language(name) VALUES ('Español');
 INSERT INTO amigo (name, email, password) VALUES ('balintovics', 'molnar99b@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu');
-INSERT INTO student (name, email, password, birthday) VALUES ('Zsófi', 'zsofiaszonja.kassai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.');
-INSERT INTO student (name, email, password, birthday) VALUES ('Kristóf', 'kristof.murai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.');
-INSERT INTO student (name, email, password, birthday) VALUES ('Barna', 'barna.urmossy@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.');
+INSERT INTO student (name, email, password, birthday, points) VALUES ('Zsófi', 'zsofiaszonja.kassai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.', 33);
+INSERT INTO student (name, email, password, birthday, points) VALUES ('Kristóf', 'kristof.murai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.', 2344);
+INSERT INTO student (name, email, password, birthday, points) VALUES ('Barna', 'barna.urmossy@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.', 233);
 INSERT INTO student_languages (student_id, language_id) VALUES (1, 1 );
 INSERT INTO student_languages (student_id, language_id) VALUES (1, 2 );
 INSERT INTO student_languages (student_id, language_id) VALUES (2, 1 );
