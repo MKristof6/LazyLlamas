@@ -1,6 +1,7 @@
 import connection
 from psycopg2._psycopg import AsIs
 
+
 def get_amigos():
     return connection.execute_select('SELECT id, email, password FROM amigo;')
 
@@ -11,17 +12,19 @@ def get_students():
 
 def register_student(name, email, password, birthday, languages, student_id):
     add_student_languages(student_id, languages)
-    query = """INSERT INTO student(name, email, password, birthday, points, language_id) 
-               VALUES(%s, %s, %s, %s, 0, %s)"""
-    return connection.execute_dml_statement(query, {"name": name, "email": email, password:"password", "birthday": birthday, "languages": languages})
+    query = """INSERT INTO student(name, email, password, birthday, points) 
+               VALUES(%s, %s, %s, %s, 0)"""
+    return connection.execute_dml_statement(query,
+                                            {"name": name, "email": email, password: "password", "birthday": birthday,
+                                             "languages": languages})
 
 
 def register_amigo(name, email, password):
     query = """INSERT INTO amigo(name, email, password) 
                 VALUES(%s, %s, %s)"""
-    return connection.execute_dml_statement(query, {"name": name, "email": email, password:"password"})
+    return connection.execute_dml_statement(query, {"name": name, "email": email, password: "password"})
 
-#TODO: student language managing
+
 def add_student_languages(student_id, languages):
     query = """INSERT INTO student_languages(student_id, language_id) VALUES(%s, %s)"""
     return connection.execute_dml_statement(query, {"student_id": student_id, "languages": languages})
@@ -52,18 +55,20 @@ def get_student(student_id):
 
 
 def update_amigo(name, email, birthday, id):
-    query =""" UPDATE amigo
+    query = """ UPDATE amigo
             SET name = %(name)s, email = %(email)s
             WHERE id = %(id)s
     """
     return connection.execute_dml_statement(query, {"name": name, "email": email, "birthday": birthday, "id": id})
 
+
 def update_student(name, email, birthday, id):
-    query =""" UPDATE student
+    query = """ UPDATE student
             SET name = %(name)s, email = %(email)s, birthday = %(birthday)s
             WHERE id = %(id)s
     """
     return connection.execute_dml_statement(query, {"name": name, "email": email, "birthday": birthday, "id": id})
+
 
 def get_student_languages(student_id):
     query = """ SELECT string_agg(DISTINCT l.name, ', ') as languages FROM student
