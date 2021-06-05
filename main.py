@@ -124,7 +124,8 @@ def home():
     if not session:
         return redirect(url_for('login'))
     else:
-        return render_template('index.html')
+        id = session['id']
+        return render_template('index.html', id=id)
 
 
 @app.route('/my_exercises')
@@ -141,7 +142,7 @@ def profile():
         amigo = data_handler.get_teacher(session['id'])
         # Update data if modifying post request was sent
         if request.method == 'POST':
-            data_handler.update_teacher(request.form['name'], request.form['email'], request.form['birthday'], session['id'])
+            data_handler.update_teacher(request.form['name'], request.form['birthday'], request.form['email'], session['id'])
         else:
             return render_template('amigo-profile.html', amigo=amigo)
     else:
@@ -149,7 +150,9 @@ def profile():
         student = data_handler.get_student(session['id'])
         # Update data if modifying post request was sent
         if request.method == 'POST':
-            data_handler.update_student(request.form['name'], request.form['email'], request.form['birthday'])
+            data_handler.update_student(request.form['name'], request.form['email'], request.form['birthday'], session['id'])
+            student = data_handler.get_student(session['id'])
+            return render_template('student-profile.html', student=student)
         else:
             return render_template('student-profile.html', student=student)
 

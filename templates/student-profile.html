@@ -14,15 +14,16 @@ body {
 <h1> Profilom</h1>
 <h2>Személyes adataim</h2>
 
-<form action="/profile">
+<form action="/profile" method="post">
   <label for="name">Nevem:</label>
-  <input type="text" id="name" name="name"><br><br>
+  <input type="text" id="name" name="name" value="{{student['name']}}"><br><br>
+   <label for="email">Email:</label>
+  <input type="text" id="email" name="email" value="{{student['email']}}"><br><br>
   <label for="birthday">Születési időm:</label>
-  <input type="date" id="birthday" name="birthday"><br><br>
-  <label for="password">Jelszavam:</label>
-  <input type="password" id="password" name="password"><br><br>
+  <input type="date" id="birthday" name="birthday" value="{{student['birthday']}}"><br><br>
   <input type="submit"  value="Adataim módosítása">
 </form>
+
 
 <h2> Eredményeim </h2>
 <div id="progress">
