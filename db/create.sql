@@ -14,7 +14,7 @@ ALTER TABLE IF EXISTS ONLY public.solution
     DROP CONSTRAINT IF EXISTS fk_one_answer_question_id CASCADE,
     DROP CONSTRAINT IF EXISTS fk_memory_game_completion_time CASCADE;
 
-DROP TABLE IF EXISTS public.teacher;
+DROP TABLE IF EXISTS public.amigo;
 DROP TABLE IF EXISTS public.student;
 DROP TABLE IF EXISTS public.pair_solution;
 DROP TABLE IF EXISTS public.solution;
@@ -163,7 +163,7 @@ INSERT INTO language(name) VALUES ('English');
 INSERT INTO language(name) VALUES ('French');
 INSERT INTO language(name) VALUES ('Italian');
 INSERT INTO language(name) VALUES ('Spanish');
-INSERT INTO teacher (name, email, password) VALUES ('balintovics', 'molnar99b@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu');
+INSERT INTO amigo (name, email, password) VALUES ('balintovics', 'molnar99b@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu');
 INSERT INTO student (name, email, password, birthday, language_id) VALUES ('Zsófi', 'zsofiaszonja.kassai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.', ARRAY [1, 2] );
 INSERT INTO student_languages (student_id, language_id) VALUES (1, ARRAY [1, 2] );
 INSERT INTO student (name, email, password, birthday, language_id) VALUES ('Kristóf', 'kristof.murai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.', ARRAY [1, 2]);
@@ -173,7 +173,7 @@ INSERT INTO student_languages (student_id, language_id) VALUES (3, ARRAY [1, 2] 
 
 ALTER TABLE ONLY public.feedback
     ADD CONSTRAINT fk_multiple_answer_question_id FOREIGN KEY (multiple_answer_question_id) REFERENCES multiple_answer_question (id),
-    ADD CONSTRAINT fk_teacher_id FOREIGN KEY (teacher_id) REFERENCES teacher (id),
+    ADD CONSTRAINT fk_teacher_id FOREIGN KEY (teacher_id) REFERENCES amigo (id),
     ADD CONSTRAINT fk_student_id FOREIGN KEY (student_id) REFERENCES student (id),
     ADD CONSTRAINT fk_one_answer_question_id FOREIGN KEY (one_answer_question_id) REFERENCES one_answer_question (id),
     ADD CONSTRAINT fk_memory_game_id FOREIGN KEY (memory_game_id) REFERENCES memory_game (id);
