@@ -25,7 +25,9 @@ DROP TABLE IF EXISTS public.one_answer_question;
 DROP TABLE IF EXISTS public.multiple_answer_question;
 DROP TABLE IF EXISTS public.word_pair;
 DROP TABLE IF EXISTS public.one_answer_answer;
-DROP TABLE IF EXISTS public.multiple_answer_answer;
+DROP TABLE IF EXISTS public.listening_game;
+DROP TABLE IF EXISTS public.listening_game_possibilities;
+
 DROP TABLE IF EXISTS public.memory_game;
 
 
@@ -35,7 +37,7 @@ CREATE TABLE teacher
     id       INT GENERATED ALWAYS AS IDENTITY,
     "name"   VARCHAR(50) NOT NULL,
     email    VARCHAR(50) NOT NULL UNIQUE,
-    password TEXT NOT NULL,
+    password TEXT        NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -45,7 +47,7 @@ CREATE TABLE student
     id          INT GENERATED ALWAYS AS IDENTITY,
     "name"      VARCHAR(50) NOT NULL,
     email       VARCHAR(50) NOT NULL UNIQUE,
-    password    TEXT NOT NULL,
+    password    TEXT        NOT NULL,
     birthday    DATE,
     points      INT,
     language_id INT[],
@@ -132,44 +134,66 @@ CREATE TABLE one_answer_answer
     PRIMARY KEY (id)
 );
 
-CREATE TABLE multiple_answer_answer
+CREATE TABLE listening_game
 (
-    id          INT GENERATED ALWAYS AS IDENTITY,
-    text        text,
-    question_id INT,
-    correct     BOOLEAN,
+    id            INT GENERATED ALWAYS AS IDENTITY,
+    card_id       INT,
+    answer text,
     PRIMARY KEY (id)
+);
+
+DROP TABLE IF EXISTS public.listening_game_possibilities;
+CREATE TABLE listening_game_possibilities
+(
+    id            INT,
+    card_id       INT,
+    possibilities text
+
 );
 
 CREATE TABLE memory_game
 (
-    id        INT GENERATED ALWAYS AS IDENTITY,
-    filename1 text NOT NULL,
-    text1     text,
-    filename2 text NOT NULL,
-    text2     text,
-    filename3 text NOT NULL,
-    text3     text,
-    filename4 text NOT NULL,
-    text5     text,
-    filename5 text NOT NULL,
-    text6     text,
-    filename6 text NOT NULL,
+    id              INT GENERATED ALWAYS AS IDENTITY,
+    filename1       text NOT NULL,
+    text1           text,
+    filename2       text NOT NULL,
+    text2           text,
+    filename3       text NOT NULL,
+    text3           text,
+    filename4       text NOT NULL,
+    text5           text,
+    filename5       text NOT NULL,
+    text6           text,
+    filename6       text NOT NULL,
     completion_time INT UNIQUE,
     PRIMARY KEY (id)
 );
 
-INSERT INTO language(name) VALUES ('English');
-INSERT INTO language(name) VALUES ('French');
-INSERT INTO language(name) VALUES ('Italian');
-INSERT INTO language(name) VALUES ('Spanish');
-INSERT INTO teacher (name, email, password) VALUES ('balintovics', 'molnar99b@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu');
-INSERT INTO student (name, email, password, birthday, language_id) VALUES ('Zsófi', 'zsofiaszonja.kassai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.', ARRAY [1, 2] );
-INSERT INTO student_languages (student_id, language_id) VALUES (1, ARRAY [1, 2] );
-INSERT INTO student (name, email, password, birthday, language_id) VALUES ('Kristóf', 'kristof.murai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.', ARRAY [1, 2]);
-INSERT INTO student_languages (student_id, language_id) VALUES (2, ARRAY [1, 2] );
-INSERT INTO student (name, email, password, birthday, language_id) VALUES ('Barna', 'barna.urmossy@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.', ARRAY [1, 2]);
-INSERT INTO student_languages (student_id, language_id) VALUES (3, ARRAY [1, 2] );
+INSERT INTO language(name)
+VALUES ('English');
+INSERT INTO language(name)
+VALUES ('French');
+INSERT INTO language(name)
+VALUES ('Italian');
+INSERT INTO language(name)
+VALUES ('Spanish');
+INSERT INTO teacher (name, email, password)
+VALUES ('balintovics', 'molnar99b@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu');
+INSERT INTO student (name, email, password, birthday, language_id)
+VALUES ('Zsófi', 'zsofiaszonja.kassai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu',
+        '1969.06.09.', ARRAY [1, 2]);
+INSERT INTO student_languages (student_id, language_id)
+VALUES (1, ARRAY [1, 2]);
+INSERT INTO student (name, email, password, birthday, language_id)
+VALUES ('Kristóf', 'kristof.murai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu',
+        '1969.06.09.', ARRAY [1, 2]);
+INSERT INTO student_languages (student_id, language_id)
+VALUES (2, ARRAY [1, 2]);
+INSERT INTO student (name, email, password, birthday, language_id)
+VALUES ('Barna', 'barna.urmossy@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu',
+        '1969.06.09.', ARRAY [1, 2]);
+INSERT INTO student_languages (student_id, language_id)
+VALUES (3, ARRAY [1, 2]);
 
 ALTER TABLE ONLY public.feedback
     ADD CONSTRAINT fk_multiple_answer_question_id FOREIGN KEY (multiple_answer_question_id) REFERENCES multiple_answer_question (id),
