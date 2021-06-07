@@ -130,7 +130,7 @@ def home():
 
 @app.route('/my_exercises')
 def my_exercises():
-    return 'Implementation in process. Don\'t be an impatient dick!'
+    return 'Implementation in process.'
 
 
 # Route for accessing user profile
@@ -161,52 +161,52 @@ def profile():
 
 @app.route('/new_exercise')
 def new_exercise():
-    return 'Implementation in process. Don\'t be an impatient dick!'
+    return 'Implementation in process.'
 
 
 @app.route('/solutions')
 def solutions():
-    return 'Implementation in process. Don\'t be an impatient dick!'
+    return 'Implementation in process. '
 
 
 @app.route('/students')
 def students():
-    return 'Implementation in process. Don\'t be an impatient dick!'
+    return 'Implementation in process. '
 
 
 @app.route('/exercises')
 def exercises():
-    return 'Implementation in process. Don\'t be an impatient dick!'
+    return 'Implementation in process. '
 
 
 @app.route('/matching-game')
 def matching_game():
-    return 'Implementation in process. Don\'t be an impatient dick!'
+    return 'Implementation in process. '
 
 
 @app.route('/memory-game')
 def memory_game():
-    return 'Implementation in process. Don\'t be an impatient dick!'
+    return 'Implementation in process.'
 
 
 @app.route('/sorting-game')
 def sorting_game():
-    return 'Implementation in process. Don\'t be an impatient dick!'
+    return 'Implementation in process.'
 
 
 @app.route('/listening-game')
 def listening_game():
-    return 'Implementation in process. Don\'t be an impatient dick!'
+    return 'Implementation in process.'
 
 
 @app.route('/comprehensive-reading')
 def comprehensive_reading():
-    return 'Implementation in process. Don\'t be an impatient dick!'
+    return 'Implementation in process. '
 
 
 @app.route('/filling-game')
 def filling_game():
-    return 'Implementation in process. Don\'t be an impatient dick!'
+    return 'Implementation in process.'
 
 
 if __name__ == "__main__":
