@@ -134,12 +134,12 @@ CREATE TABLE one_answer_answer
     PRIMARY KEY (id)
 );
 
+DROP TABLE IF EXISTS public.listening_game;
 CREATE TABLE listening_game
 (
-    id            INT GENERATED ALWAYS AS IDENTITY,
+    id            INT,
     card_id       INT,
-    answer text,
-    PRIMARY KEY (id)
+    answer text
 );
 
 DROP TABLE IF EXISTS public.listening_game_possibilities;
