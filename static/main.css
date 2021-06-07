@@ -78,3 +78,14 @@ body {
     width: 30%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
+
+.possibilities {
+    position: relative;
+    background: #5C9129;
+    width: 4vw;
+    height: 4vh;
+    margin: 15px;
+    padding: 5px;
+    border-radius: 20px;
+    text-align: center;
+}
