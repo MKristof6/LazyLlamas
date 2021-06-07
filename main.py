@@ -160,8 +160,12 @@ def sorting_game():
 
 @app.route('/listening-game')
 def listening_game():
-    data = data_handler.
-    return render_template('listening_game.html')
+    question_id=1
+    answer = data_handler.get_listening_game_answer(question_id)
+    print(answer)
+    c_id = answer[0]['card_id']
+    possibilities = data_handler.get_listening_game_possibilities(question_id, c_id)
+    return render_template('listening_game.html', answer=answer, possibilities=possibilities)
 
 
 @app.route('/comprehensive-reading')
