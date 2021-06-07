@@ -6,6 +6,7 @@
     <input type="text" name="name" placeholder="Név" required><br>
     <input type="email" name="email" placeholder="E-mail cím" required><br>
     <input type="password" name="password" placeholder="Jelszó" required><br>
+    <input type="hidden" value="0" name="amigo">
     {% if amigo > 0 %}
     <input type="date" name="bday" placeholder="Mikor születtél?" required><br>
     <input id="eng" type="checkbox" name="eng" value="1" required>
@@ -16,8 +17,8 @@
     <label for="ita">Olasz 🇮🇹</label><br>
     <input id="esp" type="checkbox" name="esp" value="4" required>
     <label for="esp">Spanyol 🇪🇸</label><br><br>
+    <input type="hidden" value="1" name="amigo">
     {% endif %}
-
     <input type="submit" value="Csatlakozom">
 </form>
 
@@ -26,5 +27,5 @@
     <p class=error><strong>Figyelem:</strong> {{ error }}<br>
   {% endif %}
 {% endwith %}
-        <script src="/static/checkbox.js" defer></script>
+        <script src="/static/js/checkbox.js" defer></script>
 {% endblock %}

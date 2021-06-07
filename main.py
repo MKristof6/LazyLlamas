@@ -12,25 +12,36 @@ def speech():
     return render_template('speech.html')
 
 
+# Route for user login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    teachers = data_handler.get_teachers()
+    # get all amigos from database
+    amigos = data_handler.get_amigos()
+    # get all students from database
     students = data_handler.get_students()
+
     if request.method == 'POST':
+        # Get login data from request form
         session['pw'] = request.form['password']
         session['email'] = request.form['email']
-        for user in teachers:
+        for user in amigos:
+            # Check if user is an amigo
             if session['email'] == user['email']:
                 session['amigo'] = True
+                session['id'] = user['id']
+                # Verify password
                 if util.verify_pw(session['pw'], user['password']):
                     return redirect(url_for('home'))
+        #Check if user is a student
         for user in students:
             if session['email'] == user['email']:
                 session['amigo'] = False
+                session['id'] = user['id']
+                # Verify password
                 if util.verify_pw(session['pw'], user['password']):
                     return redirect(url_for('home'))
         else:
-            return 'Fuck off, register first!'
+            return 'A felhasználó nem található, próbáld újra. Ha nincs még profilod, regisztrálj!'
     else:
         return render_template('login.html')
 
@@ -53,52 +64,63 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.args:
+        #Check if user is trying to register as amigo
         amigo = int(request.args.get('amigo'))
     else:
+        #Ha nem amigo, akkor lesz 1 az amigo változó?
         amigo = 1
     if request.method == 'POST':
         error = None
         email = request.form['email']
         name = request.form['name']
         pw = str(util.hash_it(request.form['password']))[2:-1]
-        bday = request.form['bday']
-        languages = []
-        try:
-            if request.form['eng']:
-                languages.append(int(request.form['eng']))
-        except KeyError:
-            pass
-        try:
-            if request.form['fra']:
-                languages.append(int(request.form['fra']))
-        except KeyError:
-            pass
-        try:
-            if request.form['ita']:
-                languages.append(int(request.form['ita']))
-        except KeyError:
-            pass
-        try:
-            if request.form['esp']:
-                languages.append(int(request.form['esp']))
-        except KeyError:
-            pass
         if not validate_email(email):
             error = "Ezzel az e-mail címmel már regisztráltak a rendszerünkbe. Kérjük, próbáld újra egy másik fiókkal."
             return render_template('register.html')
         else:
-            student_id = data_handler.get_latest_id()['id'] + 1
-            data_handler.register_student(name, email, pw, bday, languages, student_id)
+            if int(request.form['amigo']) == 0:
+                data_handler.register_amigo(name, email, pw)
+                session['amigo'] = True
+            else:
+                birthday, languages = student_register()
+                # TODO: sort out latest id
+                student_id = data_handler.get_latest_id()['id'] + 1
+                data_handler.register_student(name, email, pw, birthday, languages, student_id)
+                session['amigo'] = False
             session['email'] = email
-            session['amigo'] = False
             return redirect(url_for('home'))
     else:
-
         return render_template('register.html', amigo=amigo)
 
 
+def student_register():
+    birthday = request.form['birthday']
+    languages = []
+    try:
+        if request.form['eng']:
+            languages.append(int(request.form['eng']))
+    except KeyError:
+        pass
+    try:
+        if request.form['fra']:
+            languages.append(int(request.form['fra']))
+    except KeyError:
+        pass
+    try:
+        if request.form['ita']:
+            languages.append(int(request.form['ita']))
+    except KeyError:
+        pass
+    try:
+        if request.form['esp']:
+            languages.append(int(request.form['esp']))
+    except KeyError:
+        pass
+    return birthday, languages
+
+
 def validate_email(email):
-    users = [data_handler.get_students(), data_handler.get_teachers()]
+    users = [data_handler.get_students(), data_handler.get_amigos()]
     for userz in users:
         for user in userz:
             if email == user['email']:
@@ -111,7 +133,8 @@ def home():
     if not session:
         return redirect(url_for('login'))
     else:
-        return render_template('index.html')
+        id = session['id']
+        return render_template('index.html', id=id)
 
 
 @app.route('/my_exercises')
@@ -119,9 +142,30 @@ def my_exercises():
     return 'Implementation in process. Don\'t be an impatient dick!'
 
 
-@app.route('/profile')
+# Route for accessing user profile
+@app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    return 'Implementation in process. Don\'t be an impatient dick!'
+    # Check if user is an amigo
+    if session['amigo']:
+        # Get the user data by amigo id
+        amigo = data_handler.get_amigo(session['id'])
+        # Update data if modifying post request was sent
+        if request.method == 'POST':
+            data_handler.update_amigo(request.form['name'], request.form['birthday'], request.form['email'], session['id'])
+        else:
+            return render_template('amigo-profile.html', amigo=amigo)
+    else:
+         # Get the user data by student id
+        student = data_handler.get_student(session['id'])
+         #Get studied languages by student id
+        languages = data_handler.get_student_languages(session['id'])
+        # Update data if modifying post request was sent
+        if request.method == 'POST':
+            data_handler.update_student(request.form['name'], request.form['email'], request.form['birthday'], session['id'])
+            student = data_handler.get_student(session['id'])
+            return render_template('student-profile.html', student=student, languages=languages)
+        else:
+            return render_template('student-profile.html', student=student, languages=languages)
 
 
 @app.route('/new_exercise')
@@ -141,6 +185,36 @@ def students():
 
 @app.route('/exercises')
 def exercises():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/matching-game')
+def matching_game():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/memory-game')
+def memory_game():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/sorting-game')
+def sorting_game():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/listening-game')
+def listening_game():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/comprehensive-reading')
+def comprehensive_reading():
+    return 'Implementation in process. Don\'t be an impatient dick!'
+
+
+@app.route('/filling-game')
+def filling_game():
     return 'Implementation in process. Don\'t be an impatient dick!'
 
 

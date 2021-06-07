@@ -35,7 +35,6 @@ body {
 .student-card .row {
     width: 28vw;
     height: 28vh;
-
 }
 
 .column {
@@ -54,4 +53,17 @@ body {
     width: 99vw;
     height: 90vh;
     background: #5C9129;
+}
+
+.student-card-small {
+    position: relative;
+    top: 3%;
+    float: top;
+    background-image: url("/static/images/math.jpg");
+    width: 4vw;
+    height: 4vh;
+    margin: 15px;
+    padding: 5px;
+    border-radius: 20px;
+    text-align: center;
 }
