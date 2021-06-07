@@ -143,8 +143,8 @@ CREATE TABLE multiple_answer_answer
 CREATE TABLE memory_game
 (
     id        INT GENERATED ALWAYS AS IDENTITY,
-    filename text NOT NULL,
-    text     text,
+    filename1 text NOT NULL,
+    text1     text,
     filename2 text NOT NULL,
     text2     text,
     filename3 text NOT NULL,

@@ -55,6 +55,7 @@ def memory_game():
             cards.append((d["filename"+str(i)], d["text"+str(i)]))
     return render_template('memory-game.html', cards=cards)
 
+
 @app.route('/logout')
 def logout():
     session.clear()
@@ -191,11 +192,6 @@ def exercises():
 @app.route('/matching-game')
 def matching_game():
     return 'Implementation in process. '
-
-
-@app.route('/memory-game')
-def memory_game():
-    return 'Implementation in process.'
 
 
 @app.route('/sorting-game')

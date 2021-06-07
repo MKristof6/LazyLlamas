@@ -10,7 +10,7 @@ body {
     border: dotted #5C9129;
     float: left;
     width: 40%;
-
+    cursor: pointer;
     margin: 70px;
     text-align: center;
     border-radius: 25px;
