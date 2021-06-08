@@ -94,6 +94,12 @@ body {
     height: 200px;
 }
 
+.flashcard-active {
+    width: 350px;
+    height: 238px;
+    border-radius: 10px;
+}
+
 .word-container {
     background: white;
     text-align: center;
@@ -103,6 +109,13 @@ body {
 
 .words-to-match-active {
     color: #5C9129;
-    display: grid;
-    grid-gap: 15px;
+    font-size: x-large;
+}
+
+.tick {
+    width: 35px;
+    height: auto;
+    position: relative;
+    bottom: -12%;
+    right: 12%;
 }

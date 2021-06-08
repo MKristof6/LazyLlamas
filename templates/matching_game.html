@@ -15,18 +15,24 @@
         </ul>
     </div>
     <div class="image-container">
-        <img class="flashcard" src="{{ url_for('static', filename=data.image1) }}" data-word="{{ data.word1}}"
-             id="image1">
-        <img class="flashcard" src="{{ url_for('static', filename=data.image2) }}" data-word="{{ data.word2}}"
-             id="image2">
-        <img class="flashcard" src="{{ url_for('static', filename=data.image3) }}" data-word="{{ data.word3}}"
-             id="image3">
-        <img class="flashcard" src="{{ url_for('static', filename=data.image4) }}" data-word="{{ data.word4}}"
-             id="image4">
-        <img class="flashcard" src="{{ url_for('static', filename=data.image5) }}" data-word="{{ data.word5}}"
-             id="image5">
-        <img class="flashcard" src="{{ url_for('static', filename=data.image6) }}" data-word="{{ data.word6}}"
-             id="image6">
+        <div id="image1">
+        <img class="flashcard" src="{{ url_for('static', filename=data.image1) }}" data-word="{{ data.word1}}">
+             </div>
+        <div id="image2">
+        <img class="flashcard" src="{{ url_for('static', filename=data.image2) }}" data-word="{{ data.word2}}">
+        </div>
+        <div id="image3">
+        <img class="flashcard" src="{{ url_for('static', filename=data.image3) }}" data-word="{{ data.word3}}">
+        </div>
+        <div id="image4">
+        <img class="flashcard" src="{{ url_for('static', filename=data.image4) }}" data-word="{{ data.word4}}">
+            </div>
+        <div id="image5">
+        <img class="flashcard" src="{{ url_for('static', filename=data.image5) }}" data-word="{{ data.word5}}">
+            </div>
+        <div id="image6">
+        <img class="flashcard" src="{{ url_for('static', filename=data.image6) }}" data-word="{{ data.word6}}">
+            </div>
     </div>
 </div>
 <script src="/static/js/matchingGame.js"></script>
