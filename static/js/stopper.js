@@ -45,3 +45,7 @@ function stopWatch(){
 
 
 
+function start(){
+    console.log('start');
+    interval = window.setInterval(stopWatch, 1000);
+}
