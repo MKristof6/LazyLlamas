@@ -27,6 +27,7 @@ DROP TABLE IF EXISTS public.word_pair;
 DROP TABLE IF EXISTS public.one_answer_answer;
 DROP TABLE IF EXISTS public.multiple_answer_answer;
 DROP TABLE IF EXISTS public.memory_game;
+DROP TABLE IF EXISTS public.matching_exercise;
 
 
 
@@ -35,7 +36,7 @@ CREATE TABLE amigo
     id       INT GENERATED ALWAYS AS IDENTITY,
     "name"   VARCHAR(50) NOT NULL,
     email    VARCHAR(50) NOT NULL UNIQUE,
-    password TEXT NOT NULL,
+    password TEXT        NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -45,7 +46,7 @@ CREATE TABLE student
     id          INT GENERATED ALWAYS AS IDENTITY,
     "name"      VARCHAR(50) NOT NULL,
     email       VARCHAR(50) NOT NULL UNIQUE,
-    password    TEXT NOT NULL,
+    password    TEXT        NOT NULL,
     birthday    DATE,
     points      INT,
     PRIMARY KEY (id)
@@ -139,6 +140,28 @@ CREATE TABLE multiple_answer_answer
     correct     BOOLEAN,
     PRIMARY KEY (id)
 );
+    
+
+CREATE TABLE matching_exercise
+(
+    id     serial
+        constraint matching_exercise_pk
+            primary key,
+    theme text not null,
+    word1  text not null,
+    image1 text not null,
+    word2  text not null,
+    image2 text not null,
+    word3  text not null,
+    image3 text not null,
+    word4  text not null,
+    image4 text not null,
+    word5  text not null,
+    image5 text not null,
+    word6  text not null,
+    image6 text not null
+);
+
 
 CREATE TABLE memory_game
 (
@@ -176,6 +199,7 @@ INSERT INTO student_languages (student_id, language_id) VALUES (2, 2 );
 INSERT INTO student_languages (student_id, language_id) VALUES (3, 1 );
 INSERT INTO student_languages (student_id, language_id) VALUES (3, 2 );
 
+
 ALTER TABLE ONLY public.feedback
     ADD CONSTRAINT fk_multiple_answer_question_id FOREIGN KEY (multiple_answer_question_id) REFERENCES multiple_answer_question (id),
     ADD CONSTRAINT fk_amigo_id FOREIGN KEY (amigo_id) REFERENCES amigo (id),
@@ -189,7 +213,8 @@ ALTER TABLE ONLY public.solution
     ADD CONSTRAINT fk_one_answer_question_id FOREIGN KEY (one_answer_question_id) REFERENCES one_answer_question (id);
 
 ALTER TABLE public.student
---     ADD CONSTRAINT fk_language_id FOREIGN KEY (language_id) REFERENCES language (id),
+--  ADD CONSTRAINT fk_language_id FOREIGN KEY (language_id) REFERENCES language (id),
     ADD CONSTRAINT fk_pair_solution FOREIGN KEY (id) REFERENCES pair_solution (student_id);
+
 
 

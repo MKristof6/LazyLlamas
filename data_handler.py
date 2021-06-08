@@ -10,6 +10,7 @@ def get_students():
     return connection.execute_select('SELECT id, email, password FROM student;')
 
 
+
 def register_student(name, email, password, birthday, languages, student_id):
     add_student_languages(student_id, languages)
     query = """INSERT INTO student(name, email, password, birthday, points) 
@@ -37,10 +38,25 @@ def update_student_languages(student_id, languages):
     return connection.execute_dml_statement(query, {"languages": languages, "student_id": student_id})
 
 
+
 def get_latest_id():
     return connection.execute_select('SELECT id FROM student ORDER BY id DESC LIMIT 1', fetchall=False)
 
 
+def new_matching_exercise(theme, word1, word2, word3, word4, word5, word6, image1, image2, image3, image4, image5, image6):
+    connection.execute_dml_statement(
+        """INSERT INTO matching_exercise(theme, word1, word2, word3, word4, word5, word6, image1, image2, image3, image4, image5, image6) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
+        [theme, word1, word2, word3, word4, word5, word6, image1, image2, image3, image4, image5, image6])
+
+
+def get_matching_exercise(id):
+    return connection.execute_select("""SELECT theme, word1, image1, word2, image2, word3, image3, word4, image4, word5, image5, word6, image6 FROM matching_exercise WHERE id = %s""", [id])
+
+
+def get_latest_matching_exercise_id():
+    return connection.execute_select('SELECT id FROM matching_exercise ORDER BY id DESC LIMIT 1', fetchall=False)
+
+  
 def get_memory_cards(game_number):
     query="""
     SELECT * FROM memory_game
@@ -85,3 +101,4 @@ def get_student_languages(student_id):
                 ;
     """
     return connection.execute_select(query, {"student_id": student_id}, fetchall=False)
+
