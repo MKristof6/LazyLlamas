@@ -49,3 +49,13 @@ function start(){
     console.log('start');
     interval = window.setInterval(stopWatch, 1000);
 }
+
+
+function stop(){
+    console.log('stopped');
+    window.clearInterval(interval);
+    //TODO: get the time it was stopped on and send to database
+    time = document.getElementById("stopper-display").innerHTML
+    countSeconds(time);
+}
+
