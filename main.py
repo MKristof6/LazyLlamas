@@ -12,27 +12,25 @@ def speech():
     return render_template('speech.html')
 
 
-# Route for user login
+# Authenticating user based on an SQL database query by comparing POST request form data.
+# Form requires email address and password inputs. Upon successful authentication user role is set
+# as student or amigo.
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    # get all amigos from database
     amigos = data_handler.get_amigos()
-    # get all students from database
     students = data_handler.get_students()
 
     if request.method == 'POST':
-        # Get login data from request form
+        # TODO: authentication function
         session['pw'] = request.form['password']
         session['email'] = request.form['email']
         for user in amigos:
-            # Check if user is an amigo
             if session['email'] == user['email']:
                 session['amigo'] = True
                 session['id'] = user['id']
-                # Verify password
                 if util.verify_pw(session['pw'], user['password']):
                     return redirect(url_for('home'))
-        #Check if user is a student
+
         for user in students:
             if session['email'] == user['email']:
                 session['amigo'] = False
