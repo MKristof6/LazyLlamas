@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, session, request, flash
+from flask import Flask, render_template, url_for, redirect, session, request, flash, jsonify
 
 import data_handler
 import util
@@ -50,7 +50,7 @@ def memory_game():
     cards = []
     for d in data:
         for i in range(1, 7):
-            cards.append((d["filename"+str(i)], d["text"+str(i)]))
+            cards.append((d["filename" + str(i)], d["text" + str(i)]))
     return render_template('memory-game.html', cards=cards)
 
 
@@ -63,10 +63,10 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.args:
-        #Check if user is trying to register as amigo
+        # Check if user is trying to register as amigo
         amigo = int(request.args.get('amigo'))
     else:
-        #Ha nem amigo, akkor lesz 1 az amigo változó?
+        # Ha nem amigo, akkor lesz 1 az amigo változó?
         amigo = 1
     if request.method == 'POST':
         error = None
@@ -150,17 +150,19 @@ def profile():
         amigo = data_handler.get_amigo(session['id'])
         # Update data if modifying post request was sent
         if request.method == 'POST':
-            data_handler.update_amigo(request.form['name'], request.form['birthday'], request.form['email'], session['id'])
+            data_handler.update_amigo(request.form['name'], request.form['birthday'], request.form['email'],
+                                      session['id'])
         else:
             return render_template('amigo-profile.html', amigo=amigo)
     else:
-         # Get the user data by student id
+        # Get the user data by student id
         student = data_handler.get_student(session['id'])
-         #Get studied languages by student id
+        # Get studied languages by student id
         languages = data_handler.get_student_languages(session['id'])
         # Update data if modifying post request was sent
         if request.method == 'POST':
-            data_handler.update_student(request.form['name'], request.form['email'], request.form['birthday'], session['id'])
+            data_handler.update_student(request.form['name'], request.form['email'], request.form['birthday'],
+                                        session['id'])
             student = data_handler.get_student(session['id'])
             return render_template('student-profile.html', student=student, languages=languages)
         else:
@@ -211,6 +213,12 @@ def comprehensive_reading():
 def filling_game():
     return 'Implementation in process.'
 
+
+@app.route('/memory-solution-saver', methods=['POST'])
+def save_memory_solution():
+    solution = request.get_json()
+    print(solution)
+    return jsonify('Sucesss', 200)
 
 if __name__ == "__main__":
     app.run(
