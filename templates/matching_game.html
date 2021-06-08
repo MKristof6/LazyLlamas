@@ -4,36 +4,21 @@
 {% block content %}
 <div class="matching-game-container">
     <div class="word-container">
-        <h1 id="theme">{{ data.theme | title }}</h1><br><br><br><br>
+        <h1 id="theme">{{ theme | title }}</h1>
         <ul>
-            <li class="words-to-match" id="word1">{{ data.word1 | title }}</li><br><br><br>
-            <li class="words-to-match" id="word2">{{ data.word2 | title }}</li><br><br><br>
-            <li class="words-to-match" id="word3">{{ data.word3 | title }}</li><br><br><br>
-            <li class="words-to-match" id="word4">{{ data.word4 | title }}</li><br><br><br>
-            <li class="words-to-match" id="word5">{{ data.word5 | title }}</li><br><br><br>
-            <li class="words-to-match" id="word6">{{ data.word6 | title }}</li><br><br><br>
+            {% for d in data %}
+            <li class="words-to-match" id="{{ d[1] }}">{{ d[1] | title }}</li>
+            {% endfor %}
         </ul>
     </div>
     <div class="image-container">
-        <div id="image1">
-        <img class="flashcard" src="{{ url_for('static', filename=data.image1) }}" data-word="{{ data.word1}}">
-             </div>
-        <div id="image2">
-        <img class="flashcard" src="{{ url_for('static', filename=data.image2) }}" data-word="{{ data.word2}}">
+        {% for d in data %}
+        <div id="{{ d[0] }}" class="flashcard-container">
+            <img class="flashcard images-to-match" src="/static/{{ d[0] }}" data-word="{{ d[1]}}">
         </div>
-        <div id="image3">
-        <img class="flashcard" src="{{ url_for('static', filename=data.image3) }}" data-word="{{ data.word3}}">
-        </div>
-        <div id="image4">
-        <img class="flashcard" src="{{ url_for('static', filename=data.image4) }}" data-word="{{ data.word4}}">
-            </div>
-        <div id="image5">
-        <img class="flashcard" src="{{ url_for('static', filename=data.image5) }}" data-word="{{ data.word5}}">
-            </div>
-        <div id="image6">
-        <img class="flashcard" src="{{ url_for('static', filename=data.image6) }}" data-word="{{ data.word6}}">
-            </div>
+        {% endfor %}
     </div>
+</div>
 </div>
 <script src="/static/js/matchingGame.js"></script>
 {% endblock %}

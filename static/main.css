@@ -94,10 +94,17 @@ body {
     height: 200px;
 }
 
+.flashcard-container {
+    position: relative;
+}
+
 .flashcard-active {
-    width: 350px;
-    height: 238px;
-    border-radius: 10px;
+    /*width: 350px;*/
+    /*height: 238px;*/
+    /*border-radius: 10px;*/
+    border-style: groove;
+    border-color: #993166;
+    border-width: thick;
 }
 
 .word-container {
@@ -105,17 +112,36 @@ body {
     text-align: center;
     padding: 20px;
     grid-gap: 20px;
+    grid-row-gap: 30px;
 }
 
-.words-to-match-active {
+.marked-green {
     color: #5C9129;
+    font-size: x-large;
+}
+
+.marked-purple {
+    color: #993166;
     font-size: x-large;
 }
 
 .tick {
     width: 35px;
     height: auto;
-    position: relative;
-    bottom: -12%;
-    right: 12%;
+    position: absolute;
+    bottom: 7%;
+    right: 3%;
+}
+
+li {
+    font-size: larger;
+}
+
+li:not(:last-child) {
+    margin-bottom: 65px;
+}
+
+#theme {
+    margin-bottom: 95px;
+    font-size: xxx-large;
 }
