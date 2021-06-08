@@ -23,4 +23,25 @@ startBtns.forEach(item =>{
 stopBtn.addEventListener('click', stop);
 
 
+function stopWatch(){
+    seconds++;
+    if (seconds/60 ===1){
+        seconds = 0;
+        minutes++;
+    }
+    if (seconds<10){
+        displaySeconds = "0"+seconds.toString();
+    }else{
+        displaySeconds = seconds.toString();
+    }
+       if (minutes<10){
+        displayMinutes = "0"+minutes.toString();
+    }else{
+        displaySeconds = minutes.toString();
+    }
+
+     document.getElementById("stopper-display").innerHTML = displayMinutes + ":" + displaySeconds;
+}
+
+
 
