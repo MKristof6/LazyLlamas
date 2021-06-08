@@ -59,3 +59,10 @@ function stop(){
     countSeconds(time);
 }
 
+
+const countSeconds = (str) => {
+   const [mm = '0', ss = '0'] = (str || '0:0').split(':');
+   const minute = parseInt(mm, 10) || 0;
+   const second = parseInt(ss, 10) || 0;
+   return  (minute*60) + (second);
+};
