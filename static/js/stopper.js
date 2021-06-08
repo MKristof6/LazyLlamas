@@ -51,13 +51,22 @@ function start(){
 }
 
 
-function stop(){
+function stop() {
     console.log('stopped');
     window.clearInterval(interval);
     //TODO: get the time it was stopped on and send to database
     time = document.getElementById("stopper-display").innerHTML
-    countSeconds(time);
+    console.log(countSeconds(time));
+    fetch('/memory-solution-saver', {
+        method: "POST",
+        body: JSON.stringify(countSeconds(time)),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+        .then(response => response.json())
+        .then(json => console.log(json))
+        .catch(err => console.log(err));
 }
+
 
 
 const countSeconds = (str) => {
