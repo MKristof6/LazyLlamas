@@ -189,11 +189,6 @@ def exercises():
     return 'Implementation in process. '
 
 
-@app.route('/matching-game')
-def matching_game():
-    return 'Implementation in process. '
-
-
 @app.route('/sorting-game')
 def sorting_game():
     return 'Implementation in process.'
@@ -219,6 +214,7 @@ def save_memory_solution():
     solution = request.get_json()
     print(solution)
     return jsonify('Sucesss', 200)
+
 
 @app.route('/matching-game-upload', methods=['GET', 'POST'])
 def matching_game_upload():
@@ -260,31 +256,6 @@ def matching_game(id):
     print(data)
     return render_template('matching_game.html', data=data, theme=theme)
 
-
-
-@app.route('/memory-game')
-def memory_game():
-    return 'Implementation in process. Don\'t be an impatient dick!'
-
-
-@app.route('/sorting-game')
-def sorting_game():
-    return 'Implementation in process. Don\'t be an impatient dick!'
-
-
-@app.route('/listening-game')
-def listening_game():
-    return 'Implementation in process. Don\'t be an impatient dick!'
-
-
-@app.route('/comprehensive-reading')
-def comprehensive_reading():
-    return 'Implementation in process. Don\'t be an impatient dick!'
-
-
-@app.route('/filling-game')
-def filling_game():
-    return 'Implementation in process. Don\'t be an impatient dick!'
 
 
 if __name__ == "__main__":
