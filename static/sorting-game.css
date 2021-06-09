@@ -89,7 +89,7 @@ p.words {
     top: 35%;
     left: 15%;
 }
-.theme-card:last-child  {
+#theme-adder  {
     width: 300px;
     height: 250px;
     margin: 20px;

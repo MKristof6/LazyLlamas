@@ -188,8 +188,8 @@ ALTER TABLE ONLY public.solution
     ADD CONSTRAINT fk_student_id FOREIGN KEY (student_id) REFERENCES student (id),
     ADD CONSTRAINT fk_one_answer_question_id FOREIGN KEY (one_answer_question_id) REFERENCES one_answer_question (id);
 
-ALTER TABLE public.student
+-- ALTER TABLE public.student
 --     ADD CONSTRAINT fk_language_id FOREIGN KEY (language_id) REFERENCES language (id),
-    ADD CONSTRAINT fk_pair_solution FOREIGN KEY (id) REFERENCES pair_solution (student_id);
+--     ADD CONSTRAINT fk_pair_solution FOREIGN KEY (id) REFERENCES pair_solution (student_id);
 
 

@@ -194,9 +194,15 @@ def matching_game():
     return 'Implementation in process. '
 
 
-@app.route('/sorting-game')
-def sorting_game():
-    return 'Implementation in process.'
+@app.route('/upload-words', methods=['POST'])
+def upload_words():
+    words = request.json()
+    # data_handler.
+
+
+@app.route('/sorting-game-upload')
+def sorting_game_upload():
+    return render_template('sorting_game_upload.html')
 
 
 @app.route('/listening-game')
