@@ -57,12 +57,12 @@ def get_latest_matching_exercise_id():
     return connection.execute_select('SELECT id FROM matching_exercise ORDER BY id DESC LIMIT 1', fetchall=False)
 
   
-def get_memory_cards(game_number):
+def get_memory_cards(game_id):
     query="""
     SELECT * FROM memory_game
-    WHERE id = 1
+    WHERE id = %(id)s
     """
-    return connection.execute_select(query)
+    return connection.execute_select(query, {"game_id": game_id})
 
 def get_amigo(amigo_id):
     query = """ SELECT * FROM amigo
@@ -109,3 +109,9 @@ def save_memory_game(student_id, game_id, solution_time):
                VALUES(%s, %s, %s)
     """
     return connection.execute_dml_statement(query, {"student_id": student_id, "game_id": game_id, "solution_time": solution_time})
+
+def get_memory_game_themes():
+    query ="""
+        SELECT theme FROM memory_game;
+    """
+    return connection.execute_select(query)
