@@ -166,17 +166,18 @@ CREATE TABLE matching_exercise
 CREATE TABLE memory_game
 (
     id        INT GENERATED ALWAYS AS IDENTITY,
-    filename1 text NOT NULL,
+    theme     text NOT NULL,
+    image1 VARCHAR,
     text1     text,
-    filename2 text NOT NULL,
+    image2 VARCHAR,
     text2     text,
-    filename3 text NOT NULL,
+    image3 VARCHAR,
     text3     text,
-    filename4 text NOT NULL,
+    image4 VARCHAR,
     text4     text,
-    filename5 text NOT NULL,
+    image5 VARCHAR,
     text5     text,
-    filename6 text NOT NULL,
+    image6 VARCHAR,
     text6     text,
     PRIMARY KEY (id)
 );
@@ -189,8 +190,8 @@ CREATE TABLE memory_game_solution
     solution_time INT
 );
 
-INSERT INTO memory_game(filename1, text1, filename2, text2, filename3, text3, filename4, text4, filename5, text5, filename6, text6)
-VALUES ('../static/images/memory_sample/cat.png', 'cat', '../static/images/memory_sample/dolphin.png', 'dolphin', '../static/images/memory_sample/fox.png', 'fox', '../static/images/memory_sample/horse.png', 'horse', '../static/images/memory_sample/owl.png', 'owl', '../static/images/memory_sample/wolf.png', 'wolf' );
+INSERT INTO memory_game(theme, filename1, text1, filename2, text2, filename3, text3, filename4, text4, filename5, text5, filename6, text6)
+VALUES ('animals','../static/images/memory_sample/cat.png', 'cat', '../static/images/memory_sample/dolphin.png', 'dolphin', '../static/images/memory_sample/fox.png', 'fox', '../static/images/memory_sample/horse.png', 'horse', '../static/images/memory_sample/owl.png', 'owl', '../static/images/memory_sample/wolf.png', 'wolf' );
 
 INSERT INTO language(name) VALUES ('English');
 INSERT INTO language(name) VALUES ('Français');
