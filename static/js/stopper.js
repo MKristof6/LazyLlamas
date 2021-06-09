@@ -7,18 +7,13 @@ let displayMinutes = 0;
 let interval = null;
 
 let time = 0;
-startBtns = document.querySelectorAll(".start");
+
 stopBtn = document.querySelector(".stop");
 
-startBtns.forEach(item =>{
-    console.log('eventlistener added')
-    item.addEventListener('click', event => {
-        start();
-        startBtns.forEach(item => {
-            item.removeEventListener('click', start);
-            item.classList.remove("start");
-    })
-})})
+
+window.addEventListener('click', start);
+
+cards = document.querySelectorAll(".memory-card");
 
 stopBtn.addEventListener('click', stop);
 
@@ -46,26 +41,32 @@ function stopWatch(){
 
 
 function start(){
-    console.log('start');
+    window.removeEventListener('click', start);
     interval = window.setInterval(stopWatch, 1000);
 }
 
 
-function stop() {
-    console.log('stopped');
-    window.clearInterval(interval);
-    //TODO: get the time it was stopped on and send to database
-    time = document.getElementById("stopper-display").innerHTML
-    console.log(countSeconds(time));
-    fetch('/memory-solution-saver', {
-        method: "POST",
-        body: JSON.stringify(countSeconds(time)),
-        headers: {"Content-type": "application/json; charset=UTF-8"}
-    })
-        .then(response => response.json())
-        .then(json => console.log(json))
-        .catch(err => console.log(err));
-}
+    function stop() {
+        let isComplete = true;
+        cards.forEach(item => {
+                if (!item.classList.contains("flip")) {
+                    isComplete = false;
+                }
+            }
+        )
+        if (isComplete) {
+            window.clearInterval(interval);
+            time = document.getElementById("stopper-display").innerHTML
+            fetch('/memory-solution-saver', {
+                method: "POST",
+                body: JSON.stringify(countSeconds(time)),
+                headers: {"Content-type": "application/json; charset=UTF-8"}
+            })
+                .then(response => response.json())
+                .then(json => console.log(json))
+                .catch(err => console.log(err));
+        }
+    }
 
 
 
