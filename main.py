@@ -44,9 +44,9 @@ def login():
         return render_template('login.html')
 
 
-@app.route('/memory-game')
-def memory_game():
-    data = data_handler.get_memory_cards(1)
+@app.route('/memory-game/<id>')
+def memory_game(id):
+    data = data_handler.get_memory_cards(id)
     cards = []
     for d in data:
         for i in range(1, 7):
