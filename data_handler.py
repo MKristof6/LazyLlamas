@@ -102,3 +102,10 @@ def get_student_languages(student_id):
     """
     return connection.execute_select(query, {"student_id": student_id}, fetchall=False)
 
+
+def save_memory_game(student_id, game_id, solution_time):
+    query = """
+    INSERT INTO memory_game_solution(student_id, game_id, solution_time) 
+               VALUES(%s, %s, %s)
+    """
+    return connection.execute_dml_statement(query, {"student_id": student_id, "game_id": game_id, "solution_time": solution_time})

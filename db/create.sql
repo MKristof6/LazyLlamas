@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS public.one_answer_answer;
 DROP TABLE IF EXISTS public.multiple_answer_answer;
 DROP TABLE IF EXISTS public.memory_game;
 DROP TABLE IF EXISTS public.matching_exercise;
-
+DROP TABLE IF EXISTS public.memory_game_solution;
 
 
 CREATE TABLE amigo
@@ -179,6 +179,14 @@ CREATE TABLE memory_game
     filename6 text NOT NULL,
     text6     text,
     PRIMARY KEY (id)
+);
+
+CREATE TABLE memory_game_solution
+(
+    id        INT GENERATED ALWAYS AS IDENTITY,
+    student_id INT,
+    game_id INT,
+    solution_time INT
 );
 
 INSERT INTO memory_game(filename1, text1, filename2, text2, filename3, text3, filename4, text4, filename5, text5, filename6, text6)
