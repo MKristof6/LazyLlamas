@@ -6,6 +6,7 @@
     grid-template-columns: 1fr 3fr;
     background-image: url("/static/images/math.jpg");
 }
+
 .word-container {
     position: relative;
     top: 1%;
@@ -16,6 +17,7 @@
     width: 24vw;
     background: white;
 }
+
 .theme-container {
     position: relative;
     top: 1%;
@@ -30,6 +32,7 @@
     height: 95vh;
     justify-content: center;
 }
+
 .submit {
     width: max-content;
     height: 35px;
@@ -39,7 +42,7 @@
     right: 5%;
     background-color: #993166;
     border-radius: 15px;
-    color:white;
+    color: white;
     margin: 10px;
     padding: 5px;
     font-family: Lato, sans-serif;
@@ -50,7 +53,7 @@ input.words {
     color: white;
     margin: 40px;
     width: 80px;
-    box-shadow: none;
+    border: none;
     border-radius: 15px;
     background: #8BBF58;
     font-family: Lato, sans-serif;
@@ -59,7 +62,8 @@ input.words {
 .theme-card {
     width: 300px;
     height: 250px;
-    margin: 20px;
+    margin-top: 80px;
+    margin-left: 180px;
     background: white;
     border-radius: 20%;
     text-align: center;
@@ -67,6 +71,7 @@ input.words {
     font-size: xxx-large;
     position: relative;
 }
+
 p.words {
     text-align: center;
     align-content: center;
@@ -79,6 +84,7 @@ p.words {
     border-radius: 15px;
     background: #8BBF58;
 }
+
 .borderless {
     border: none;
     text-align: center;
@@ -89,13 +95,19 @@ p.words {
     top: 35%;
     left: 15%;
 }
-#theme-adder  {
+
+#theme-adder {
     width: 300px;
     height: 250px;
-    margin: 20px;
     border-radius: 20%;
     text-align: center;
     font-family: "Amatic SC", sans-serif;
     font-size: xxx-large;
     background: #993166;
+    margin-top: 80px;
+    margin-left: 180px;
+}
+
+#word-source::placeholder {
+    color: white;
 }

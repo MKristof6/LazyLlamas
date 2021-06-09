@@ -1,14 +1,15 @@
 const WORD_ADDER = document.getElementById('word-adder');
 const THEMES = document.querySelectorAll('.theme-card');
 let THEME_ADDER = document.getElementById('theme-adder');
-const THEME_ADDER_ORIGINAL = document.getElementById('theme-adder').innerHTML;
 const SAVE_THEME = document.getElementById('theme-button');
+let DATA = {};
 
 function insertWord() { //
     const target = document.getElementById('word-form');
     let source = document.getElementById('word-source');
+    source.placeholder = '';
     if (source.value !== '') {
-        let toInsert = `<input class="words" type="text" value="${source.value}" disabled>`;
+        let toInsert = `<input class="words to-add" type="text" value="${source.value}" disabled>`;
         source.value = '';
         target.insertAdjacentHTML('beforeend', toInsert);
     }
@@ -21,8 +22,7 @@ function insertIntoEmptyDiv() { //inserts given user input only if there is avai
     for (let theme of THEMES) {
         if (theme.textContent === '') {
             theme.textContent = text;
-            // removeThemeListener();
-            THEME_ADDER.value = "Új téma hozzáadása"; //Changing textarea back to "Új téma hozzáadása"
+            THEME_ADDER.value = "Új téma hozzáadása";
             addThemeListener();
             return;
         }
@@ -31,10 +31,6 @@ function insertIntoEmptyDiv() { //inserts given user input only if there is avai
 
 function insertTheme(e) {
     THEME_ADDER.value = '';
-    let target = e.target;
-    // let form = '<form class="borderless"><input id="text-to-add" type="text" placeholder="Írd ide a témát"></form>'
-    // target.insertAdjacentHTML('afterbegin', form);
-    // removeThemeListener();
     e.target.addEventListener('focusout', insertIntoEmptyDiv); //inserts the new word user clicks out of the textbox
 }
 
@@ -50,5 +46,20 @@ function styleThemeAdder() { //Failed to color it in css, JS solution works howe
 }
 
 addThemeListener();
+
+function getAllData() {
+    let themes = [];
+    let words = [];
+    THEMES.forEach(theme => {
+         if (theme.textContent !== "Új téma hozzáadása" && theme.textContent !== "") themes.push(theme.textContent);
+    });
+    document.querySelectorAll('.to-add').forEach(word => words.push(word.value));
+    DATA['themes'] = themes;
+    DATA['words'] = words;
+}
+
+SAVE_THEME.addEventListener('click', getAllData);
+
+
 
 
