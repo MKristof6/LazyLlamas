@@ -57,12 +57,12 @@ def get_latest_matching_exercise_id():
     return connection.execute_select('SELECT id FROM matching_exercise ORDER BY id DESC LIMIT 1', fetchall=False)
 
   
-def get_memory_cards(game_number):
+def get_memory_cards(game_id):
     query="""
     SELECT * FROM memory_game
-    WHERE id = 1
+    WHERE id = %(game_id)s
     """
-    return connection.execute_select(query)
+    return connection.execute_select(query, {"game_id": game_id})
 
 def get_amigo(amigo_id):
     query = """ SELECT * FROM amigo
@@ -103,9 +103,29 @@ def get_student_languages(student_id):
     return connection.execute_select(query, {"student_id": student_id}, fetchall=False)
 
 
-def save_memory_game(student_id, game_id, solution_time):
+def save_memory_game_solution(student_id, game_id, solution_time):
     query = """
     INSERT INTO memory_game_solution(student_id, game_id, solution_time) 
-               VALUES(%s, %s, %s)
+               VALUES(%(student_id)s, %(game_id)s, %(solution_time)s)
     """
     return connection.execute_dml_statement(query, {"student_id": student_id, "game_id": game_id, "solution_time": solution_time})
+
+
+def save_memory_game(theme, images):
+    query = """
+    INSERT INTO memory_game(theme, image1, text1, image2, text2, image3, text3, image4, text4, image5, text5, image6, text6)
+               VALUES(%(theme)s, %(image1)s, %(text1)s, %(image2)s, %(text2)s, %(image3)s, %(text3)s, %(image4)s, %(text4)s, %(image5)s, %(text5)s, %(image6)s, %(text6)s)
+    """
+    return connection.execute_dml_statement(query, {"theme": theme, "image1": images[0]["image"],
+                                                    "text1": images[0]["text"], "image2": images[1]["image"], "text2": images[1]["text"],
+                                                    "image3": images[2]["image"], "text3": images[2]["text"], "image4": images[3]["image"],
+                                                    "text4": images[3]["text"], "image5": images[4]["image"], "text5": images[4]["text"],
+                                                    "image6": images[5]["image"], "text6": images[5]["text"]})
+
+
+
+def get_memory_games():
+    query ="""
+        SELECT id, theme FROM memory_game;
+    """
+    return connection.execute_select(query)
