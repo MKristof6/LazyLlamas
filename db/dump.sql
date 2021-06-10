@@ -12,6 +12,9 @@ INSERT INTO listening_game( id, card_id, answer) VALUES ( 1, 6, 'Lion');
 INSERT INTO listening_game_possibilities(id, card_id, possibilities) VALUES (1, 1, 'Can');
 INSERT INTO listening_game_possibilities(id, card_id, possibilities) VALUES (1, 1, 'Cat');
 INSERT INTO listening_game_possibilities(id, card_id, possibilities) VALUES (1, 1, 'Cap');
+INSERT INTO listening_game_possibilities(id, card_id, possibilities) VALUES (1, 2, 'dope');
+INSERT INTO listening_game_possibilities(id, card_id, possibilities) VALUES (1, 2, 'dog');
+INSERT INTO listening_game_possibilities(id, card_id, possibilities) VALUES (1, 2, 'dot');
 
 INSERT INTO language(name) VALUES ('English');
 INSERT INTO language(name) VALUES ('French');
