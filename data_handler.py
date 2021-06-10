@@ -1,5 +1,4 @@
 import connection
-from psycopg2._psycopg import AsIs
 
 
 def get_amigos():
@@ -42,7 +41,6 @@ def update_student_languages(student_id, languages):
 def get_latest_id():
     return connection.execute_select('SELECT id FROM student ORDER BY id DESC LIMIT 1', fetchall=False)
 
-
 def new_matching_exercise(theme, word1, word2, word3, word4, word5, word6, image1, image2, image3, image4, image5, image6):
     connection.execute_dml_statement(
         """INSERT INTO matching_exercise(theme, word1, word2, word3, word4, word5, word6, image1, image2, image3, image4, image5, image6) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
@@ -64,6 +62,7 @@ def get_memory_cards(game_id):
     """
     return connection.execute_select(query, {"game_id": game_id})
 
+
 def get_amigo(amigo_id):
     query = """ SELECT * FROM amigo
                 WHERE id = %(id)s;
@@ -80,7 +79,7 @@ def get_student(student_id):
 def update_amigo(name, email, birthday, id):
     query = """ UPDATE amigo
             SET name = %(name)s, email = %(email)s
-            WHERE id = %(id)s
+            WHERE id = %(id)s;
     """
     return connection.execute_dml_statement(query, {"name": name, "email": email, "birthday": birthday, "id": id})
 
@@ -88,7 +87,7 @@ def update_amigo(name, email, birthday, id):
 def update_student(name, email, birthday, id):
     query = """ UPDATE student
             SET name = %(name)s, email = %(email)s, birthday = %(birthday)s
-            WHERE id = %(id)s
+            WHERE id = %(id)s;
     """
     return connection.execute_dml_statement(query, {"name": name, "email": email, "birthday": birthday, "id": id})
 
@@ -96,11 +95,18 @@ def update_student(name, email, birthday, id):
 def get_student_languages(student_id):
     query = """ SELECT string_agg(DISTINCT l.name, ', ') as languages FROM student
                 INNER JOIN student_languages sl on student.id = sl.student_id
-                INNER JOIN language l on sl.language_id=l.id
-                
-                ;
+                INNER JOIN language l on sl.language_id=l.id;
     """
     return connection.execute_select(query, {"student_id": student_id}, fetchall=False)
+
+def new_sorting_exercise(themes, words):
+    query = 'INSERT INTO sorting_game(themes, words) VALUES (%(themes)s, %(words)s)'
+    return connection.execute_dml_statement(query, {"themes": themes, "words": words})
+
+
+def get_sorting_exercise(id):
+    query = 'SELECT themes, words FROM sorting_game WHERE id=%(id)s;'
+    return connection.execute_select(query, {"id": id}, fetchall=False)
 
 
 def save_memory_game_solution(student_id, game_id, solution_time):
@@ -129,3 +135,4 @@ def get_memory_games():
         SELECT id, theme FROM memory_game;
     """
     return connection.execute_select(query)
+

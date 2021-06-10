@@ -1,0 +1,29 @@
+{% extends 'template.html' %}
+{% block title %} Húzd és dobd! {% endblock %}
+{% block head %}
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../static/sorting-game.css"/>
+<link href='https://fonts.googleapis.com/css?family=Amatic SC' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+<script src="/static/js/sortingUpload.js" defer></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="word-container">
+        <form id="word-form" action="/sorting-game-upload" method="post">
+            <input id="word-source" class="words" type="text" placeholder="Írj ide">
+            <p id="word-adder" class="submit">Új szó hozzáadása</p>
+        </form>
+    </div>
+
+    <div class="theme-container">
+        <div class="theme-card"></div>
+        <div class="theme-card"></div>
+        <div class="theme-card"></div>
+        <textarea class="theme-card" id="theme-adder">Új téma hozzáadása</textarea>
+        <div id="new-theme">
+            <p id="theme-button" class="submit">Mentés</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

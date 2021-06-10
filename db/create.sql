@@ -27,6 +27,7 @@ DROP TABLE IF EXISTS public.word_pair;
 DROP TABLE IF EXISTS public.one_answer_answer;
 DROP TABLE IF EXISTS public.multiple_answer_answer;
 DROP TABLE IF EXISTS public.memory_game;
+DROP TABLE IF EXISTS public.sorting_game;
 DROP TABLE IF EXISTS public.matching_exercise;
 DROP TABLE IF EXISTS public.memory_game_solution;
 
@@ -182,6 +183,15 @@ CREATE TABLE memory_game
     PRIMARY KEY (id)
 );
 
+
+CREATE TABLE sorting_game(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  themes TEXT[],
+  words TEXT[],
+  PRIMARY KEY (id)
+);
+
+
 CREATE TABLE memory_game_solution
 (
     id        INT GENERATED ALWAYS AS IDENTITY,
@@ -189,6 +199,7 @@ CREATE TABLE memory_game_solution
     game_id INT,
     solution_time INT
 );
+
 
 INSERT INTO language(name) VALUES ('English');
 INSERT INTO language(name) VALUES ('Français');
@@ -218,9 +229,10 @@ ALTER TABLE ONLY public.solution
     ADD CONSTRAINT fk_student_id FOREIGN KEY (student_id) REFERENCES student (id),
     ADD CONSTRAINT fk_one_answer_question_id FOREIGN KEY (one_answer_question_id) REFERENCES one_answer_question (id);
 
-ALTER TABLE public.student
---  ADD CONSTRAINT fk_language_id FOREIGN KEY (language_id) REFERENCES language (id),
-    ADD CONSTRAINT fk_pair_solution FOREIGN KEY (id) REFERENCES pair_solution (student_id);
+
+-- ALTER TABLE public.student
+--     ADD CONSTRAINT fk_language_id FOREIGN KEY (language_id) REFERENCES language (id),
+--     ADD CONSTRAINT fk_pair_solution FOREIGN KEY (id) REFERENCES pair_solution (student_id);
 
 
 

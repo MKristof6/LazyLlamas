@@ -1,4 +1,6 @@
+
 from flask import Flask, render_template, url_for, redirect, session, request, flash, jsonify, make_response
+
 
 import data_handler
 import util
@@ -31,6 +33,8 @@ def login():
                 if util.verify_pw(session['pw'], user['password']):
                     return redirect(url_for('home'))
 
+        # Check if user is a student
+
         for user in students:
             if session['email'] == user['email']:
                 session['amigo'] = False
@@ -43,6 +47,16 @@ def login():
     else:
         return render_template('login.html')
 
+
+
+@app.route('/memory-game')
+def memory_game():
+    data = data_handler.get_memory_cards(1)
+    cards = []
+    for d in data:
+        for i in range(1, 7):
+            cards.append((d["filename" + str(i)], d["text" + str(i)]))
+    return render_template('memory-game.html', cards=cards)
 
 
 
@@ -160,7 +174,7 @@ def profile():
         else:
             return render_template('student-profile.html', student=student, languages=languages)
 
-          
+
 @app.route('/new_exercise')
 def new_exercise():
     return 'Implementation in process.'
@@ -181,9 +195,35 @@ def exercises():
     return 'Implementation in process. '
 
 
+@app.route('/matching-game')
+def matching_game():
+    return 'Implementation in process. '
+
+
+@app.route('/upload-words', methods=['POST'])
+def upload_words():
+    data = request.get_json()
+    themes = data['themes']
+    words = data['words']
+    data_handler.new_sorting_exercise(themes, words)
+    return jsonify(data)
+
+
+@app.route('/sorting-game-upload')
+def sorting_game_upload():
+    return render_template('sorting_game_upload.html')
+
+
+@app.route('/sorting-game/<id>')
+def sorting_game(id):
+    themes = data_handler.get_sorting_exercise(id)['themes']
+    words = data_handler.get_sorting_exercise(id)['words']
+    return render_template('sorting_game.html', themes=themes, words=words)
+
 @app.route('/sorting-game')
 def sorting_game():
     return 'Implementation in process.'
+
 
 
 @app.route('/listening-game')
