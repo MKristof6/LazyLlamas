@@ -1,5 +1,9 @@
+
+import { stopCheck } from "./stopper.js";
+
 let gameId = document.querySelector(".memory-game").id
 let numberOfCards = 6;
+
 const memoryGame = {
     getData: function (route, callback) {
         fetch(route)
@@ -57,6 +61,7 @@ function logic(){
         hasFlippedCard = false;
         secondCard = this;
         checkForMatch();
+        stopCheck.stop();
     }
 
     function checkForMatch() {
