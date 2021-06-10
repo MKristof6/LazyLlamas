@@ -11,17 +11,17 @@ const memoryGame = {
         let rows = ''
         for (let card of cards) {
             rows += `   
-        <div class="memory-card"  data-framework="{{card[1]}}">
+        <div class="memory-card"  data-framework="${card[1]}">
             <div class="front-face">
                 <img src="${card[0]}" />
                 <p> ${card[1]}</p>
             </div>
             <img class="back-face" src="../static/images/amigo_logo.png"/>
         </div>
-        <div class="memory-card"  data-framework="{{card[1]}}">
+        <div class="memory-card"  data-framework="${card[1]}">
             <div class="front-face">
                 <img src="${card[0]}" />
-                <p> ${card[1]}}</p>
+                <p> ${card[1]}</p>
             </div>
             <img class="back-face" src="../static/images/amigo_logo.png"/>
         </div>`
@@ -34,8 +34,7 @@ const memoryGame = {
 }
 
 function logic(){
-     let cards = document.querySelectorAll('.memory-card');
-
+    let cards = document.querySelectorAll('.memory-card');
     let hasFlippedCard = false;
     let lockBoard = false;
     let firstCard, secondCard;
@@ -92,12 +91,10 @@ function logic(){
         });
     })();
 
-};
+}
 
 function init() {
     memoryGame.getData('/get-memory-game/1', memoryGame.showData);
-
-
 }
 
 init();
