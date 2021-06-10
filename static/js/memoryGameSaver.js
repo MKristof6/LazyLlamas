@@ -1,5 +1,5 @@
 let base64String = "";
-let images ={};
+let images =[];
 let texts =[];
 let data = {};
 
@@ -33,7 +33,7 @@ function imageUploader(file, text) {
        let reader = new FileReader();
     reader.onload = function () {
         base64String = reader.result.replace("data:"+ file.type +";base64,", '');
-        images[text] = base64String;
+        images.push({ text: text, image: base64String });
         done();
     }
     reader.readAsDataURL(file);
@@ -41,7 +41,7 @@ function imageUploader(file, text) {
 }
 
 function saveData(data) {
-         fetch('/memory-game-saver', {
+         fetch('/memory-game-saver/', {
                 method: "POST",
                 body: JSON.stringify(data),
                 headers: {"Content-type": "application/json; charset=UTF-8"}
