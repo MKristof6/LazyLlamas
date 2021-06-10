@@ -44,14 +44,19 @@ def login():
         return render_template('login.html')
 
 
-@app.route('/memory-game/<id>')
-def memory_game(id):
-    data = data_handler.get_memory_cards(id)
+@app.route('/memory-game/<game_id>')
+def memory_game(game_id):
+    return render_template('memory-game.html')
+
+
+@app.route('/get-memory-game/<game_id>')
+def get_memory_game(game_id):
+    data = data_handler.get_memory_cards(game_id)
     cards = []
     for d in data:
         for i in range(1, 7):
-            cards.append((d["filename" + str(i)], d["text" + str(i)]))
-    return render_template('memory-game.html', cards=cards)
+            cards.append((d["image" + str(i)], d["text" + str(i)]))
+    return jsonify(cards)
 
 
 @app.route('/logout')
@@ -215,6 +220,16 @@ def save_memory_solution():
     print(solution)
     return jsonify('Sucesss', 200)
 
+
+@app.route('/memory-game-saver', methods=['POST'])
+def save_memory_game():
+    data = request.get_json()
+    print(data)
+    return jsonify('Sucesss', 200)
+
+@app.route('/memory-game-upload', methods=['GET', 'POST'])
+def memory_game_upload():
+    return render_template('memory-game-saver.html')
 
 @app.route('/matching-game-upload', methods=['GET', 'POST'])
 def matching_game_upload():

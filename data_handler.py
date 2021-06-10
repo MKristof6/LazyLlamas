@@ -60,7 +60,7 @@ def get_latest_matching_exercise_id():
 def get_memory_cards(game_id):
     query="""
     SELECT * FROM memory_game
-    WHERE id = %(id)s
+    WHERE id = %(game_id)s
     """
     return connection.execute_select(query, {"game_id": game_id})
 
@@ -103,12 +103,21 @@ def get_student_languages(student_id):
     return connection.execute_select(query, {"student_id": student_id}, fetchall=False)
 
 
-def save_memory_game(student_id, game_id, solution_time):
+def save_memory_game_solution(student_id, game_id, solution_time):
     query = """
     INSERT INTO memory_game_solution(student_id, game_id, solution_time) 
                VALUES(%s, %s, %s)
     """
     return connection.execute_dml_statement(query, {"student_id": student_id, "game_id": game_id, "solution_time": solution_time})
+
+def save_memory_game(theme, images, texts):
+    query = """
+    INSERT INTO memory_game(theme, image1, text1, image2, text2, image3, text3, image4, text4, image5, text5, image6, text6)
+               VALUES(%(theme)s, %(image1)s, %(text1)s)
+    """
+    return connection.execute_dml_statement(query, {"theme": theme, "image1": images[0], "text1": texts[0], "image2": images[1], "text2": texts[1], "image3": images[2], "text3": texts[2], "image4": images[3], "text4": texts[3], "image5": images[4], "text5": texts[4], "image6": images[5], "text6": texts[5]})
+
+
 
 def get_memory_game_themes():
     query ="""

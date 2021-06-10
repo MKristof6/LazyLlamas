@@ -190,7 +190,7 @@ CREATE TABLE memory_game_solution
     solution_time INT
 );
 
-INSERT INTO memory_game(theme, filename1, text1, filename2, text2, filename3, text3, filename4, text4, filename5, text5, filename6, text6)
+INSERT INTO memory_game(theme, image1, text1, image2, text2, image3, text3, image4, text4, image5, text5, image6, text6)
 VALUES ('animals','../static/images/memory_sample/cat.png', 'cat', '../static/images/memory_sample/dolphin.png', 'dolphin', '../static/images/memory_sample/fox.png', 'fox', '../static/images/memory_sample/horse.png', 'horse', '../static/images/memory_sample/owl.png', 'owl', '../static/images/memory_sample/wolf.png', 'wolf' );
 
 INSERT INTO language(name) VALUES ('English');
