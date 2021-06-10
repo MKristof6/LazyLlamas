@@ -28,8 +28,8 @@ DROP TABLE IF EXISTS public.one_answer_answer;
 DROP TABLE IF EXISTS public.multiple_answer_answer;
 DROP TABLE IF EXISTS public.memory_game;
 DROP TABLE IF EXISTS public.sorting_game;
-
-
+DROP TABLE IF EXISTS public.matching_exercise;
+DROP TABLE IF EXISTS public.memory_game_solution;
 
 
 CREATE TABLE amigo
@@ -37,7 +37,7 @@ CREATE TABLE amigo
     id       INT GENERATED ALWAYS AS IDENTITY,
     "name"   VARCHAR(50) NOT NULL,
     email    VARCHAR(50) NOT NULL UNIQUE,
-    password TEXT NOT NULL,
+    password TEXT        NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -47,7 +47,7 @@ CREATE TABLE student
     id          INT GENERATED ALWAYS AS IDENTITY,
     "name"      VARCHAR(50) NOT NULL,
     email       VARCHAR(50) NOT NULL UNIQUE,
-    password    TEXT NOT NULL,
+    password    TEXT        NOT NULL,
     birthday    DATE,
     points      INT,
     PRIMARY KEY (id)
@@ -141,24 +141,48 @@ CREATE TABLE multiple_answer_answer
     correct     BOOLEAN,
     PRIMARY KEY (id)
 );
+    
+
+CREATE TABLE matching_exercise
+(
+    id     serial
+        constraint matching_exercise_pk
+            primary key,
+    theme text not null,
+    word1  text not null,
+    image1 text not null,
+    word2  text not null,
+    image2 text not null,
+    word3  text not null,
+    image3 text not null,
+    word4  text not null,
+    image4 text not null,
+    word5  text not null,
+    image5 text not null,
+    word6  text not null,
+    image6 text not null
+);
+
 
 CREATE TABLE memory_game
 (
     id        INT GENERATED ALWAYS AS IDENTITY,
-    filename1 text NOT NULL,
+    theme     text NOT NULL,
+    image1 VARCHAR,
     text1     text,
-    filename2 text NOT NULL,
+    image2 VARCHAR,
     text2     text,
-    filename3 text NOT NULL,
+    image3 VARCHAR,
     text3     text,
-    filename4 text NOT NULL,
+    image4 VARCHAR,
     text4     text,
-    filename5 text NOT NULL,
+    image5 VARCHAR,
     text5     text,
-    filename6 text NOT NULL,
+    image6 VARCHAR,
     text6     text,
     PRIMARY KEY (id)
 );
+
 
 CREATE TABLE sorting_game(
   id INT GENERATED ALWAYS AS IDENTITY,
@@ -167,8 +191,15 @@ CREATE TABLE sorting_game(
   PRIMARY KEY (id)
 );
 
-INSERT INTO memory_game(filename1, text1, filename2, text2, filename3, text3, filename4, text4, filename5, text5, filename6, text6)
-VALUES ('../static/images/memory_sample/cat.png', 'cat', '../static/images/memory_sample/dolphin.png', 'dolphin', '../static/images/memory_sample/fox.png', 'fox', '../static/images/memory_sample/horse.png', 'horse', '../static/images/memory_sample/owl.png', 'owl', '../static/images/memory_sample/wolf.png', 'wolf' );
+
+CREATE TABLE memory_game_solution
+(
+    id        INT GENERATED ALWAYS AS IDENTITY,
+    student_id INT,
+    game_id INT,
+    solution_time INT
+);
+
 
 INSERT INTO language(name) VALUES ('English');
 INSERT INTO language(name) VALUES ('Français');
@@ -185,6 +216,7 @@ INSERT INTO student_languages (student_id, language_id) VALUES (2, 2 );
 INSERT INTO student_languages (student_id, language_id) VALUES (3, 1 );
 INSERT INTO student_languages (student_id, language_id) VALUES (3, 2 );
 
+
 ALTER TABLE ONLY public.feedback
     ADD CONSTRAINT fk_multiple_answer_question_id FOREIGN KEY (multiple_answer_question_id) REFERENCES multiple_answer_question (id),
     ADD CONSTRAINT fk_amigo_id FOREIGN KEY (amigo_id) REFERENCES amigo (id),
@@ -197,8 +229,10 @@ ALTER TABLE ONLY public.solution
     ADD CONSTRAINT fk_student_id FOREIGN KEY (student_id) REFERENCES student (id),
     ADD CONSTRAINT fk_one_answer_question_id FOREIGN KEY (one_answer_question_id) REFERENCES one_answer_question (id);
 
+
 -- ALTER TABLE public.student
 --     ADD CONSTRAINT fk_language_id FOREIGN KEY (language_id) REFERENCES language (id),
 --     ADD CONSTRAINT fk_pair_solution FOREIGN KEY (id) REFERENCES pair_solution (student_id);
+
 
 

@@ -1,4 +1,6 @@
-from flask import Flask, render_template, url_for, redirect, session, request, flash, jsonify
+
+from flask import Flask, render_template, url_for, redirect, session, request, flash, jsonify, make_response
+
 
 import data_handler
 import util
@@ -12,27 +14,27 @@ def speech():
     return render_template('speech.html')
 
 
-# Route for user login
+# Authenticating user based on an SQL database query by comparing POST request form data.
+# Form requires email address and password inputs. Upon successful authentication user role is set
+# as student or amigo.
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    # get all amigos from database
     amigos = data_handler.get_amigos()
-    # get all students from database
     students = data_handler.get_students()
 
     if request.method == 'POST':
-        # Get login data from request form
+        # TODO: authentication function
         session['pw'] = request.form['password']
         session['email'] = request.form['email']
         for user in amigos:
-            # Check if user is an amigo
             if session['email'] == user['email']:
                 session['amigo'] = True
                 session['id'] = user['id']
-                # Verify password
                 if util.verify_pw(session['pw'], user['password']):
                     return redirect(url_for('home'))
+
         # Check if user is a student
+
         for user in students:
             if session['email'] == user['email']:
                 session['amigo'] = False
@@ -46,6 +48,7 @@ def login():
         return render_template('login.html')
 
 
+
 @app.route('/memory-game')
 def memory_game():
     data = data_handler.get_memory_cards(1)
@@ -54,6 +57,7 @@ def memory_game():
         for i in range(1, 7):
             cards.append((d["filename" + str(i)], d["text" + str(i)]))
     return render_template('memory-game.html', cards=cards)
+
 
 
 @app.route('/logout')
@@ -140,7 +144,7 @@ def home():
 
 @app.route('/my_exercises')
 def my_exercises():
-    return render_template('excercises.html')
+    return render_template('exercises.html')
 
 
 # Route for accessing user profile
@@ -171,7 +175,7 @@ def profile():
             return render_template('student-profile.html', student=student, languages=languages)
 
 
-@app.route('/new-exercise')
+@app.route('/new_exercise')
 def new_exercise():
     return 'Implementation in process.'
 
@@ -216,6 +220,11 @@ def sorting_game(id):
     words = data_handler.get_sorting_exercise(id)['words']
     return render_template('sorting_game.html', themes=themes, words=words)
 
+@app.route('/sorting-game')
+def sorting_game():
+    return 'Implementation in process.'
+
+
 
 @app.route('/listening-game')
 def listening_game():
@@ -230,6 +239,85 @@ def comprehensive_reading():
 @app.route('/filling-game')
 def filling_game():
     return 'Implementation in process.'
+
+#MEMORY GAME
+
+@app.route('/memory-game-upload', methods=['GET', 'POST'])
+def memory_game_upload():
+    return render_template('memory-game-saver.html')
+
+@app.route('/memory-game-saver', methods=['POST'])
+def save_memory_game():
+    data = request.get_json()
+    data_handler.save_memory_game(data["theme"], data["images"])
+    return jsonify('Success', 200)
+
+
+@app.route('/memory-game')
+def list_memory_games():
+    memory_games = data_handler.get_memory_games()
+    return render_template('game-types.html', games=memory_games)
+
+
+@app.route('/memory-game/<game_id>')
+def memory_game(game_id):
+    return render_template('memory-game.html', id=game_id)
+
+
+@app.route('/get-memory-game/<game_id>')
+def get_memory_game(game_id):
+    data = data_handler.get_memory_cards(game_id)
+    return jsonify(data)
+
+
+@app.route('/memory-solution-saver/<game_id>', methods=['POST'])
+def save_memory_solution(game_id):
+    solution_time = request.get_json()
+    data_handler.save_memory_game_solution(session['id'], game_id, solution_time)
+    return jsonify('Success', 200)
+
+
+
+@app.route('/matching-game-upload', methods=['GET', 'POST'])
+def matching_game_upload():
+    if request.method == 'POST':    # What if multiple amigos give the same theme? Folder path will be compromised, needs fix!
+        theme = request.form['theme']
+        word1 = request.form['word1']
+        word2 = request.form['word2']
+        word3 = request.form['word3']
+        word4 = request.form['word4']
+        word5 = request.form['word5']
+        word6 = request.form['word6']
+        # Saving image file to static/images/theme folder, and returning with the path + filename
+        image1 = util.get_image(request.files['img1'])
+        image2 = util.get_image(request.files['img2'])
+        image3 = util.get_image(request.files['img3'])
+        image4 = util.get_image(request.files['img4'])
+        image5 = util.get_image(request.files['img5'])
+        image6 = util.get_image(request.files['img6'])
+        # Inserting form data to database
+        data_handler.new_matching_exercise(theme, word1, word2, word3, word4, word5, word6, image1, image2, image3, image4,
+                                           image5, image6)
+        # Redirecting using the newly inserted row's id
+        id = data_handler.get_latest_matching_exercise_id()['id']
+        return redirect('/matching-game/' + str(id))
+    else:
+        return render_template('matching_upload.html')
+
+
+@app.route('/matching-game/<id>')
+def matching_game(id):
+    # Getting the data through row id
+    theme_and_images_and_words = data_handler.get_matching_exercise(id)
+    print(theme_and_images_and_words)
+    data = []
+    theme = theme_and_images_and_words[0]['theme']
+    for t in theme_and_images_and_words:
+        for i in range(1, 7):
+            data.append((t['image' + str(i)], t['word' + str(i)]))
+    print(data)
+    return render_template('matching_game.html', data=data, theme=theme)
+
 
 
 if __name__ == "__main__":
