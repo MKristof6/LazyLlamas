@@ -44,19 +44,6 @@ def login():
         return render_template('login.html')
 
 
-@app.route('/memory-game/<game_id>')
-def memory_game(game_id):
-    return render_template('memory-game.html')
-
-
-@app.route('/get-memory-game/<game_id>')
-def get_memory_game(game_id):
-    data = data_handler.get_memory_cards(game_id)
-    cards = []
-    for d in data:
-        for i in range(1, 7):
-            cards.append((d["image" + str(i)], d["text" + str(i)]))
-    return jsonify(cards)
 
 
 @app.route('/logout')
@@ -213,22 +200,51 @@ def comprehensive_reading():
 def filling_game():
     return 'Implementation in process.'
 
+#MEMORY GAME
+
+@app.route('/memory-game-upload', methods=['GET', 'POST'])
+def memory_game_upload():
+    return render_template('memory-game-saver.html')
+
+@app.route('/memory-game-saver', methods=['POST'])
+def save_memory_game():
+    data = request.get_json()
+    data_handler.save_memory_game(data["theme"], data["images"])
+    return jsonify('Success', 200)
+
+
+@app.route('/memory-game')
+def list_memory_games():
+    memory_games = data_handler.get_memory_games()
+    return render_template('game-types.html', games=memory_games)
+
+
+@app.route('/memory-game/<game_id>')
+def memory_game(game_id):
+    return render_template('memory-game.html')
+
+
+@app.route('/get-memory-game/<game_id>')
+def get_memory_game(game_id):
+    data = data_handler.get_memory_cards(game_id)
+    cards = []
+    for d in data:
+        for i in range(1, 7):
+            cards.append((d["image" + str(i)], d["text" + str(i)]))
+    return jsonify(cards)
+
 
 @app.route('/memory-solution-saver', methods=['POST'])
 def save_memory_solution():
     solution_time = request.get_json()
     data_handler.save_memory_game_solution(session['id'], 1, solution_time)
+    return jsonify('Success', 200)
 
 
 
-@app.route('/memory-game-saver', methods=['POST'])
-def save_memory_game():
-        data = request.get_json()
 
 
-@app.route('/memory-game-upload', methods=['GET', 'POST'])
-def memory_game_upload():
-    return render_template('memory-game-saver.html')
+
 
 @app.route('/matching-game-upload', methods=['GET', 'POST'])
 def matching_game_upload():

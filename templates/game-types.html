@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feladat témák</title>
+</head>
+<body>
+    {% for game in games %}
+    <div class="memory-game" id="memory-game/{{game.id}}">{{game.theme}}</div>
+    {%endfor%}
+</body>
+</html>

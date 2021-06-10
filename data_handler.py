@@ -110,17 +110,22 @@ def save_memory_game_solution(student_id, game_id, solution_time):
     """
     return connection.execute_dml_statement(query, {"student_id": student_id, "game_id": game_id, "solution_time": solution_time})
 
-def save_memory_game(theme, images, texts):
+
+def save_memory_game(theme, images):
     query = """
     INSERT INTO memory_game(theme, image1, text1, image2, text2, image3, text3, image4, text4, image5, text5, image6, text6)
-               VALUES(%(theme)s, %(image1)s, %(text1)s)
+               VALUES(%(theme)s, %(image1)s, %(text1)s, %(image2)s, %(text2)s, %(image3)s, %(text3)s, %(image4)s, %(text4)s, %(image5)s, %(text5)s, %(image6)s, %(text6)s)
     """
-    return connection.execute_dml_statement(query, {"theme": theme, "image1": images[0], "text1": texts[0], "image2": images[1], "text2": texts[1], "image3": images[2], "text3": texts[2], "image4": images[3], "text4": texts[3], "image5": images[4], "text5": texts[4], "image6": images[5], "text6": texts[5]})
+    return connection.execute_dml_statement(query, {"theme": theme, "image1": images[0]["image"],
+                                                    "text1": images[0]["text"], "image2": images[1]["image"], "text2": images[1]["text"],
+                                                    "image3": images[2]["image"], "text3": images[2]["text"], "image4": images[3]["image"],
+                                                    "text4": images[3]["text"], "image5": images[4]["image"], "text5": images[4]["text"],
+                                                    "image6": images[5]["image"], "text6": images[5]["text"]})
 
 
 
-def get_memory_game_themes():
+def get_memory_games():
     query ="""
-        SELECT theme FROM memory_game;
+        SELECT id, theme FROM memory_game;
     """
     return connection.execute_select(query)

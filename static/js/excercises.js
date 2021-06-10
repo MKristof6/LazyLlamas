@@ -1,7 +1,7 @@
-let memoryGameBtn = document.getElementById("memory-game");
-memoryGameBtn.addEventListener('click', redirect);
+let GameBtns = document.querySelectorAll('.excercise');
+GameBtns.forEach(item =>{item.addEventListener('click', redirect);})
 
 function redirect() {
-  window.location.href = "/memory-game";
+  window.location.href = `/${this.id}`;
 
 }
