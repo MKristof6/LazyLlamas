@@ -28,7 +28,7 @@ def get_latest_id():
 
 def get_listening_game_answer(id):
     query = """
-    SELECT * FROM listening_game
+    SELECT card_id, answer FROM listening_game
     WHERE id =%(question_id)s
     """
     return connection.execute_select(query, {'question_id':id})

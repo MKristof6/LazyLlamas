@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, session, request, flash
+from flask import Flask, render_template, url_for, redirect, session, request, flash, jsonify
 
 import data_handler
 import util
@@ -160,12 +160,17 @@ def sorting_game():
 
 @app.route('/listening-game')
 def listening_game():
-    question_id=1
+    return render_template('listening_game.html')
+
+@app.route('/listening-game/<question_id>')
+def get_data_for_listening_game(question_id):
+    print(question_id)
     answer = data_handler.get_listening_game_answer(question_id)
     print(answer)
     c_id = answer[0]['card_id']
     possibilities = data_handler.get_listening_game_possibilities(question_id, c_id)
-    return render_template('listening_game.html', answer=answer, possibilities=possibilities)
+    return jsonify(possibilities, answer)
+
 
 
 @app.route('/comprehensive-reading')
