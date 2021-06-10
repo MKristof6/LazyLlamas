@@ -134,22 +134,52 @@ CREATE TABLE one_answer_answer
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public.listening_game;
-CREATE TABLE listening_game
+
+
+
+
+DROP TABLE IF EXISTS listening_cards;
+DROP TABLE IF EXISTS public.listening_game_answer;
+DROP TABLE IF EXISTS public.listening_game_possibilities;
+
+CREATE TABLE listening_game_answer
 (
-    id            INT,
-    card_id       INT,
-    answer text
+    id     INT GENERATED ALWAYS AS IDENTITY,
+    answer text,
+    PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public.listening_game_possibilities;
+
+CREATE TABLE listening_cards
+(
+    id             INT GENERATED ALWAYS AS IDENTITY,
+    task_id      INT ,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE listening_game_possibilities
 (
-    id            INT,
-    card_id       INT,
-    possibilities text
-
+    id          INT GENERATED ALWAYS AS IDENTITY,
+    card_id     INT,
+    possibility text,
+    PRIMARY KEY (id)
 );
+
+
+ALTER TABLE listening_cards
+    ADD CONSTRAINT fk_answers FOREIGN KEY (task_id) REFERENCES listening_game_answer(id);
+
+ALTER TABLE listening_cards
+    ADD CONSTRAINT fk_possibility FOREIGN KEY (task_id) REFERENCES listening_game_possibilities(id);
+
+
+
+
+
+
+
+
+
 
 CREATE TABLE memory_game
 (
@@ -212,5 +242,6 @@ ALTER TABLE public.student
     ADD CONSTRAINT fk_languages FOREIGN KEY (id) REFERENCES student_languages (student_id),
 --     ADD CONSTRAINT fk_language_id FOREIGN KEY (language_id) REFERENCES language (id),
     ADD CONSTRAINT fk_pair_solution FOREIGN KEY (id) REFERENCES pair_solution (student_id);
+
 
 

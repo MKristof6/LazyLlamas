@@ -26,17 +26,12 @@ def get_latest_id():
     return connection.execute_select('SELECT id FROM student ORDER BY id DESC LIMIT 1', fetchall=False)
 
 
-def get_listening_game_answer(id):
-    query = """
-    SELECT card_id, answer FROM listening_game
-    WHERE id =%(question_id)s
-    """
-    return connection.execute_select(query, {'question_id':id})
-
-def get_listening_game_possibilities(question_id, c_id):
+def get_listening_game_data(game_id):
     query="""
-    SELECT * FROM listening_game_possibilities
-    WHERE id = %(question_id)s AND card_id = %(c_id)s
+    SELECT * FROM listening_game_answer
+    LEFT JOIN listening_cards ON listening_cards.id = listening_game_answer.id
+    LEFT JOIN listening_game_possibilities lgp on listening_cards.id = lgp.card_id
+    WHERE listening_cards.id = %(game_id)s
     """
-    return connection.execute_select(query, {'question_id':question_id, 'c_id':c_id})
+    return connection.execute_select(query, {'game_id': game_id})
 

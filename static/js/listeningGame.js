@@ -2,20 +2,18 @@ function get_data(question_id) {
     fetch(`/listening-game/${question_id}`)
         .then(response => response.json())
         .then(data => printData(data))
-        .then(error => console.log(error))
+        .then(error => console.log("Error: " + error))
 }
 
 
 function printData(data){
-    console.log("data[0]: " + data[0])
+    console.log("data[0]: " + data[0][1])
     console.log()
     console.log("data[1]: " + data[1])
     console.log()
     console.log("data[0][0]: " + data[0][0])
     for (let x of data){
-        for(let y of x){
-            console.log(y)
-        }
+            console.log("asd :" + x["card1_possibilities"])
     }
 }
 

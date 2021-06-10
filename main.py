@@ -162,15 +162,11 @@ def sorting_game():
 def listening_game():
     return render_template('listening_game.html')
 
-@app.route('/listening-game/<question_id>')
-def get_data_for_listening_game(question_id):
-    print(question_id)
-    answer = data_handler.get_listening_game_answer(question_id)
-    print(answer)
-    c_id = answer[0]['card_id']
-    possibilities = data_handler.get_listening_game_possibilities(question_id, c_id)
-    return jsonify(possibilities, answer)
 
+@app.route('/listening-game/<game_id>')
+def get_data_for_listening_game(game_id):
+    data = data_handler.get_listening_game_data(game_id)
+    return jsonify(data)
 
 
 @app.route('/comprehensive-reading')
