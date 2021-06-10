@@ -216,16 +216,15 @@ def filling_game():
 
 @app.route('/memory-solution-saver', methods=['POST'])
 def save_memory_solution():
-    solution = request.get_json()
-    print(solution)
-    return jsonify('Sucesss', 200)
+    solution_time = request.get_json()
+    data_handler.save_memory_game_solution(session['id'], 1, solution_time)
+    return jsonify('Success', 200)
 
 
 @app.route('/memory-game-saver', methods=['POST'])
 def save_memory_game():
-    data = request.get_json()
-    print(data)
-    return jsonify('Sucesss', 200)
+        data = request.get_json()
+        return jsonify('Sucss', 200)
 
 @app.route('/memory-game-upload', methods=['GET', 'POST'])
 def memory_game_upload():
