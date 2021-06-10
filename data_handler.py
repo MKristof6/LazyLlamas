@@ -27,11 +27,11 @@ def get_latest_id():
 
 
 def get_listening_game_data(game_id):
-    query="""
-    SELECT * FROM listening_game_answer
+    query = """
+    SELECT answer, possibility FROM listening_game_answer
     LEFT JOIN listening_cards ON listening_cards.id = listening_game_answer.id
     LEFT JOIN listening_game_possibilities lgp on listening_cards.id = lgp.card_id
-    WHERE listening_cards.id = %(game_id)s
+    WHERE listening_cards.task_id = %(game_id)s
     """
     return connection.execute_select(query, {'game_id': game_id})
 
