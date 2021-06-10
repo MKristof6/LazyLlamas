@@ -16,14 +16,14 @@ const memoryGame = {
                 <img src="${card[0]}" />
                 <p> ${card[1]}</p>
             </div>
-            <img class="back-face" src="../images/amigo_logo.png"/>
+            <img class="back-face" src="../static/images/amigo_logo.png"/>
         </div>
         <div class="memory-card"  data-framework="{{card[1]}}">
             <div class="front-face">
                 <img src="${card[0]}" />
                 <p> ${card[1]}}</p>
             </div>
-            <img class="back-face" src="../images/amigo_logo.png"/>
+            <img class="back-face" src="../static/images/amigo_logo.png"/>
         </div>`
         }
         gameUI.innerHTML = rows

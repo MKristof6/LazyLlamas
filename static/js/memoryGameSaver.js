@@ -17,30 +17,29 @@ function uploadData(){
         texts.push(item.value);
 
     })
-    uploader(imageUpload['files'][0], theme, texts);
+    constructData(imageUpload['files'][0], theme, texts);
 
 
 }
 
-function uploader(file, theme, texts) {
-       let reader = new FileReader();
+function constructData(file, theme, texts) {
+   let reader = new FileReader();
     reader.onload = function () {
-        base64String = reader.result.replace("data:"+ file.type +";base64,", '');
-        data.push(theme);
-        data.push(texts);
-        data.push(base64String);
-        saveData(data);
+    base64String = reader.result.replace("data:"+ file.type +";base64,", '');
+    data.push(theme);
+    data.push(texts);
+    data.push(base64String);
+    sendData(data);
     }
     reader.readAsDataURL(file);
 
 
 }
 
-function saveData(dat) {
-
+function sendData(gameData) {
          fetch('/memory-game-saver', {
                 method: "POST",
-                body: JSON.stringify(dat),
+                body: JSON.stringify(gameData),
                 headers: {"Content-type": "application/json; charset=UTF-8"}
             })
                 .then(response => response.json())
