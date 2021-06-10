@@ -153,7 +153,7 @@ CREATE TABLE listening_game_answer
 CREATE TABLE listening_cards
 (
     id             INT GENERATED ALWAYS AS IDENTITY,
-    task_id      INT ,
+    task_id      INT NOT NULL ,
     PRIMARY KEY (id)
 );
 
@@ -167,10 +167,10 @@ CREATE TABLE listening_game_possibilities
 
 
 ALTER TABLE listening_cards
-    ADD CONSTRAINT fk_answers FOREIGN KEY (task_id) REFERENCES listening_game_answer(id);
+    ADD CONSTRAINT fk_answers FOREIGN KEY (id) REFERENCES listening_game_answer(id);
 
 ALTER TABLE listening_cards
-    ADD CONSTRAINT fk_possibility FOREIGN KEY (task_id) REFERENCES listening_game_possibilities(id);
+    ADD CONSTRAINT fk_possibility FOREIGN KEY (id) REFERENCES listening_game_possibilities(id);
 
 
 

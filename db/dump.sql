@@ -15,12 +15,33 @@ INSERT INTO listening_game_answer(  answer) VALUES ( 'Lion');
 INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (1, 'Can');
 INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (1, 'Cat');
 INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (1, 'Cap');
+
 INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (2, 'dope');
 INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (2, 'dog');
 INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (2, 'dot');
 
-INSERT INTO listening_cards( task_id ) VALUES (1);
-INSERT INTO listening_cards(task_id)VALUES (2);
+INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (3, 'L');
+INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (3, 'Llama');
+INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (3, 'L');
+
+INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (4, 'G');
+INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (4, 'Giraffe');
+INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (4, 'G');
+
+INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (5, 'E');
+INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (5, 'Elephant');
+INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (5, 'E');
+
+INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (6, 'Li');
+INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (6, 'Lion');
+INSERT INTO listening_game_possibilities(card_id, possibility) VALUES (6, 'Li');
+
+INSERT INTO listening_cards(task_id) VALUES (1);
+INSERT INTO listening_cards(task_id)VALUES (1);
+INSERT INTO listening_cards(task_id)VALUES (1);
+INSERT INTO listening_cards(task_id)VALUES (1);
+INSERT INTO listening_cards(task_id)VALUES (1);
+INSERT INTO listening_cards(task_id)VALUES (1);
 
 
 
