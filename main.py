@@ -130,7 +130,7 @@ def home():
 
 @app.route('/my_exercises')
 def my_exercises():
-    return render_template('excercises.html')
+    return render_template('exercises.html')
 
 
 # Route for accessing user profile
