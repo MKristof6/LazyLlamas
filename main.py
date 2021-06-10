@@ -1,6 +1,4 @@
-
 from flask import Flask, render_template, url_for, redirect, session, request, flash, jsonify, make_response
-
 
 import data_handler
 import util
@@ -48,7 +46,6 @@ def login():
         return render_template('login.html')
 
 
-
 @app.route('/memory-game')
 def memory_game():
     data = data_handler.get_memory_cards(1)
@@ -57,7 +54,6 @@ def memory_game():
         for i in range(1, 7):
             cards.append((d["filename" + str(i)], d["text" + str(i)]))
     return render_template('memory-game.html', cards=cards)
-
 
 
 @app.route('/logout')
@@ -220,10 +216,10 @@ def sorting_game(id):
     words = data_handler.get_sorting_exercise(id)['words']
     return render_template('sorting_game.html', themes=themes, words=words)
 
-@app.route('/sorting-game')
-def sorting_game():
-    return 'Implementation in process.'
 
+@app.route('/sorting-games')
+def sorting_games():
+    return 'Implementation in process.'
 
 
 @app.route('/listening-game')
@@ -240,11 +236,13 @@ def comprehensive_reading():
 def filling_game():
     return 'Implementation in process.'
 
-#MEMORY GAME
+
+# MEMORY GAME
 
 @app.route('/memory-game-upload', methods=['GET', 'POST'])
 def memory_game_upload():
     return render_template('memory-game-saver.html')
+
 
 @app.route('/memory-game-saver', methods=['POST'])
 def save_memory_game():
@@ -253,14 +251,14 @@ def save_memory_game():
     return jsonify('Success', 200)
 
 
-@app.route('/memory-game')
+@app.route('/memory-games')
 def list_memory_games():
     memory_games = data_handler.get_memory_games()
     return render_template('game-types.html', games=memory_games)
 
 
 @app.route('/memory-game/<game_id>')
-def memory_game(game_id):
+def memory_game_with_id(game_id):
     return render_template('memory-game.html', id=game_id)
 
 
@@ -277,10 +275,9 @@ def save_memory_solution(game_id):
     return jsonify('Success', 200)
 
 
-
 @app.route('/matching-game-upload', methods=['GET', 'POST'])
 def matching_game_upload():
-    if request.method == 'POST':    # What if multiple amigos give the same theme? Folder path will be compromised, needs fix!
+    if request.method == 'POST':  # What if multiple amigos give the same theme? Folder path will be compromised, needs fix!
         theme = request.form['theme']
         word1 = request.form['word1']
         word2 = request.form['word2']
@@ -296,7 +293,8 @@ def matching_game_upload():
         image5 = util.get_image(request.files['img5'])
         image6 = util.get_image(request.files['img6'])
         # Inserting form data to database
-        data_handler.new_matching_exercise(theme, word1, word2, word3, word4, word5, word6, image1, image2, image3, image4,
+        data_handler.new_matching_exercise(theme, word1, word2, word3, word4, word5, word6, image1, image2, image3,
+                                           image4,
                                            image5, image6)
         # Redirecting using the newly inserted row's id
         id = data_handler.get_latest_matching_exercise_id()['id']
@@ -306,18 +304,15 @@ def matching_game_upload():
 
 
 @app.route('/matching-game/<id>')
-def matching_game(id):
+def matching_game_with_id(id):
     # Getting the data through row id
     theme_and_images_and_words = data_handler.get_matching_exercise(id)
-    print(theme_and_images_and_words)
     data = []
-    theme = theme_and_images_and_words[0]['theme']
+    theme = theme_and_images_and_words['theme']
     for t in theme_and_images_and_words:
         for i in range(1, 7):
             data.append((t['image' + str(i)], t['word' + str(i)]))
-    print(data)
     return render_template('matching_game.html', data=data, theme=theme)
-
 
 
 if __name__ == "__main__":

@@ -22,7 +22,7 @@ function checkWordAvailability(word) {
 }function checkThemeAvailability(theme) {
     let container = THEMES;
     for (let i = 0; i < container.length; i++) {
-        if (container[i].textContent === theme) {
+        if (container[i].textContent === theme && theme !== '') {
             alert('Már létezik ilyen szó!');
             return false;
         }
