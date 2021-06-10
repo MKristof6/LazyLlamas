@@ -1,4 +1,4 @@
-let GameBtns = document.querySelectorAll('.excercise');
+let GameBtns = document.querySelectorAll('.exercise');
 GameBtns.forEach(item =>{item.addEventListener('click', redirect);})
 
 function redirect() {
