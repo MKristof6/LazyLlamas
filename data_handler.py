@@ -88,3 +88,9 @@ def get_student_languages(student_id):
 def new_sorting_exercise(themes, words):
     query = 'INSERT INTO sorting_game(themes, words) VALUES (%(themes)s, %(words)s)'
     return connection.execute_dml_statement(query, {"themes": themes, "words": words})
+
+
+def get_sorting_exercise(id):
+    query = 'SELECT themes, words FROM sorting_game WHERE id=%(id)s;'
+    return connection.execute_select(query, {"id": id}, fetchall=False)
+

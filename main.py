@@ -210,6 +210,13 @@ def sorting_game_upload():
     return render_template('sorting_game_upload.html')
 
 
+@app.route('/sorting-game/<id>')
+def sorting_game(id):
+    themes = data_handler.get_sorting_exercise(id)['themes']
+    words = data_handler.get_sorting_exercise(id)['words']
+    return render_template('sorting_game.html', themes=themes, words=words)
+
+
 @app.route('/listening-game')
 def listening_game():
     return 'Implementation in process.'
