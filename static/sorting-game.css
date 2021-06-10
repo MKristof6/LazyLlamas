@@ -100,6 +100,7 @@ p.words {
 #theme-adder {
     width: 300px;
     height: 250px;
+    outline: none;
     border-radius: 20%;
     text-align: center;
     font-family: "Amatic SC", sans-serif;
@@ -107,6 +108,9 @@ p.words {
     background: #993166;
     margin-top: 80px;
     margin-left: 180px;
+}
+#word-source {
+    border: solid 1px #993166;
 }
 
 #word-source::placeholder {
@@ -117,3 +121,5 @@ p.words {
     opacity: 0.5;
     border: 3px solid #993166;
 }
+
+

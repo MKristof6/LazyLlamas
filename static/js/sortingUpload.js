@@ -1,26 +1,54 @@
-const WORD_ADDER = document.getElementById('word-adder');
+const WORD_ADDER = document.getElementById('word-source');
 const THEMES = document.querySelectorAll('.theme-card');
 let THEME_ADDER = document.getElementById('theme-adder');
 const SAVE_THEME = document.getElementById('theme-button');
 let DATA = {};
 
-function insertWord() { //
+function removeIfEmpty(e) {
+    if (e.target.value === '') e.target.remove();
+}
+
+function checkWordAvailability(word) {
+    let container = document.querySelectorAll('.to-add');
+    for (let i = 0; i < container.length; i++) {
+        if (container[i].value === word) {
+            alert('Már létezik ilyen szó!'); //TODO: replace alert with alternate method because textarea focusout glitch
+            return false;
+        }
+    }
+    return true;
+
+
+}function checkThemeAvailability(theme) {
+    let container = THEMES;
+    for (let i = 0; i < container.length; i++) {
+        if (container[i].textContent === theme) {
+            alert('Már létezik ilyen szó!');
+            return false;
+        }
+    }
+    return true;
+}
+
+function insertWord() {
     const target = document.getElementById('word-form');
-    let source = document.getElementById('word-source');
-    source.placeholder = '';
-    if (source.value !== '') {
-        let toInsert = `<input class="words to-add" type="text" value="${source.value}" disabled>`;
+    let source = WORD_ADDER;
+    source.placeholder = 'Írj ide';
+
+    if (checkWordAvailability(source.value) && source.value !== '') {
+        let toInsert = `<input class="words to-add" type="text" value="${source.value}">`;
         source.value = '';
         target.insertAdjacentHTML('beforeend', toInsert);
     }
+    document.querySelectorAll('.to-add').forEach(word => word.addEventListener('change', removeIfEmpty));
 }
 
-WORD_ADDER.addEventListener('click', insertWord);
+WORD_ADDER.addEventListener('focusout', insertWord);
 
 function insertIntoEmptyDiv() { //inserts given user input only if there is available empty card
     const text = THEME_ADDER.value;
     for (let theme of THEMES) {
-        if (theme.textContent === '') {
+        if (checkThemeAvailability(text) && theme.textContent === '') {
             theme.textContent = text;
             THEME_ADDER.value = "Új téma hozzáadása";
             addThemeListener();
@@ -47,7 +75,7 @@ function styleThemeAdder() { //Failed to color it in css, JS solution works howe
 
 addThemeListener();
 
- function postData() {
+function postData() {
     fetch('/upload-words', {
         method: 'POST',
         headers: {
@@ -62,7 +90,7 @@ function getAllData() {
     let themes = [];
     let words = [];
     THEMES.forEach(theme => {
-         if (theme.textContent !== "Új téma hozzáadása" && theme.textContent !== "") themes.push(theme.textContent);
+        if (theme.textContent !== "Új téma hozzáadása" && theme.textContent !== "") themes.push(theme.textContent);
     });
     document.querySelectorAll('.to-add').forEach(word => words.push(word.value));
     DATA['themes'] = themes;
