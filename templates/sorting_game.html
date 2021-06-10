@@ -9,16 +9,17 @@
 {% endblock %}
 {% block content %}
 <div class="container">
-    <div class="word-container">
+    <div class="word-container droppable">
         {% for word in words %}
-        <p class="words" draggable="true">{{ word }}</p>
+        <p class="words draggable" draggable="true">{{ word }}</p>
         {% endfor %}
     </div>
 
     <div class="theme-container">
         {% for theme in themes %}
-        <div class="theme-card">{{ theme }}</div>
+        <div class="theme-card droppable">{{ theme }}</div>
         {% endfor %}
+        <p class="submit">Beküldés</p>
     </div>
 </div>
 {% endblock %}

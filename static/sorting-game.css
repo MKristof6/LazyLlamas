@@ -77,12 +77,13 @@ p.words {
     align-content: center;
     font-size: large;
     color: white;
-    /*margin: 10px;*/
+    margin: 10px;
     width: 80px;
     height: 28px;
     box-shadow: none;
     border-radius: 15px;
     background: #8BBF58;
+    font-family: "Lato", sans-serif;
 }
 
 .borderless {
@@ -110,4 +111,9 @@ p.words {
 
 #word-source::placeholder {
     color: white;
+}
+
+.dragging {
+    opacity: 0.5;
+    border: 3px solid #993166;
 }
