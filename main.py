@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, session, request, flash, jsonify
+from flask import Flask, render_template, url_for, redirect, session, request, flash, jsonify, make_response
 
 import data_handler
 import util
@@ -218,6 +218,7 @@ def filling_game():
 def save_memory_solution():
     solution_time = request.get_json()
     data_handler.save_memory_game_solution(session['id'], 1, solution_time)
+    return make_response("ok", 200);
 
 
 

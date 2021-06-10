@@ -1,3 +1,5 @@
+import { stopCheck } from "./stopper.js";
+
 const memoryGame = {
     getData: function (route, callback) {
         fetch(route)
@@ -55,6 +57,7 @@ function logic(){
         hasFlippedCard = false;
         secondCard = this;
         checkForMatch();
+        stopCheck.stop();
     }
 
     function checkForMatch() {
