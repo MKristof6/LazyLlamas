@@ -47,6 +47,17 @@ function styleThemeAdder() { //Failed to color it in css, JS solution works howe
 
 addThemeListener();
 
+ function postData() {
+    fetch('/upload-words', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(DATA)
+    }).then(r => console.log(r));
+}
+
 function getAllData() {
     let themes = [];
     let words = [];
@@ -56,6 +67,7 @@ function getAllData() {
     document.querySelectorAll('.to-add').forEach(word => words.push(word.value));
     DATA['themes'] = themes;
     DATA['words'] = words;
+    postData().then(r => console.log(r));
 }
 
 SAVE_THEME.addEventListener('click', getAllData);

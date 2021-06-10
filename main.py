@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, session, request, flash
+from flask import Flask, render_template, url_for, redirect, session, request, flash, jsonify
 
 import data_handler
 import util
@@ -32,7 +32,7 @@ def login():
                 # Verify password
                 if util.verify_pw(session['pw'], user['password']):
                     return redirect(url_for('home'))
-        #Check if user is a student
+        # Check if user is a student
         for user in students:
             if session['email'] == user['email']:
                 session['amigo'] = False
@@ -52,7 +52,7 @@ def memory_game():
     cards = []
     for d in data:
         for i in range(1, 7):
-            cards.append((d["filename"+str(i)], d["text"+str(i)]))
+            cards.append((d["filename" + str(i)], d["text" + str(i)]))
     return render_template('memory-game.html', cards=cards)
 
 
@@ -65,10 +65,10 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.args:
-        #Check if user is trying to register as amigo
+        # Check if user is trying to register as amigo
         amigo = int(request.args.get('amigo'))
     else:
-        #Ha nem amigo, akkor lesz 1 az amigo változó?
+        # Ha nem amigo, akkor lesz 1 az amigo változó?
         amigo = 1
     if request.method == 'POST':
         error = None
@@ -152,24 +152,26 @@ def profile():
         amigo = data_handler.get_amigo(session['id'])
         # Update data if modifying post request was sent
         if request.method == 'POST':
-            data_handler.update_amigo(request.form['name'], request.form['birthday'], request.form['email'], session['id'])
+            data_handler.update_amigo(request.form['name'], request.form['birthday'], request.form['email'],
+                                      session['id'])
         else:
             return render_template('amigo-profile.html', amigo=amigo)
     else:
-         # Get the user data by student id
+        # Get the user data by student id
         student = data_handler.get_student(session['id'])
-         #Get studied languages by student id
+        # Get studied languages by student id
         languages = data_handler.get_student_languages(session['id'])
         # Update data if modifying post request was sent
         if request.method == 'POST':
-            data_handler.update_student(request.form['name'], request.form['email'], request.form['birthday'], session['id'])
+            data_handler.update_student(request.form['name'], request.form['email'], request.form['birthday'],
+                                        session['id'])
             student = data_handler.get_student(session['id'])
             return render_template('student-profile.html', student=student, languages=languages)
         else:
             return render_template('student-profile.html', student=student, languages=languages)
 
 
-@app.route('/new_exercise')
+@app.route('/new-exercise')
 def new_exercise():
     return 'Implementation in process.'
 
@@ -196,8 +198,11 @@ def matching_game():
 
 @app.route('/upload-words', methods=['POST'])
 def upload_words():
-    words = request.json()
-    # data_handler.
+    data = request.get_json()
+    themes = data['themes']
+    words = data['words']
+    data_handler.new_sorting_exercise(themes, words)
+    return jsonify(data)
 
 
 @app.route('/sorting-game-upload')

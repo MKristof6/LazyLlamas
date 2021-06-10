@@ -27,6 +27,8 @@ DROP TABLE IF EXISTS public.word_pair;
 DROP TABLE IF EXISTS public.one_answer_answer;
 DROP TABLE IF EXISTS public.multiple_answer_answer;
 DROP TABLE IF EXISTS public.memory_game;
+DROP TABLE IF EXISTS public.sorting_game;
+
 
 
 
@@ -156,6 +158,13 @@ CREATE TABLE memory_game
     filename6 text NOT NULL,
     text6     text,
     PRIMARY KEY (id)
+);
+
+CREATE TABLE sorting_game(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  themes TEXT[],
+  words TEXT[],
+  PRIMARY KEY (id)
 );
 
 INSERT INTO memory_game(filename1, text1, filename2, text2, filename3, text3, filename4, text4, filename5, text5, filename6, text6)

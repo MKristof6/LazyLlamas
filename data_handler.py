@@ -1,5 +1,4 @@
 import connection
-from psycopg2._psycopg import AsIs
 
 
 def get_amigos():
@@ -42,11 +41,12 @@ def get_latest_id():
 
 
 def get_memory_cards(game_number):
-    query="""
+    query = """
     SELECT * FROM memory_game
     WHERE id = 1
     """
     return connection.execute_select(query)
+
 
 def get_amigo(amigo_id):
     query = """ SELECT * FROM amigo
@@ -64,7 +64,7 @@ def get_student(student_id):
 def update_amigo(name, email, birthday, id):
     query = """ UPDATE amigo
             SET name = %(name)s, email = %(email)s
-            WHERE id = %(id)s
+            WHERE id = %(id)s;
     """
     return connection.execute_dml_statement(query, {"name": name, "email": email, "birthday": birthday, "id": id})
 
@@ -72,7 +72,7 @@ def update_amigo(name, email, birthday, id):
 def update_student(name, email, birthday, id):
     query = """ UPDATE student
             SET name = %(name)s, email = %(email)s, birthday = %(birthday)s
-            WHERE id = %(id)s
+            WHERE id = %(id)s;
     """
     return connection.execute_dml_statement(query, {"name": name, "email": email, "birthday": birthday, "id": id})
 
@@ -80,8 +80,11 @@ def update_student(name, email, birthday, id):
 def get_student_languages(student_id):
     query = """ SELECT string_agg(DISTINCT l.name, ', ') as languages FROM student
                 INNER JOIN student_languages sl on student.id = sl.student_id
-                INNER JOIN language l on sl.language_id=l.id
-                
-                ;
+                INNER JOIN language l on sl.language_id=l.id;
     """
     return connection.execute_select(query, {"student_id": student_id}, fetchall=False)
+
+
+def new_sorting_exercise(themes, words):
+    query = 'INSERT INTO sorting_game(themes, words) VALUES (%(themes)s, %(words)s)'
+    return connection.execute_dml_statement(query, {"themes": themes, "words": words})
