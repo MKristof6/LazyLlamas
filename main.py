@@ -221,28 +221,20 @@ def list_memory_games():
 
 @app.route('/memory-game/<game_id>')
 def memory_game(game_id):
-    return render_template('memory-game.html')
+    return render_template('memory-game.html', id=game_id)
 
 
 @app.route('/get-memory-game/<game_id>')
 def get_memory_game(game_id):
     data = data_handler.get_memory_cards(game_id)
-    cards = []
-    for d in data:
-        for i in range(1, 7):
-            cards.append((d["image" + str(i)], d["text" + str(i)]))
-    return jsonify(cards)
+    return jsonify(data)
 
 
-@app.route('/memory-solution-saver', methods=['POST'])
-def save_memory_solution():
+@app.route('/memory-solution-saver/<game_id>', methods=['POST'])
+def save_memory_solution(game_id):
     solution_time = request.get_json()
-    data_handler.save_memory_game_solution(session['id'], 1, solution_time)
+    data_handler.save_memory_game_solution(session['id'], game_id, solution_time)
     return jsonify('Success', 200)
-
-
-
-
 
 
 

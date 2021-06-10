@@ -41,7 +41,7 @@ function imageUploader(file, text) {
 }
 
 function saveData(data) {
-         fetch('/memory-game-saver', {
+         fetch('/memory-game-saver/', {
                 method: "POST",
                 body: JSON.stringify(data),
                 headers: {"Content-type": "application/json; charset=UTF-8"}

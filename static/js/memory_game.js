@@ -1,27 +1,29 @@
+let gameId = document.querySelector(".memory-game").id
+let numberOfCards = 6;
 const memoryGame = {
     getData: function (route, callback) {
         fetch(route)
             .then(response => response.json())
-            .then(data => callback(data))
+            .then(data => this.showData(data[0]))
 
     },
 
     showData: function (cards) {
         let gameUI = document.querySelector('.memory-game');
         let rows = ''
-        for (let card of cards) {
+        for (let i=1; i<=numberOfCards; i++) {
             rows += `   
-        <div class="memory-card"  data-framework="${card[1]}">
+        <div class="memory-card"  data-framework="${cards[`text${i}`]}">
             <div class="front-face">
-                <img src="${card[0]}" />
-                <p> ${card[1]}</p>
+                <img src="data:image/png;base64,${cards[`image${i}`]}" />
+                <p> ${cards[`text${i}`]}</p>
             </div>
             <img class="back-face" src="../static/images/amigo_logo.png"/>
         </div>
-        <div class="memory-card"  data-framework="${card[1]}">
+        <div class="memory-card"  data-framework="${cards[`text${i}`]}">
             <div class="front-face">
-                <img src="${card[0]}" />
-                <p> ${card[1]}</p>
+                <img src="data:image/png;base64,${cards[`image${i}`]}" />
+                <p> ${cards[`text${i}`]}</p>
             </div>
             <img class="back-face" src="../static/images/amigo_logo.png"/>
         </div>`
@@ -94,7 +96,7 @@ function logic(){
 }
 
 function init() {
-    memoryGame.getData('/get-memory-game/1', memoryGame.showData);
+    memoryGame.getData(`/get-memory-game/${gameId}`, memoryGame.showData);
 }
 
 init();
