@@ -83,7 +83,9 @@ function postData() {
             'Accept': 'application/json'
         },
         body: JSON.stringify(DATA)
-    }).then(r => console.log(r));
+    }).then(r => {
+        if (r.status === 200) window.location = '/';
+    });
 }
 
 function getAllData() {
@@ -95,7 +97,7 @@ function getAllData() {
     document.querySelectorAll('.to-add').forEach(word => words.push(word.value));
     DATA['themes'] = themes;
     DATA['words'] = words;
-    postData().then(r => console.log(r));
+    postData();
 }
 
 SAVE_THEME.addEventListener('click', getAllData);
