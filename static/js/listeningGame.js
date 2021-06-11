@@ -6,15 +6,6 @@ function get_data(question_id) {
 }
 
 
-function printData(data){
-    console.log("data[0]: " + data[0]["answer"])
-    for (let x of data){
-            console.log("asd :" + x["answer"])
-
-    }
-}
-
-
 function getElements(data) {
     elements = ``
 
@@ -25,11 +16,17 @@ function getElements(data) {
         elements += `
             <div class="card">
                 <input type="image" id="speak" value="${element['answer']}" src="./static/images/play.png"
-                    draggable="false"   >
+                    draggable="false"  class="answer" >
+                <div class="asd">
                 <div class="possibilities">
-                    <p>${element["possibility"]}</p>
-                    <p>${element["possibility"]}</p>
-                    <p>${element["possibility"]}</p>
+                    <p>${element["possibilities"][0]}</p>
+                   </div>
+                    <div class="possibilities">
+                    <p>${element["possibilities"][1]}</p>
+                    </div>
+                    <div class="possibilities">
+                    <p>${element["possibilities"][2]}</p>
+                </div>
                 </div>
             </div>
     `
@@ -38,27 +35,22 @@ function getElements(data) {
 
 }
 
-// onclick="responsiveVoice.speak(textSpeak())
-
 function showElements(elements) {
     let container = document.getElementById("container")
-    container.innerHTML=elements
+    container.innerHTML = elements
     init()
 
 }
 
 
-function textSpeak() {
-    responsiveVoice.speak(document.getElementById("speak").value);
-}
-
-
 function init() {
-    let button = document.getElementById('speak')
-    button.addEventListener("click", e => {
-        console.log(e.target.value)
-    });
-
+    let buttons = document.querySelectorAll('.answer')
+    for (let button of buttons) {
+        button.addEventListener("click", e => {
+            let answer = e.target.value
+            responsiveVoice.speak(answer);
+        });
+    }
 }
 
 get_data(1)
