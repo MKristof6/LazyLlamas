@@ -1,3 +1,5 @@
+let gameId = document.querySelector(".memory-game").id
+
 let seconds = 0;
 let minutes = 0;
 
@@ -60,14 +62,13 @@ export let stopCheck = {
         if (isComplete) {
             window.clearInterval(interval);
             time = document.getElementById("stopper-display").innerHTML
-            fetch('/memory-solution-saver', {
+            fetch(`/memory-solution-saver/${gameId}`, {
                 method: "POST",
                 body: JSON.stringify(countSeconds(time)),
                 headers: {"Content-type": "application/json; charset=UTF-8"}
             })
                 .then(response => response.json())
                 .then(json => console.log(json))
-                .catch(err => console.log(err));
         }
     }
 }
