@@ -18,7 +18,7 @@
 
 {% elif session['amigo'] %}
 <div class="student-card column exercise-change">
-    <h2>Új feladat</h2>
+   <a class="blacklink" href="{{url_for('new_exercise')}}"><h2>Új feladat</h2></a>
 </div>
 <div class="student-card column exercise-change">
     <a class="blacklink" href="{{url_for('exercises')}}"><h2>Feladatok</h2></a>

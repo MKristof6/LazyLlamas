@@ -1,58 +1,29 @@
-{% extends 'template.html' %}
-{% block title %} Párosítás {% endblock %}
-{% block head %}
-<meta charset="UTF-8">
-<link rel="stylesheet" href="../static/matching-game.css"/>
-<link rel="stylesheet" href="../static/memory-game.css"/>
-<link href='https://fonts.googleapis.com/css?family=Amatic SC' rel='stylesheet'>
-<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
-<script src="/static/js/matchingGame.js"></script>
-{% endblock %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Memória játék feltöltés</title>
+    <script src="../static/js/matchingGameSaver.js" defer></script>
+</head>
+<body>
 <div class="circle1"></div>
 <div class="circle2"></div>
 <div class="form-container">
-    <form action="/matching-game-upload" method="post" enctype="multipart/form-data" id="form">
-        <label for="theme">Téma: </label>
-        <input id="theme" name="theme" type="text" required><br><br>
+<label for="language"> Nyelv: </label>
+<input type="text" id="language" name="language"><br><br>
+<label for="theme"> Téma: </label>
+<input type="text" id="theme" name="theme"><br><br>
 
-        <label for="word1">Szó</label>
-        <input id="word1" type="text" maxlength="15" name="word1" required>
+{% for n in range(6) %}
+<label for="fileId"> Kép: </label>
+<input type="file" name="" id="fileId" class="image"><br><br>
+<label for="text"> Szöveg: </label>
+<input type="text" id="text" class="text" name="text"><br><br>
 
-        <label for="img1">Kép kiválasztása</label>
-        <input id="img1" type="file" name="img1" accept="image/png, image/jpg"><br>
-
-        <label for="word2">Szó</label>
-        <input id="word2" type="text" maxlength="15" name="word2" required>
-
-        <label for="img2">Kép kiválasztása</label>
-        <input id="img2" type="file" name="img2" accept="image/png, image/jpg"><br>
-
-        <label for="word3">Szó</label>
-        <input id="word3" type="text" maxlength="15" name="word3" required>
-
-        <label for="img3">Kép kiválasztása</label>
-        <input id="img3" type="file" name="img3" accept="image/png, image/jpg"><br>
-
-        <label for="word4">Szó</label>
-        <input id="word4" type="text" maxlength="15" name="word4" required>
-
-        <label for="img4">Kép kiválasztása</label>
-        <input id="img4" type="file" name="img4" accept="image/png, image/jpg"><br>
-
-        <label for="word5">Szó</label>
-        <input id="word5" type="text" maxlength="15" name="word5" required>
-
-        <label for="img5">Kép kiválasztása</label>
-        <input id="img5" type="file" name="img5" accept="image/png, image/jpg"><br>
-
-        <label for="word6">Szó</label>
-        <input id="word6" type="text" maxlength="15" name="word6" required>
-
-        <label for="img6">Kép kiválasztása</label>
-        <input id="img6" type="file" name="img6" accept="image/png, image/jpg"><br>
-        <input type="submit" id="submit" value="Feltöltés">
-    </form>
-    <br>
+{% endfor %}
+<button id="save">
+   Mentés
+</button>
 </div>
-{% endblock %}
+</body>
+</html>

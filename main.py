@@ -164,7 +164,7 @@ def profile():
 
 @app.route('/new_exercise')
 def new_exercise():
-    return 'Implementation in process.'
+    return render_template("new_exercises.html")
 
 
 @app.route('/solutions')
@@ -232,21 +232,26 @@ def filling_game():
 
 @app.route('/memory-game-upload', methods=['GET', 'POST'])
 def memory_game_upload():
-    return render_template('memory-game-saver.html')
-
-
-@app.route('/memory-game-saver', methods=['POST'])
-def save_memory_game():
-    data = request.get_json()
-    data_handler.save_memory_game(data["theme"], data["images"])
-    return jsonify('Success', 200)
+    if request.method == 'POST':
+        data = request.get_json()
+        data_handler.save_memory_game(data["language"], data["theme"], data["images"])
+        return jsonify('Success', 200)
+    else:
+        return render_template('memory-game-saver.html')
 
 
 @app.route('/memory-games')
 def list_memory_games():
+    exercise = "memory-game"
     memory_games = data_handler.get_memory_games()
-    return render_template('game-types.html', games=memory_games)
+    return render_template('game-types.html', games=memory_games, exercise=exercise)
 
+
+@app.route('/matching-games')
+def list_matching_games():
+    exercise = "matching-game"
+    matching_games = data_handler.get_matching_games()
+    return render_template('game-types.html', games=matching_games, exercise=exercise)
 
 @app.route('/memory-game/<game_id>')
 def memory_game_with_id(game_id):
@@ -268,34 +273,24 @@ def save_memory_solution(game_id):
 
 @app.route('/matching-game-upload', methods=['GET', 'POST'])
 def matching_game_upload():
-    if request.method == 'POST':  # What if multiple amigos give the same theme? Folder path will be compromised, needs fix!
-        theme = request.form['theme']
-        word1 = request.form['word1']
-        word2 = request.form['word2']
-        word3 = request.form['word3']
-        word4 = request.form['word4']
-        word5 = request.form['word5']
-        word6 = request.form['word6']
-        # Saving image file to static/images/theme folder, and returning with the path + filename
-        image1 = util.get_image(request.files['img1'])
-        image2 = util.get_image(request.files['img2'])
-        image3 = util.get_image(request.files['img3'])
-        image4 = util.get_image(request.files['img4'])
-        image5 = util.get_image(request.files['img5'])
-        image6 = util.get_image(request.files['img6'])
-        # Inserting form data to database
-        data_handler.new_matching_exercise(theme, word1, word2, word3, word4, word5, word6, image1, image2, image3,
-                                           image4,
-                                           image5, image6)
-        # Redirecting using the newly inserted row's id
-        id = data_handler.get_latest_matching_exercise_id()['id']
-        return redirect('/matching-game/' + str(id))
+    if request.method == 'POST':
+        data = request.get_json()
+        data_handler.save_matching_game(data["language"], data["theme"], data["images"])
+        return jsonify('Success', 200)
     else:
         return render_template('matching_upload.html')
 
+@app.route('/get-matching-game/<game_id>')
+def get_memory_game(game_id):
+    data = data_handler.get_matching_game(game_id)
+    return jsonify(data)
 
-@app.route('/matching-game/<id>')
-def matching_game_with_id(id):
+@app.route('/matching-game/<game_id>')
+def matching_game_with_id(game_id):
+    return render_template('matching-game.html', game_id=game_id)
+
+
+
     # Getting the data through row id
     theme_and_images_and_words = data_handler.get_matching_exercise(id)
     data = []
