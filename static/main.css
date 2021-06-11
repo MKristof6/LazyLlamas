@@ -68,9 +68,24 @@ body {
     text-align: center;
 }
 
+.asd{
+     display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+.answer{
+    width: 100px;
+
+}
+
+
 .card {
     position: relative;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin-bottom: 20px;
     padding: 24px;
     border-radius: 20px;
