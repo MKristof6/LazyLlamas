@@ -7,11 +7,6 @@ app = Flask("amigo")
 app.secret_key = b'_5#z2L"F7Q8q\n\xec]/'
 
 
-@app.route('/speech')
-def speech():
-    return render_template('speech.html')
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     teachers = data_handler.get_teachers()
