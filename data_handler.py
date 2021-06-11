@@ -49,7 +49,7 @@ def new_matching_exercise(theme, word1, word2, word3, word4, word5, word6, image
 
 def get_matching_exercise(id):
     query = """SELECT theme, word1, image1, word2, image2, word3, image3, word4, image4, word5, image5, word6, image6 FROM matching_exercise WHERE id = %(id)s"""
-    return connection.execute_select(query, {"id": id}, fetchall=False)
+    return connection.execute_select(query, {"id": id})
 
 
 def get_latest_matching_exercise_id():

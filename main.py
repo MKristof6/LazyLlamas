@@ -308,7 +308,7 @@ def matching_game_with_id(id):
     # Getting the data through row id
     theme_and_images_and_words = data_handler.get_matching_exercise(id)
     data = []
-    theme = theme_and_images_and_words['theme']
+    theme = theme_and_images_and_words[0]['theme']
     for t in theme_and_images_and_words:
         for i in range(1, 7):
             data.append((t['image' + str(i)], t['word' + str(i)]))
