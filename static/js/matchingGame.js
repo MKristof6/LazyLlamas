@@ -18,7 +18,7 @@ const matchingGame = {
         for (let i = 1; i <= numberOfCards; i++) {
             wordList += `<li class="words-to-match" id="${cards[`text${i}`]}">${cards[`text${i}`]}</li>`;
             imageList += `
-            <div id="${cards[`text${i}`]}" class="flashcard-container">
+            <div class="flashcard-container">
             <img class="flashcard images-to-match" src="data:image/png;base64,${cards[`image${i}`]}" data-word="${cards[`text${i}`]}">
             </div>
             `
@@ -34,69 +34,55 @@ const matchingGame = {
 function logic() {
     let WORDS = document.querySelectorAll('.words-to-match');
     let IMAGES = document.querySelectorAll('.images-to-match');
-    let CHOSEN_WORD;
-    let CHOSEN_IMAGE;
-    let TARGET_DIV;
-
-    setup();
+    let hasChosenWord = false;
+    let hasChosenImage = false;
+    let CHOSEN_WORD, CHOSEN_IMAGE;
 
     function setup() {
         //Blocking right clicks
         WORDS.forEach(word => word.addEventListener('contextmenu', event => event.preventDefault()));
         IMAGES.forEach(image => image.addEventListener('contextmenu', event => event.preventDefault()));
-        IMAGES.forEach(word => word.addEventListener('click', chooseImage));
+        IMAGES.forEach(image => image.addEventListener('click', chooseImage));
         WORDS.forEach(word => word.addEventListener('click', chooseWord));
     }
 
-    function disableEverything() {
-        disableImages();
-        disableWords();
-    }
+    setup();
 
-    function disableImages() {
-        IMAGES.forEach(image => image.removeEventListener('click', chooseImage));
-    }
 
-    function disableWords() {
-        WORDS.forEach(word => word.removeEventListener('click', chooseWord));
-    }
-
-    function chooseWord(e) { //Changing chosen word's color to green
-        e.target.classList.add('marked-purple');
-        e.target.addEventListener('click', deactivateWord);
-        CHOSEN_WORD = e.target.id.toLowerCase();
-        disableWords();
-        if (CHOSEN_IMAGE) {
-            checkMatch();
+    function chooseWord() {
+        if (this.id === CHOSEN_WORD){
+            this.classList.remove('marked-purple');
+            CHOSEN_WORD = null;
+            hasChosenWord = false;
+        }else{
+            if (hasChosenWord) return;
+            this.classList.add('marked-purple');
+            hasChosenWord = true;
+            CHOSEN_WORD = this.id;
+            if (hasChosenImage) checkMatch();
         }
     }
 
-    function deactivateWord() {
-        WORDS.forEach(word => word.classList.remove('marked-purple'));
-        WORDS.forEach(word => word.addEventListener('click', chooseWord));
-        reset();
+    function chooseImage() {
+        if (this.dataset['word'] === CHOSEN_IMAGE){
+            this.parentElement.classList.remove('flashcard-active');
+            CHOSEN_IMAGE = null;
+            hasChosenImage = false;
+        }else{
+            if (hasChosenImage) return;
+            this.parentElement.classList.add('flashcard-active');
+            hasChosenImage = true;
+            CHOSEN_IMAGE = this.dataset['word'];
+            if (hasChosenWord) checkMatch();
+        }
+
     }
 
-    function unChoseImage(e) {
-        e.target.classList.remove('flashcard-active');
-        reset();
-    }
-
-    function chooseImage(e) {
-        CHOSEN_IMAGE = e.target.dataset['word'];
-        TARGET_DIV = e.target.parentElement.id;
-        e.target.classList.add('flashcard-active');
-        e.target.addEventListener('click', unChoseImage);
-        disableImages();
-        if (CHOSEN_WORD) checkMatch();
-    }
-
-    function mark(id) { //Placing a green tick to matched image
+    function mark() {
         let img = document.createElement('img');
-        img.src = "/static/images/tick.jpg";
+        img.src = "./images/tick.jpg";
         img.classList.add('tick');
-        document.getElementById(id).appendChild(img);
-        document.getElementById(id).firstElementChild.classList.remove('flashcard-active', 'images-to-match');
+        document.querySelector('.flashcard-active').appendChild(img);
     }
 
     function checkMatch() {
@@ -105,24 +91,25 @@ function logic() {
     }
 
     function reset() {
-        WORDS.forEach(word => word.classList.remove('marked-purple'));
-        IMAGES.forEach(image => image.classList.remove('flashcard-active'));
-        [CHOSEN_WORD, CHOSEN_IMAGE, TARGET_DIV] = [null, null, null];
-        setup();
+        document.querySelector('.flashcard-active').firstElementChild.classList.remove('images-to-match');
+        document.querySelector('.flashcard-active').classList.remove('flashcard-active');
+        document.getElementById(CHOSEN_WORD).classList.remove("words-to-match", "marked-purple");
+        [CHOSEN_WORD, CHOSEN_IMAGE] = [null, null];
+        [hasChosenWord, hasChosenImage] = [null, null];
     }
 
     function scoreWord() {
         document.getElementById(CHOSEN_WORD).classList.add('marked-green');
-        document.getElementById(CHOSEN_WORD).classList.remove('words-to-match');
-        //TODO: visual distinction (score || put an image there too)
+
     }
 
     function handleMatch() {
-        scoreWord()
-        mark(TARGET_DIV);
-        getWordsAndImages();
+        scoreWord();
+        mark();
+        WORDS = document.querySelectorAll('.words-to-match');
+        IMAGES = document.querySelectorAll('.images-to-match');
         reset();
-        if (winCheck()) disableEverything();
+        // if (winCheck()) disableEverything();
     }
 
     function winCheck() {

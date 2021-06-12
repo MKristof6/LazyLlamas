@@ -1,6 +1,4 @@
-
 import { stopCheck } from "./stopper.js";
-
 let gameId = document.querySelector(".memory-game").id
 let numberOfCards = 6;
 

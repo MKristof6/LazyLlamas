@@ -88,6 +88,7 @@ body {
 }
 
 .flashcard {
+    background: white;
     justify-content: center;
     border-radius: 10px;
     width: 300px;
@@ -131,6 +132,7 @@ body {
     position: absolute;
     bottom: 7%;
     right: 3%;
+    z-index: 2;
 }
 
 li {
