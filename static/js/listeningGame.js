@@ -1,10 +1,11 @@
 let gameId = document.querySelector(".listening-game").id;
 let saveBtn = document.getElementById('save');
+
 let solution = [];
 let selectedAnswers = [];
-saveBtn.addEventListener('click', ()=>{
+saveBtn.addEventListener('click', () => {
     selectedAnswers = document.querySelectorAll('.selected');
-    for (let answer of selectedAnswers){
+    for (let answer of selectedAnswers) {
         solution.push(answer.innerText);
     }
     sendData(solution);
@@ -38,16 +39,21 @@ function getElements(data) {
             </div>
     `
     }
-    showElements(elements)
+    showElements(elements);
 
 }
 
 function showElements(elements) {
-    let container = document.getElementById("container")
-    container.innerHTML = elements
-    init()
-    setupEventListener()
-
+    let container = document.getElementById("container");
+    container.innerHTML = elements;
+    init();
+    setupEventListener();
+    let answerCards = document.querySelectorAll('.possibilities');
+    (function shuffle() {
+        answerCards.forEach(card => {
+            card.style.order = Math.floor(Math.random() * 12);
+        });
+    })();
 }
 
 function check(e) {
@@ -55,23 +61,24 @@ function check(e) {
 
 }
 
-function setupEventListener(){
+
+function setupEventListener() {
     let words = document.querySelectorAll('.possibilities');
-        for( let word of words){
-            word.addEventListener("click", e=>{
-                e.target.classList.toggle('selected');
-            })
-        }
+    for (let word of words) {
+        word.addEventListener("click", e => {
+            e.target.classList.toggle('selected');
+        })
+    }
 }
 
-function sendData(solution){
+function sendData(solution) {
     fetch(`/listening-solution-saver/${gameId}`, {
-                method: "POST",
-                body: JSON.stringify(solution),
-                headers: {"Content-type": "application/json; charset=UTF-8"}
-            })
-                .then(response => response.json())
-                .then(json => console.log(json))
+        method: "POST",
+        body: JSON.stringify(solution),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+        .then(response => response.json())
+        .then(json => console.log(json))
 }
 
 

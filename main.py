@@ -7,13 +7,9 @@ import util
 app = Flask("amigo")
 app.secret_key = b'_5#z2L"F7Q8q\n\xec]/'
 
-
-
 # Authenticating user based on an SQL database query by comparing POST request form data.
 # Form requires email address and password inputs. Upon successful authentication user role is set
 # as student or amigo.
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     amigos = data_handler.get_amigos()
@@ -73,10 +69,8 @@ def register():
                 data_handler.register_amigo(name, email, pw)
                 session['amigo'] = True
             else:
-                birthday, languages = student_register()
-                # TODO: sort out latest id
-                student_id = data_handler.get_latest_id()['id'] + 1
-                data_handler.register_student(name, email, pw, birthday, languages, student_id)
+                # student_id = data_handler.get_latest_id()['id'] + 1
+                # data_handler.register_student(name, email, pw, birthday, languages, student_id)
                 session['amigo'] = False
             session['email'] = email
             return redirect(url_for('home'))
@@ -248,10 +242,11 @@ def save_memory_solution(game_id):
 
 #Listening game  
 
-@app.route('/listening-game')
+@app.route('/listening-games')
 def list_listening_games():
+    exercise = "listening-game"
     games = data_handler.get_listening_games()
-    return render_template('listening_game.html')
+    return render_template('game-types.html', games=games, exercise=exercise)
 
 
 @app.route('/get-listening-game/<game_id>')
@@ -283,7 +278,7 @@ def listening_game_upload():
 
 
 @app.route('/listening-solution-saver/<game_id>', methods=['POST'])
-def save_matching_solution(game_id):
+def save_listening_solution(game_id):
     solution = request.get_json()
     data_handler.save_listening_game_solution(session['id'], game_id, solution)
     if not session['amigo']:

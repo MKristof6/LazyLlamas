@@ -88,7 +88,7 @@ CREATE TABLE language
     voice_code text,
     PRIMARY KEY (id)
 );
-, voice_code
+
 
 CREATE TABLE student_languages
 (
@@ -173,6 +173,7 @@ CREATE TABLE memory_game
 (
 
     id     INT GENERATED ALWAYS AS IDENTITY,
+    language text NOT NULL,
     theme  text NOT NULL,
     image1 VARCHAR,
     text1  text,
@@ -215,13 +216,6 @@ CREATE TABLE matching_game_solution
     solution_time INT
 );
 
-CREATE TABLE listening_game_solution
-(
-    id            INT GENERATED ALWAYS AS IDENTITY,
-    student_id    INT,
-    game_id       INT,
-    solution text[]
-);
 
 
 
@@ -303,41 +297,7 @@ VALUES (3, 1);
 INSERT INTO student_languages (student_id, language_id)
 VALUES (3, 2);
 
-CREATE TABLE sorting_game(
-  id INT GENERATED ALWAYS AS IDENTITY,
-  themes TEXT[],
-  words TEXT[],
-  PRIMARY KEY (id)
-);
 
-
-CREATE TABLE memory_game_solution
-(
-    id        INT GENERATED ALWAYS AS IDENTITY,
-    student_id INT,
-    game_id INT,
-    solution_time INT
-);
-
-CREATE TABLE matching_game_solution
-(
-    id        INT GENERATED ALWAYS AS IDENTITY,
-    student_id INT,
-    game_id INT,
-    solution_time INT
-);
-
-
-INSERT INTO amigo (name, email, password) VALUES ('balintovics', 'molnar99b@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu');
-INSERT INTO student (name, email, password, birthday, points) VALUES ('Zsófi', 'zsofiaszonja.kassai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.', 33);
-INSERT INTO student (name, email, password, birthday, points) VALUES ('Kristóf', 'kristof.murai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.', 2344);
-INSERT INTO student (name, email, password, birthday, points) VALUES ('Barna', 'barna.urmossy@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.', 233);
-INSERT INTO student_languages (student_id, language_id) VALUES (1, 1 );
-INSERT INTO student_languages (student_id, language_id) VALUES (1, 2 );
-INSERT INTO student_languages (student_id, language_id) VALUES (2, 1 );
-INSERT INTO student_languages (student_id, language_id) VALUES (2, 2 );
-INSERT INTO student_languages (student_id, language_id) VALUES (3, 1 );
-INSERT INTO student_languages (student_id, language_id) VALUES (3, 2 );
 
 
 
