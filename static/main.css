@@ -1,12 +1,12 @@
-/*1. COLOR PALETTE:*/
-/*#538723 base green*/
-/*#5C9129 lighter green*/
-/*#8BBF58 even lighter green*/
-/*#B2C7A3 pale green i guess*/
-/*#993166 freakin purple, man*/
-/*#000000 as black as it gets*/
-/*#FFDE59 yellowish*/
-/*#D62828 red?*/
+/*1. COLOR PALETTE: */
+/* #538723 base green */
+/* #5C9129 lighter green */
+/* #8BBF58 even lighter green */
+/* #B2C7A3 pale green i guess */
+/* #993166 freakin purple, man */
+/* #000000 as black as it gets */
+/* #FFDE59 yellowish*/
+/* #D62828 red?*/
 
 
 /*2. Font*/
@@ -49,6 +49,7 @@ body {
     padding: 5px;
     border-radius: 20px;
 }
+
 .green-background {
     width: 99vw;
     height: 90vh;
@@ -68,43 +69,83 @@ body {
     text-align: center;
 }
 
-/*.asd{*/
-/*     display: flex;*/
-/*    flex-direction: row;*/
-/*    justify-content: space-around;*/
-/*}*/
 
+.matching-game {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    padding: 20px;
+    background-image: url("/static/images/math.jpg");
+    align-content: stretch;
+}
 
-/*.answer{*/
-/*    width: 100px;*/
-/*}*/
+.image-container {
+    background: #8BBF58;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 0.2fr;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+    padding: 30px;
+    justify-items: center;
+}
 
+.flashcard {
+    background: white;
+    justify-content: center;
+    border-radius: 10px;
+    width: 300px;
+    height: 200px;
+}
 
-/*.answer .available{*/
-/*    width: 100px;*/
-/*}*/
+.flashcard-container {
+    position: relative;
+}
 
+.flashcard-active {
+    /*width: 350px;*/
+    /*height: 238px;*/
+    /*border-radius: 10px;*/
+    border-style: groove;
+    border-color: #993166;
+    border-width: thick;
+}
 
-/*.card {*/
-/*    position: relative;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    justify-content: center;*/
-/*    margin-bottom: 20px;*/
-/*    padding: 24px;*/
-/*    border-radius: 20px;*/
-/*    background: #fff;*/
-/*    width: 30%;*/
-/*    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);*/
-/*}*/
+.word-container {
+    background: white;
+    text-align: center;
+    padding: 20px;
+    grid-gap: 20px;
+    grid-row-gap: 30px;
+}
 
-/*.possibilities {*/
-/*    position: relative;*/
-/*    background: #5C9129;*/
-/*    width: 4vw;*/
-/*    height: 4vh;*/
-/*    margin: 15px;*/
-/*    padding: 5px;*/
-/*    border-radius: 20px;*/
-/*    text-align: center;*/
-/*}*/
+.marked-green {
+    color: #5C9129;
+    font-size: x-large;
+}
+
+.marked-purple {
+    color: #993166;
+    font-size: x-large;
+}
+
+.tick {
+    width: 35px;
+    height: auto;
+    position: absolute;
+    bottom: 7%;
+    right: 3%;
+    z-index: 2;
+}
+
+li {
+    font-size: larger;
+}
+
+li:not(:last-child) {
+    margin-bottom: 65px;
+}
+
+#theme {
+    margin-bottom: 95px;
+    font-size: xxx-large;
+}
+

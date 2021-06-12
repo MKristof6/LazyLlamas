@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Memória játék feltöltés</title>
+    <script src="../static/js/matchingGameSaver.js" defer></script>
+</head>
+<body>
+<div class="circle1"></div>
+<div class="circle2"></div>
+<div class="form-container">
+<label for="language"> Nyelv: </label>
+<input type="text" id="language" name="language"><br><br>
+<label for="theme"> Téma: </label>
+<input type="text" id="theme" name="theme"><br><br>
+
+{% for n in range(6) %}
+<label for="fileId"> Kép: </label>
+<input type="file" name="" id="fileId" class="image"><br><br>
+<label for="text"> Szöveg: </label>
+<input type="text" id="text" class="text" name="text"><br><br>
+
+{% endfor %}
+<button id="save">
+   Mentés
+</button>
+</div>
+</body>
+</html>

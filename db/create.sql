@@ -28,8 +28,10 @@ DROP TABLE IF EXISTS public.one_answer_answer;
 DROP TABLE IF EXISTS public.multiple_answer_answer;
 DROP TABLE IF EXISTS public.memory_game;
 DROP TABLE IF EXISTS public.sorting_game;
-DROP TABLE IF EXISTS public.matching_exercise;
+DROP TABLE IF EXISTS public.matching_game;
 DROP TABLE IF EXISTS public.memory_game_solution;
+DROP TABLE IF EXISTS public.matching_game_solution;
+
 
 
 CREATE TABLE amigo
@@ -44,12 +46,13 @@ CREATE TABLE amigo
 
 CREATE TABLE student
 (
-    id       INT GENERATED ALWAYS AS IDENTITY,
-    "name"   VARCHAR(50) NOT NULL,
-    email    VARCHAR(50) NOT NULL UNIQUE,
-    password TEXT        NOT NULL,
-    birthday DATE,
-    points   INT,
+    id          INT GENERATED ALWAYS AS IDENTITY,
+    "name"      VARCHAR(50) NOT NULL,
+    email       VARCHAR(50) NOT NULL UNIQUE,
+    password    TEXT        NOT NULL,
+    birthday    DATE,
+    points      INT,
+
     PRIMARY KEY (id)
 );
 
@@ -68,7 +71,8 @@ CREATE TABLE solution
 CREATE TABLE feedback
 (
     id                          INT,
-    amigo_id                    INT,
+    amigo_id                  INT,
+
     student_id                  INT,
     feedback                    text,
     one_answer_question_id      INT,
@@ -142,31 +146,32 @@ CREATE TABLE multiple_answer_answer
     correct     BOOLEAN,
     PRIMARY KEY (id)
 );
+    
 
-
-CREATE TABLE matching_exercise
+CREATE TABLE matching_game
 (
-    id     serial
-        constraint matching_exercise_pk
-            primary key,
-    theme  text not null,
-    word1  text not null,
-    image1 text not null,
-    word2  text not null,
-    image2 text not null,
-    word3  text not null,
-    image3 text not null,
-    word4  text not null,
-    image4 text not null,
-    word5  text not null,
-    image5 text not null,
-    word6  text not null,
-    image6 text not null
+    id        INT GENERATED ALWAYS AS IDENTITY,
+    language text not null,
+    theme     text NOT NULL,
+    image1 VARCHAR,
+    text1     text,
+    image2 VARCHAR,
+    text2     text,
+    image3 VARCHAR,
+    text3     text,
+    image4 VARCHAR,
+    text4     text,
+    image5 VARCHAR,
+    text5     text,
+    image6 VARCHAR,
+    text6     text,
+    PRIMARY KEY (id)
 );
 
 
 CREATE TABLE memory_game
 (
+
     id     INT GENERATED ALWAYS AS IDENTITY,
     theme  text NOT NULL,
     image1 VARCHAR,
@@ -199,6 +204,14 @@ CREATE TABLE memory_game_solution
     id            INT GENERATED ALWAYS AS IDENTITY,
     student_id    INT,
     game_id       INT,
+    solution_time INT
+);
+
+CREATE TABLE matching_game_solution
+(
+    id        INT GENERATED ALWAYS AS IDENTITY,
+    student_id INT,
+    game_id INT,
     solution_time INT
 );
 
@@ -237,7 +250,7 @@ VALUES ('Italiano', 'Italian Female');
 INSERT INTO language(name, voice_code)
 VALUES ('Español', 'Spanish Female');
 INSERT INTO language(name, voice_code)
-VALUES ('Deutsche', 'Deutsch Female');
+VALUES ('Deutsch', 'Deutsch Female');
 INSERT INTO language(name, voice_code)
 VALUES ('Magyar', 'Hungarian Female');
 INSERT INTO language(name, voice_code)
@@ -263,7 +276,7 @@ VALUES ('bahasa Indonesia', 'Indonesian Female');
 INSERT INTO language(name, voice_code)
 VALUES ('русский', 'Russian Female');
 INSERT INTO language(name, voice_code)
-VALUES ('Brazilian Portuguese (???)', 'Brazilian Portuguese Female');
+VALUES ('Brazilian Portuguese', 'Brazilian Portuguese Female');
 
 
 INSERT INTO amigo (name, email, password)
@@ -290,6 +303,43 @@ VALUES (3, 1);
 INSERT INTO student_languages (student_id, language_id)
 VALUES (3, 2);
 
+CREATE TABLE sorting_game(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  themes TEXT[],
+  words TEXT[],
+  PRIMARY KEY (id)
+);
+
+
+CREATE TABLE memory_game_solution
+(
+    id        INT GENERATED ALWAYS AS IDENTITY,
+    student_id INT,
+    game_id INT,
+    solution_time INT
+);
+
+CREATE TABLE matching_game_solution
+(
+    id        INT GENERATED ALWAYS AS IDENTITY,
+    student_id INT,
+    game_id INT,
+    solution_time INT
+);
+
+
+INSERT INTO amigo (name, email, password) VALUES ('balintovics', 'molnar99b@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu');
+INSERT INTO student (name, email, password, birthday, points) VALUES ('Zsófi', 'zsofiaszonja.kassai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.', 33);
+INSERT INTO student (name, email, password, birthday, points) VALUES ('Kristóf', 'kristof.murai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.', 2344);
+INSERT INTO student (name, email, password, birthday, points) VALUES ('Barna', 'barna.urmossy@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.', 233);
+INSERT INTO student_languages (student_id, language_id) VALUES (1, 1 );
+INSERT INTO student_languages (student_id, language_id) VALUES (1, 2 );
+INSERT INTO student_languages (student_id, language_id) VALUES (2, 1 );
+INSERT INTO student_languages (student_id, language_id) VALUES (2, 2 );
+INSERT INTO student_languages (student_id, language_id) VALUES (3, 1 );
+INSERT INTO student_languages (student_id, language_id) VALUES (3, 2 );
+
+
 
 ALTER TABLE ONLY public.feedback
     ADD CONSTRAINT fk_multiple_answer_question_id FOREIGN KEY (multiple_answer_question_id) REFERENCES multiple_answer_question (id),
@@ -303,6 +353,11 @@ ALTER TABLE ONLY public.solution
     ADD CONSTRAINT fk_student_id FOREIGN KEY (student_id) REFERENCES student (id),
     ADD CONSTRAINT fk_one_answer_question_id FOREIGN KEY (one_answer_question_id) REFERENCES one_answer_question (id);
 
+
+
+-- ALTER TABLE public.student
+--     ADD CONSTRAINT fk_language_id FOREIGN KEY (language_id) REFERENCES language (id),
+--     ADD CONSTRAINT fk_pair_solution FOREIGN KEY (id) REFERENCES pair_solution (student_id);
 
 -- ALTER TABLE public.student
 --     ADD CONSTRAINT fk_language_id FOREIGN KEY (language_id) REFERENCES language (id),

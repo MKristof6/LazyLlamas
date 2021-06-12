@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feladat témák</title>
+    <script src="/static/js/exercise-types.js" defer></script>
+</head>
+<body>
+    {% for game in games %}
+    <div class="exercise-type" id="{{exercise}}/{{game.id}}">{{game.theme}}</div>
+    {%endfor%}
+
+</body>
+</html>

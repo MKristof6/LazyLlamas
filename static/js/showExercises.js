@@ -1,12 +1,14 @@
 const CARDS_TO_CHANGE = document.querySelectorAll('.exercise-change');
 const ORIGINAL_MENU = []
 CARDS_TO_CHANGE.forEach(e => ORIGINAL_MENU.push(e.firstElementChild.innerHTML));
-const EXERCISES = [`<a class="blacklink" href="matching_game"><h2>Párosítás</h2></a>`,
-                `<a class="blacklink" href="memory_game"><h2>Memóriajáték</h2></a>`,
-                `<a class="blacklink" href="sorting_game"><h2>Sorba rendezés</h2></a>`,
-                `<a class="blacklink" href="listening_game"><h2>Hallás utáni szövegértés</h2></a>`,
-                `<a class="blacklink" href="comprehensive_reading"><h2>Szövegértés</h2></a>`,
-                `<a class="blacklink" href="filling_game"><h2>Kiegészítés</h2></a>`];
+
+const EXERCISES = [`<a class="blacklink" href="/matching-game-upload"><h2>Párosítás</h2></a>`,
+                `<a class="blacklink" href="/memory-game"><h2>Memóriajáték</h2></a>`,
+                `<a class="blacklink" href="/sorting-game-upload"><h2>Sorba rendezés</h2></a>`,
+                `<a class="blacklink" href="/listening-game"><h2>Hallás utáni szövegértés</h2></a>`,
+                `<a class="blacklink" href="/comprehensive-reading"><h2>Szövegértés</h2></a>`,
+                `<a class="blacklink" href="/filling-game"><h2>Kiegészítés</h2></a>`];
+
 
 function change() {
     for (let i = 0; i < CARDS_TO_CHANGE.length; i++) {
