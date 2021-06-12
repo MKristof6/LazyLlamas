@@ -251,7 +251,7 @@ VALUES ('Italiano', 'Italian Female');
 INSERT INTO language(name, voice_code)
 VALUES ('Español', 'Spanish Female');
 INSERT INTO language(name, voice_code)
-VALUES ('Deutsche', 'German Female');
+VALUES ('Deutsche', 'Deutsch Female');
 INSERT INTO language(name, voice_code)
 VALUES ('Magyar', 'Hungarian Female');
 INSERT INTO language(name, voice_code)

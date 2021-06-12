@@ -7,13 +7,8 @@ function get_data(question_id) {
 
 
 function getElements(data) {
-
-
     elements = ``
-
     for (let element of data) {
-        // console.log(element);
-
         elements += `
             <div class="card">
                 <input type="image" value="${element['answer']}" name="${element['language']}" src="./static/images/play.png"
@@ -75,7 +70,6 @@ function setupEventListener(){
         }
 
 }
-
 
 
 function init() {

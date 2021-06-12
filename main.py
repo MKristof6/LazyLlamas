@@ -167,7 +167,6 @@ def get_data_for_listening_game(game_id):
 @app.route('/listening-game-upload')
 def listening_game_upload():
     languages = data_handler.get_languages()
-
     return render_template('listening_game_upload.html',  languages=languages)
 
 
