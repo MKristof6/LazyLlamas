@@ -1,5 +1,3 @@
-import { stopCheck } from "./stopper.js";
-
 let gameId = document.querySelector(".matching-game").id;
 let numberOfCards = 6;
 
@@ -82,7 +80,7 @@ function logic() {
 
     function mark() {
         let img = document.createElement('img');
-        img.src = "./images/tick.jpg";
+        img.src = "../static/images/tick.jpg";
         img.classList.add('tick');
         document.querySelector('.flashcard-active').appendChild(img);
     }

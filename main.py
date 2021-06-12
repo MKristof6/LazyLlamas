@@ -223,6 +223,14 @@ def list_matching_games():
     matching_games = data_handler.get_matching_games()
     return render_template('game-types.html', games=matching_games, exercise=exercise)
 
+@app.route('/matching-solution-saver/<game_id>', methods=['POST'])
+def save_matching_solution(game_id):
+    solution_time = request.get_json()
+    data_handler.save_matching_game_solution(session['id'], game_id, solution_time)
+    if not session['amigo']:
+        data_handler.update_score(session['id'])
+    return jsonify('Success', 200)
+
 
 
 # MEMORY GAME

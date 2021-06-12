@@ -30,6 +30,7 @@ DROP TABLE IF EXISTS public.memory_game;
 DROP TABLE IF EXISTS public.sorting_game;
 DROP TABLE IF EXISTS public.matching_game;
 DROP TABLE IF EXISTS public.memory_game_solution;
+DROP TABLE IF EXISTS public.matching_game_solution;
 
 
 CREATE TABLE amigo
@@ -194,6 +195,14 @@ CREATE TABLE sorting_game(
 
 
 CREATE TABLE memory_game_solution
+(
+    id        INT GENERATED ALWAYS AS IDENTITY,
+    student_id INT,
+    game_id INT,
+    solution_time INT
+);
+
+CREATE TABLE matching_game_solution
 (
     id        INT GENERATED ALWAYS AS IDENTITY,
     student_id INT,
