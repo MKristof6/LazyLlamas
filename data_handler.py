@@ -40,15 +40,6 @@ def get_latest_id():
     return connection.execute_select('SELECT id FROM student ORDER BY id DESC LIMIT 1', fetchall=False)
 
 
-def get_matching_exercise(id):
-    query = """SELECT theme, word1, image1, word2, image2, word3, image3, word4, image4, word5, image5, word6, image6 FROM matching_exercise WHERE id = %(id)s"""
-    return connection.execute_select(query, {"id": id})
-
-
-def get_latest_matching_exercise_id():
-    return connection.execute_select('SELECT id FROM matching_exercise ORDER BY id DESC LIMIT 1', fetchall=False)
-
-
 def get_memory_cards(game_id):
     query = """
     SELECT * FROM memory_game
@@ -151,7 +142,7 @@ def get_memory_games():
 
 def get_matching_games():
     query = """
-        SELECT id, theme FROM memory_game;
+        SELECT id, theme FROM matching_game;
     """
     return connection.execute_select(query)
 

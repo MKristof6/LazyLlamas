@@ -255,7 +255,7 @@ def list_matching_games():
 
 @app.route('/memory-game/<game_id>')
 def memory_game_with_id(game_id):
-    return render_template('memory-game.html', id=game_id)
+    return render_template('memory-game.html', game_id=game_id)
 
 
 @app.route('/get-memory-game/<game_id>')
@@ -281,7 +281,7 @@ def matching_game_upload():
         return render_template('matching_upload.html')
 
 @app.route('/get-matching-game/<game_id>')
-def get_memory_game(game_id):
+def get_matching_game(game_id):
     data = data_handler.get_matching_game(game_id)
     return jsonify(data)
 
@@ -290,15 +290,15 @@ def matching_game_with_id(game_id):
     return render_template('matching-game.html', game_id=game_id)
 
 
-
-    # Getting the data through row id
-    theme_and_images_and_words = data_handler.get_matching_exercise(id)
-    data = []
-    theme = theme_and_images_and_words[0]['theme']
-    for t in theme_and_images_and_words:
-        for i in range(1, 7):
-            data.append((t['image' + str(i)], t['word' + str(i)]))
-    return render_template('matching_game.html', data=data, theme=theme)
+    #
+    # # Getting the data through row id
+    # theme_and_images_and_words = data_handler.get_matching_exercise(id)
+    # data = []
+    # theme = theme_and_images_and_words[0]['theme']
+    # for t in theme_and_images_and_words:
+    #     for i in range(1, 7):
+    #         data.append((t['image' + str(i)], t['word' + str(i)]))
+    # return render_template('matching-game.html', data=data, theme=theme)
 
 
 if __name__ == "__main__":
