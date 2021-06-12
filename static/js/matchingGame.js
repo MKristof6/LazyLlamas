@@ -1,3 +1,5 @@
+import { stopCheck } from "./stopper.js";
+
 let gameId = document.querySelector(".matching-game").id;
 let numberOfCards = 6;
 

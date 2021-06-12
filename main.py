@@ -129,30 +129,18 @@ def home():
         return render_template('index.html', id=id)
 
 
-@app.route('/my_exercises')
-def my_exercises():
-    return render_template('exercises.html')
-
-
-# Route for accessing user profile
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    # Check if user is an amigo
     if session['amigo']:
-        # Get the user data by amigo id
         amigo = data_handler.get_amigo(session['id'])
-        # Update data if modifying post request was sent
         if request.method == 'POST':
             data_handler.update_amigo(request.form['name'], request.form['birthday'], request.form['email'],
                                       session['id'])
         else:
             return render_template('amigo-profile.html', amigo=amigo)
     else:
-        # Get the user data by student id
         student = data_handler.get_student(session['id'])
-        # Get studied languages by student id
         languages = data_handler.get_student_languages(session['id'])
-        # Update data if modifying post request was sent
         if request.method == 'POST':
             data_handler.update_student(request.form['name'], request.form['email'], request.form['birthday'],
                                         session['id'])
@@ -167,6 +155,11 @@ def new_exercise():
     return render_template("new_exercises.html")
 
 
+@app.route('/my_exercises')
+def my_exercises():
+    return render_template('exercises.html')
+
+
 @app.route('/solutions')
 def solutions():
     return 'Implementation in process. '
@@ -176,16 +169,7 @@ def solutions():
 def students():
     return 'Implementation in process. '
 
-
-@app.route('/exercises')
-def exercises():
-    return 'Implementation in process. '
-
-
-@app.route('/matching-game')
-def matching_game():
-    return 'Implementation in process. '
-
+#SORTING GAME
 
 @app.route('/upload-words', methods=['POST'])
 def upload_words():
@@ -213,19 +197,32 @@ def sorting_games():
     return 'Implementation in process.'
 
 
-@app.route('/listening-game')
-def listening_game():
-    return 'Implementation in process.'
+#MATCHING GAME
 
+@app.route('/matching-game-upload', methods=['GET', 'POST'])
+def matching_game_upload():
+    if request.method == 'POST':
+        data = request.get_json()
+        data_handler.save_matching_game(data["language"], data["theme"], data["images"])
+        return jsonify('Success', 200)
+    else:
+        return render_template('matching_upload.html')
 
-@app.route('/comprehensive-reading')
-def comprehensive_reading():
-    return 'Implementation in process. '
+@app.route('/get-matching-game/<game_id>')
+def get_matching_game(game_id):
+    data = data_handler.get_matching_game(game_id)
+    return jsonify(data)
 
+@app.route('/matching-game/<game_id>')
+def matching_game_with_id(game_id):
+    return render_template('matching-game.html', game_id=game_id)
 
-@app.route('/filling-game')
-def filling_game():
-    return 'Implementation in process.'
+@app.route('/matching-games')
+def list_matching_games():
+    exercise = "matching-game"
+    matching_games = data_handler.get_matching_games()
+    return render_template('game-types.html', games=matching_games, exercise=exercise)
+
 
 
 # MEMORY GAME
@@ -247,12 +244,6 @@ def list_memory_games():
     return render_template('game-types.html', games=memory_games, exercise=exercise)
 
 
-@app.route('/matching-games')
-def list_matching_games():
-    exercise = "matching-game"
-    matching_games = data_handler.get_matching_games()
-    return render_template('game-types.html', games=matching_games, exercise=exercise)
-
 @app.route('/memory-game/<game_id>')
 def memory_game_with_id(game_id):
     return render_template('memory-game.html', game_id=game_id)
@@ -268,38 +259,9 @@ def get_memory_game(game_id):
 def save_memory_solution(game_id):
     solution_time = request.get_json()
     data_handler.save_memory_game_solution(session['id'], game_id, solution_time)
+    if not session['amigo']:
+        data_handler.update_score(session['id'])
     return jsonify('Success', 200)
-
-
-@app.route('/matching-game-upload', methods=['GET', 'POST'])
-def matching_game_upload():
-    if request.method == 'POST':
-        data = request.get_json()
-        data_handler.save_matching_game(data["language"], data["theme"], data["images"])
-        return jsonify('Success', 200)
-    else:
-        return render_template('matching_upload.html')
-
-@app.route('/get-matching-game/<game_id>')
-def get_matching_game(game_id):
-    data = data_handler.get_matching_game(game_id)
-    return jsonify(data)
-
-@app.route('/matching-game/<game_id>')
-def matching_game_with_id(game_id):
-    return render_template('matching-game.html', game_id=game_id)
-
-
-    #
-    # # Getting the data through row id
-    # theme_and_images_and_words = data_handler.get_matching_exercise(id)
-    # data = []
-    # theme = theme_and_images_and_words[0]['theme']
-    # for t in theme_and_images_and_words:
-    #     for i in range(1, 7):
-    #         data.append((t['image' + str(i)], t['word' + str(i)]))
-    # return render_template('matching-game.html', data=data, theme=theme)
-
 
 if __name__ == "__main__":
     app.run(
