@@ -87,7 +87,10 @@ INSERT INTO listening_cards(task_id)VALUES (2);
 
 
 
-INSERT INTO language(name) VALUES ('English');
-INSERT INTO language(name) VALUES ('French');
-INSERT INTO language(name) VALUES ('Italian');
-INSERT INTO language(name) VALUES ('Spanish');
+-- INSERT INTO language(name) VALUES ('English');
+-- INSERT INTO language(name) VALUES ('French');
+-- INSERT INTO language(name) VALUES ('Italian');
+-- INSERT INTO language(name) VALUES ('Spanish');
+
+
+angol, német, olasz, francia, spanyol, portugál, vietnámi, lengyel, görög, szerb, román, norvég, török, finn, brazil portugál, indonez, orosz
