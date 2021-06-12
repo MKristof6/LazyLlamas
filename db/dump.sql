@@ -4,19 +4,19 @@ INSERT INTO student (name, email, password, birthday) VALUES ('Kristóf', 'krist
 INSERT INTO student (name, email, password, birthday) VALUES ('Barna', 'barna.urmossy@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu', '1969.06.09.');
 
 
-INSERT INTO listening_game_answer(  answer) VALUES ('Cat');
-INSERT INTO listening_game_answer(  answer) VALUES ( 'Dog');
-INSERT INTO listening_game_answer(  answer) VALUES ('Llama');
-INSERT INTO listening_game_answer(  answer) VALUES ('Giraffe');
-INSERT INTO listening_game_answer(  answer) VALUES ( 'Elephant');
-INSERT INTO listening_game_answer(  answer) VALUES ( 'Lion');
+INSERT INTO listening_game_answer(  answer, language) VALUES ('Cat', 'US English Female');
+INSERT INTO listening_game_answer(  answer, language) VALUES ( 'Dog', 'French Female');
+INSERT INTO listening_game_answer(  answer, language) VALUES ('Llama', 'German Female');
+INSERT INTO listening_game_answer(  answer, language) VALUES ('Giraffe', 'US English Female');
+INSERT INTO listening_game_answer(  answer, language) VALUES ( 'Elephant', 'US English Female');
+INSERT INTO listening_game_answer(  answer, language) VALUES ( 'Lion', 'US English Female');
 
-InSERT INTO listening_game_answer(  answer) VALUES ('asdasd');
-INSERT INTO listening_game_answer(  answer) VALUES ( 'add');
-INSERT INTO listening_game_answer(  answer) VALUES ('afd');
-INSERT INTO listening_game_answer(  answer) VALUES ('abd');
-INSERT INTO listening_game_answer(  answer) VALUES ( 'gsd');
-INSERT INTO listening_game_answer(  answer) VALUES ( 'tsd');
+InSERT INTO listening_game_answer(  answer, language) VALUES ('asdasd', 'US English Female');
+INSERT INTO listening_game_answer(  answer, language) VALUES ( 'add', 'US English Female');
+INSERT INTO listening_game_answer(  answer, language) VALUES ('afd', 'US English Female');
+INSERT INTO listening_game_answer(  answer, language) VALUES ('abd', 'US English Female');
+INSERT INTO listening_game_answer(  answer, language) VALUES ( 'gsd', 'US English Female');
+INSERT INTO listening_game_answer(  answer, language) VALUES ( 'tsd', 'US English Female');
 
 
 INSERT INTO listening_game_possibilities( task_id, card_id, possibility) VALUES (1, 1, 'Can');
@@ -92,5 +92,3 @@ INSERT INTO listening_cards(task_id)VALUES (2);
 -- INSERT INTO language(name) VALUES ('Italian');
 -- INSERT INTO language(name) VALUES ('Spanish');
 
-
-angol, német, olasz, francia, spanyol, portugál, vietnámi, lengyel, görög, szerb, román, norvég, török, finn, brazil portugál, indonez, orosz

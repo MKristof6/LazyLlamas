@@ -211,6 +211,7 @@ CREATE TABLE listening_game_answer
 (
     id     INT GENERATED ALWAYS AS IDENTITY,
     answer text,
+    language text,
     PRIMARY KEY (id)
 );
 
@@ -231,6 +232,14 @@ CREATE TABLE listening_game_possibilities
     possibility text,
     PRIMARY KEY (id)
 );
+
+
+ALTER TABLE listening_cards
+    ADD CONSTRAINT fk_answers FOREIGN KEY (id) REFERENCES listening_game_answer(id);
+
+ALTER TABLE listening_cards
+    ADD CONSTRAINT fk_possibility FOREIGN KEY (id) REFERENCES listening_game_possibilities(id);
+
 
 
 INSERT INTO language(name, voice_code)

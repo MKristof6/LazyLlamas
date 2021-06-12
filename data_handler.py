@@ -32,13 +32,20 @@ def get_latest_id():
 
 def get_listening_game_data(game_id):
     query = """
-    SELECT  answer, array_agg(possibility) AS possibilities FROM listening_game_answer
+    SELECT  answer, language, array_agg(possibility) AS possibilities FROM listening_game_answer
     FUll JOIN listening_cards ON listening_cards.id = listening_game_answer.id
     FULL JOIN listening_game_possibilities lgp on listening_cards.task_id = lgp.task_id AND lgp.card_id = listening_cards.id
     WHERE listening_cards.task_id = %(game_id)s
-    GROUP BY answer
+    GROUP BY answer,language
     """
     return connection.execute_select(query, {'game_id': game_id})
+
+
+def get_languages():
+    query="""
+    SELECT name, voice_code FROM language
+    """
+    return connection.execute_select(query)
 
 
 
