@@ -202,6 +202,15 @@ CREATE TABLE memory_game_solution
     solution_time INT
 );
 
+CREATE TABLE listening_game_solution
+(
+    id            INT GENERATED ALWAYS AS IDENTITY,
+    student_id    INT,
+    game_id       INT,
+    solution text[]
+);
+
+
 
 DROP TABLE IF EXISTS listening_game;
 

@@ -64,3 +64,10 @@ def get_listening_game(game_id):
     WHERE game_id = %(game_id)s
     """
     return connection.execute_select(query, {"game_id": game_id})
+
+
+def save_listening_game_solution(student_id, game_id, solution):
+    query = """
+       INSERT INTO listening_game_solution(student_id, game_id, solution) VALUES (%(student_id)s,, %(game_id)s,   %(solution)s;
+       """
+    return connection.execute_dml_statement(query, {"game_id": game_id, "solution": solution, "student_id": student_id})

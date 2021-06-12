@@ -175,15 +175,25 @@ def listening_game_upload():
     if request.method == 'POST':
         data = request.get_json()
         game_id_data = data_handler.get_latest_listening_game_id()
-        game_id = game_id_data["game_id"] + 1
-        if game_id is None:
+        if game_id_data is None:
             game_id = 1
+        else:
+            game_id = game_id_data["game_id"] + 1
         for card in data["cards"]:
             data_handler.save_listening_game(game_id, data["theme"], data["language"], card)
         return jsonify('Success', 200)
     else:
         languages = data_handler.get_languages()
         return render_template('listening_game_upload.html',  languages=languages)
+
+
+@app.route('/listening-solution-saver/<game_id>', methods=['POST'])
+def save_matching_solution(game_id):
+    solution = request.get_json()
+    data_handler.save_listening_game_solution(session['id'], game_id, solution)
+    if not session['amigo']:
+        data_handler.update_score(session['id'])
+    return jsonify('Success', 200)
 
 
 @app.route('/comprehensive-reading')
