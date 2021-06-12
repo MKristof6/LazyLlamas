@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS public.one_answer_answer;
 DROP TABLE IF EXISTS public.multiple_answer_answer;
 DROP TABLE IF EXISTS public.memory_game;
 DROP TABLE IF EXISTS public.sorting_game;
-DROP TABLE IF EXISTS public.matching_exercise;
+DROP TABLE IF EXISTS public.matching_game;
 DROP TABLE IF EXISTS public.memory_game_solution;
 
 
@@ -143,30 +143,31 @@ CREATE TABLE multiple_answer_answer
 );
     
 
-CREATE TABLE matching_exercise
+CREATE TABLE matching_game
 (
-    id     serial
-        constraint matching_exercise_pk
-            primary key,
-    theme text not null,
-    word1  text not null,
-    image1 text not null,
-    word2  text not null,
-    image2 text not null,
-    word3  text not null,
-    image3 text not null,
-    word4  text not null,
-    image4 text not null,
-    word5  text not null,
-    image5 text not null,
-    word6  text not null,
-    image6 text not null
+    id        INT GENERATED ALWAYS AS IDENTITY,
+    language text not null,
+    theme     text NOT NULL,
+    image1 VARCHAR,
+    text1     text,
+    image2 VARCHAR,
+    text2     text,
+    image3 VARCHAR,
+    text3     text,
+    image4 VARCHAR,
+    text4     text,
+    image5 VARCHAR,
+    text5     text,
+    image6 VARCHAR,
+    text6     text,
+    PRIMARY KEY (id)
 );
 
 
 CREATE TABLE memory_game
 (
     id        INT GENERATED ALWAYS AS IDENTITY,
+    language text not null,
     theme     text NOT NULL,
     image1 VARCHAR,
     text1     text,

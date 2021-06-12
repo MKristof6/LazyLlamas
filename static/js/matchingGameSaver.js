@@ -13,6 +13,7 @@ async function uploadData(){
     let textUploads = document.querySelectorAll('.text');
     let theme = document.getElementById("theme").value;
     let language = document.getElementById("language").value;
+
     textUploads.forEach(item => {
         texts.push(item.value);
 
@@ -42,7 +43,7 @@ function imageUploader(file, text) {
 }
 
 function saveData(data) {
-         fetch('/memory-game-upload', {
+         fetch('/matching-game-upload', {
                 method: "POST",
                 body: JSON.stringify(data),
                 headers: {"Content-type": "application/json; charset=UTF-8"}
