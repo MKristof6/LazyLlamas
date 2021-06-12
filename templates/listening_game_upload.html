@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Memória játék feltöltés</title>
+    <title>Hallgatás játék feltöltés</title>
     <script type="text/javascript" src="{{ url_for('static', filename='js/listeningGameUpload.js') }}" defer></script>
 </head>
 <body>
 <div class="circle1"></div>
 <div class="circle2"></div>
 <div class="form-container">
-
+    <label for="theme"> Téma: </label>
+    <input type="text" id="theme">
     <label for="language"> Nyelv: </label>
     <select name="language" id="language">
         {% for language in languages %}
@@ -17,15 +18,14 @@
         {% endfor %}
     </select>
 
-    {% for n in range(6) %}
+    {% for n in range(2) %}
+    <br><br>
     <div class="card">
     <label for="correct-answer"> Helyes válasz: </label>
-    <input type="text"  id="correct-answer" ><br><br>
+    <input type="text" class="card {{n}}" data-name="{{n}}" id="correct-answer" >
     <h4> Helytelen válaszok: </h4>
-    <input type="text" id="answer1"  name="text"><br><br>
-    <input type="text" id="answer2"  name="text"><br><br>
-
-
+    <input type="text" class="card {{n}}"  data-name="{{n}}" name="text"><br><br>
+    <input type="text"  class="card {{n}}" data-name="{{n}}" name="text"><br><br>
     </div>
 
     {% endfor %}

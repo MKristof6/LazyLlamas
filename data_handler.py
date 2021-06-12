@@ -30,16 +30,6 @@ def get_latest_id():
     return connection.execute_select('SELECT id FROM student ORDER BY id DESC LIMIT 1', fetchall=False)
 
 
-def get_listening_game_data(game_id):
-    query = """
-    SELECT  answer, language, array_agg(possibility) AS possibilities FROM listening_game_answer
-    FUll JOIN listening_cards ON listening_cards.id = listening_game_answer.id
-    FULL JOIN listening_game_possibilities lgp on listening_cards.task_id = lgp.task_id AND lgp.card_id = listening_cards.id
-    WHERE listening_cards.task_id = %(game_id)s
-    GROUP BY answer,language
-    """
-    return connection.execute_select(query, {'game_id': game_id})
-
 
 def get_languages():
     query="""
@@ -48,19 +38,14 @@ def get_languages():
     return connection.execute_select(query)
 
 
+def get_latest_listening_game_id():
+    return connection.execute_select('SELECT game_id FROM listening_game ORDER BY game_id DESC LIMIT 1', fetchall=False)
 
 
-
-
-# a p
-# a p2
-# a p3
-#
-# a p p2 p3
-
-
-def save_listening_game(data):
+def save_listening_game(game_id, theme, language,  answers):
     query ="""
-    
+    INSERT INTO listening_game(game_id, theme, language, answers, correct_answer) VALUES (%(game_id)s, %(language)s, %(theme)s, 
+    %(answers)s, %(correct)s);
     """
-    return connection.execute_dml_statement(query, {"data":data})
+    return connection.execute_dml_statement(query, {"game_id": game_id, "language": language, "theme": theme, "answers": answers,
+                                                    "correct": answers[0]})

@@ -164,11 +164,15 @@ def get_data_for_listening_game(game_id):
     return jsonify(data)
 
 
-@app.route('/listening-game-upload'), methods=['GET', 'POST'])
+@app.route('/listening-game-upload', methods=['GET', 'POST'])
 def listening_game_upload():
     if request.method == 'POST':
         data = request.get_json()
-        data_handler.save_listening_game(data);
+        game_id = data_handler.get_latest_listening_game_id()
+        if game_id is None:
+            game_id = 1
+        for card in data["cards"]:
+            data_handler.save_listening_game(game_id, data["theme"], data["language"], card)
         return jsonify('Success', 200)
     else:
         languages = data_handler.get_languages()

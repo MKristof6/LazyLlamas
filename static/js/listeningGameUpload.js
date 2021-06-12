@@ -1,22 +1,31 @@
 let data = {};
-let questionNumber = 6;
+let questionNumber = 2;
 let saveBtn = document.getElementById("save");
 saveBtn.addEventListener('click', uploadData);
 
-async function uploadData(){
+function uploadData(){
+    let cardAnswers = [];
+    let textUploads = [];
+    let language = document.getElementById("language").value;
+    let theme = document.getElementById("theme").value;
+    let cards = [];
+    for (let i=0; i<questionNumber; i++){
+        textUploads.push(document.querySelectorAll(`[data-name=${CSS.escape(i.toString())}]`));
+    }
+    for (let card of textUploads) {
+        cardAnswers = []
+        for (let answer of card) {
+            cardAnswers.push(answer.value);
+        }
+        cards.push(cardAnswers);
+    }
 
-
-    data.question1 = question1;
-    data.question2 = question2;
-    data.question3 = question3;
-    data.question4 = question4;
-    data.question5 = question5;
-    data.question6 = question6;
+    data.cards = cards;
+    data.language = language;
+    data.theme = theme;
 
     saveData(data);
 }
-
-
 
 function saveData(data) {
          fetch('/listening-game-upload', {

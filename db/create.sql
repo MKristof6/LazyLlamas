@@ -203,14 +203,14 @@ CREATE TABLE memory_game_solution
 );
 
 
-DROP TABLE IF EXISTS listening_cards;
-DROP TABLE IF EXISTS public.listening_game_answer;
-DROP TABLE IF EXISTS public.listening_game_possibilities;
+DROP TABLE IF EXISTS listening_game;
+
 
 CREATE TABLE listening_game
 (
     id     INT GENERATED ALWAYS AS IDENTITY,
     game_id INT,
+    theme text,
     language text,
     answers text[],
     correct_answer text,
