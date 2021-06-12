@@ -164,7 +164,7 @@ def update_score(student_id):
 
 def save_matching_game_solution(student_id, game_id, solution_time):
     query = """
-     INSERT INTO memory_game_solution(student_id, game_id, solution_time) 
+     INSERT INTO matching_game_solution(student_id, game_id, solution_time) 
                 VALUES(%(student_id)s, %(game_id)s, %(solution_time)s)
      """
     return connection.execute_dml_statement(query, {"student_id": student_id, "game_id": game_id,

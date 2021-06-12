@@ -1,3 +1,5 @@
+import { stopCheck } from "./matching-stopper.js";
+
 let gameId = document.querySelector(".matching-game").id;
 let numberOfCards = 6;
 
@@ -109,7 +111,7 @@ function logic() {
         WORDS = document.querySelectorAll('.words-to-match');
         IMAGES = document.querySelectorAll('.images-to-match');
         reset();
-        // if (winCheck()) disableEverything();
+         if (winCheck()) stopCheck.stop();
     }
 
     function winCheck() {
