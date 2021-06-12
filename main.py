@@ -268,6 +268,8 @@ def get_memory_game(game_id):
 def save_memory_solution(game_id):
     solution_time = request.get_json()
     data_handler.save_memory_game_solution(session['id'], game_id, solution_time)
+    if not session['amigo']:
+        data_handler.update_score(session['id'])
     return jsonify('Success', 200)
 
 

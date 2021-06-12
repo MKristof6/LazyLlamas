@@ -153,3 +153,10 @@ def get_matching_game(game_id):
     WHERE id = %(game_id)s
     """
     return connection.execute_select(query, {"game_id": game_id})
+
+
+def update_score(student_id):
+    query = """UPDATE student
+                    SET points = points + 10
+                    WHERE id=(%s)"""
+    return connection.execute_dml_statement(query, {"student_id": student_id})
