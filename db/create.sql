@@ -207,38 +207,15 @@ DROP TABLE IF EXISTS listening_cards;
 DROP TABLE IF EXISTS public.listening_game_answer;
 DROP TABLE IF EXISTS public.listening_game_possibilities;
 
-CREATE TABLE listening_game_answer
+CREATE TABLE listening_game
 (
     id     INT GENERATED ALWAYS AS IDENTITY,
-    answer text,
+    game_id INT,
     language text,
+    answers text[],
+    correct_answer text,
     PRIMARY KEY (id)
 );
-
-
-
-CREATE TABLE listening_cards
-(
-    id      INT GENERATED ALWAYS AS IDENTITY,
-    task_id INT NOT NULL,
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE listening_game_possibilities
-(
-    id          INT GENERATED ALWAYS AS IDENTITY,
-    task_id     INT,
-    card_id     INT,
-    possibility text,
-    PRIMARY KEY (id)
-);
-
-
-ALTER TABLE listening_cards
-    ADD CONSTRAINT fk_answers FOREIGN KEY (id) REFERENCES listening_game_answer(id);
-
-ALTER TABLE listening_cards
-    ADD CONSTRAINT fk_possibility FOREIGN KEY (id) REFERENCES listening_game_possibilities(id);
 
 
 

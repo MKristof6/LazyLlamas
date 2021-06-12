@@ -58,5 +58,9 @@ def get_languages():
 #
 # a p p2 p3
 
-# , listening_game_answer.id, lgp.card_id, listening_cards.id, lgp.task_id
-#, listening_game_answer.id, answer, lgp.card_id, listening_cards.id, lgp.task_id
+
+def save_listening_game(data):
+    query ="""
+    
+    """
+    return connection.execute_dml_statement(query, {"data":data})

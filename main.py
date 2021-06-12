@@ -164,10 +164,15 @@ def get_data_for_listening_game(game_id):
     return jsonify(data)
 
 
-@app.route('/listening-game-upload')
+@app.route('/listening-game-upload'), methods=['GET', 'POST'])
 def listening_game_upload():
-    languages = data_handler.get_languages()
-    return render_template('listening_game_upload.html',  languages=languages)
+    if request.method == 'POST':
+        data = request.get_json()
+        data_handler.save_listening_game(data);
+        return jsonify('Success', 200)
+    else:
+        languages = data_handler.get_languages()
+        return render_template('listening_game_upload.html',  languages=languages)
 
 
 @app.route('/comprehensive-reading')
