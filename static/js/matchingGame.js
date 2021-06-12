@@ -9,7 +9,6 @@ const matchingGame = {
 
     },
 
-
     showData: function (cards) {
         let wordContainer = document.querySelector('.word-container');
         let imageContainer = document.querySelector('.image-container');
