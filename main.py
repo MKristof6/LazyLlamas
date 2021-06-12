@@ -158,10 +158,17 @@ def listening_game():
     return render_template('listening_game.html')
 
 
-@app.route('/listening-game/<game_id>')
+@app.route('/get-listening-game/<game_id>')
 def get_data_for_listening_game(game_id):
     data = data_handler.get_listening_game_data(game_id)
     return jsonify(data)
+
+
+@app.route('/listening-game-upload')
+def listening_game_upload():
+    languages = data_handler.get_languages()
+
+    return render_template('listening_game_upload.html',  languages=languages)
 
 
 @app.route('/comprehensive-reading')

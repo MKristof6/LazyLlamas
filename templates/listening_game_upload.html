@@ -1,0 +1,18 @@
+{% extends 'template.html' %}
+{% block title %} Llamigos para los niños {% endblock %}
+{% block head %} {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/listeningGameUpload.js') }}" defer></script>
+{% endblock %}
+{% block content %}
+
+    <label for="language"> Nyelv: </label>
+    <select name="language" id="language">
+        {% for language in languages %}
+        <option value="{{language['voice_code']}}">{{ language['name'] }}</option>
+        {% endfor %}
+    </select>
+
+
+
+
+{% endblock %}
