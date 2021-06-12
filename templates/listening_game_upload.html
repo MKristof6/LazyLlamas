@@ -1,18 +1,45 @@
-{% extends 'template.html' %}
-{% block title %} Llamigos para los niños {% endblock %}
-{% block head %} {{ super() }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Memória játék feltöltés</title>
     <script type="text/javascript" src="{{ url_for('static', filename='js/listeningGameUpload.js') }}" defer></script>
-{% endblock %}
-{% block content %}
+</head>
+<body>
+<div class="circle1"></div>
+<div class="circle2"></div>
+<div class="form-container">
 
     <label for="language"> Nyelv: </label>
     <select name="language" id="language">
         {% for language in languages %}
-        <option value="{{language['voice_code']}}">{{ language['name'] }}</option>
+        <option value="{{language['voice_code']}}">{{ language['name'] }}</option>  <br><br>
         {% endfor %}
     </select>
 
+    {% for n in range(6) %}
+    <div class="card">
+    <label for="correct-answer"> Helyes válasz: </label>
+    <input type="text"  id="correct-answer" ><br><br>
+    <h4> Helytelen válaszok: </h4>
+    <input type="text" id="answer1"  name="text"><br><br>
+    <input type="text" id="answer2"  name="text"><br><br>
+
+
+    </div>
+
+    {% endfor %}
+    <button id="save">
+        Mentés
+    </button>
+</div>
+</body>
+</html>
 
 
 
-{% endblock %}
+
+
+
+
+
