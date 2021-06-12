@@ -6,13 +6,17 @@
     flex-wrap: wrap;
 }
 
-.asd{
+.answers{
      display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
 
+.selected{
+    background-color: crimson;
+    color: crimson;
 
+}
 .answer{
     width: 100px;
 }

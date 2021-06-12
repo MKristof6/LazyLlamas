@@ -1,5 +1,5 @@
 let data = {};
-let questionNumber = 2;
+let questionNumber = 6;
 let saveBtn = document.getElementById("save");
 saveBtn.addEventListener('click', uploadData);
 

@@ -9,12 +9,12 @@ app.secret_key = b'_5#z2L"F7Q8q\n\xec]/'
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    teachers = data_handler.get_teachers()
+    amigos = data_handler.get_amigos()
     students = data_handler.get_students()
     if request.method == 'POST':
         session['pw'] = request.form['password']
         session['email'] = request.form['email']
-        for user in teachers:
+        for user in amigos:
             if session['email'] == user['email']:
                 session['amigo'] = True
                 if util.verify_pw(session['pw'], user['password']):
@@ -52,7 +52,7 @@ def register():
             return render_template('register.html')
         else:
             if int(request.form['amigo']) == 0:
-                data_handler.register_teacher(name, email, pw)
+                data_handler.register_amigo(name, email, pw)
                 session['amigo'] = True
             else:
                 bday, languages = student_register()
@@ -92,7 +92,7 @@ def student_register():
 
 
 def validate_email(email):
-    users = [data_handler.get_students(), data_handler.get_teachers()]
+    users = [data_handler.get_students(), data_handler.get_amigos()]
     for userz in users:
         for user in userz:
             if email == user['email']:
@@ -174,7 +174,8 @@ def listening_game_with_id(game_id):
 def listening_game_upload():
     if request.method == 'POST':
         data = request.get_json()
-        game_id = data_handler.get_latest_listening_game_id()
+        game_id_data = data_handler.get_latest_listening_game_id()
+        game_id = game_id_data["game_id"] + 1
         if game_id is None:
             game_id = 1
         for card in data["cards"]:

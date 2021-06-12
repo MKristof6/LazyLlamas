@@ -1,8 +1,8 @@
 import connection
 
 
-def get_teachers():
-    return connection.execute_select('SELECT email, password FROM teacher;')
+def get_amigos():
+    return connection.execute_select('SELECT email, password FROM amigo;')
 
 
 def get_students():
@@ -16,8 +16,8 @@ def register_student(name, email, password, bday, languages, student_id):
         [name, email, password, bday, languages])
 
 
-def register_teacher(name, email, password):
-    return connection.execute_dml_statement("""INSERT INTO teacher(name, email, password) VALUES(%s, %s, %s)""",
+def register_amigo(name, email, password):
+    return connection.execute_dml_statement("""INSERT INTO amigo(name, email, password) VALUES(%s, %s, %s)""",
                                             [name, email, password])
 
 
@@ -44,7 +44,7 @@ def get_latest_listening_game_id():
 
 def save_listening_game(game_id, theme, language,  answers):
     query ="""
-    INSERT INTO listening_game(game_id, theme, language, answers, correct_answer) VALUES (%(game_id)s, %(language)s, %(theme)s, 
+    INSERT INTO listening_game(game_id, theme, language, answers, correct_answer) VALUES (%(game_id)s,  %(theme)s, %(language)s,
     %(answers)s, %(correct)s);
     """
     return connection.execute_dml_statement(query, {"game_id": game_id, "language": language, "theme": theme, "answers": answers,
@@ -53,7 +53,7 @@ def save_listening_game(game_id, theme, language,  answers):
 
 def get_listening_games():
     query = """
-        SELECT id, theme FROM listening_game;
+        SELECT game_id, theme FROM listening_game;
     """
     return connection.execute_select(query)
 
@@ -61,6 +61,6 @@ def get_listening_games():
 def get_listening_game(game_id):
     query = """
     SELECT * FROM listening_game
-    WHERE id = %(game_id)s
+    WHERE game_id = %(game_id)s
     """
     return connection.execute_select(query, {"game_id": game_id})
