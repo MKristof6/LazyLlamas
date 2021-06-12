@@ -2,18 +2,23 @@
 {% block title %} Llamigos para los niños {% endblock %}
 {% block head %} {{ super() }} {% endblock %}
 {% block content %}
-<div class="green-background">
+<div class="circle1"></div>
+<div class="circle2"></div>
+    <div class="main">
 {% if session['amigo'] == False %}
-<div class="row">
-    <div class="student-card column">
-        <a class="blacklink" href="{{url_for('my_exercises')}}"><h2>Feladatok</h2></a>
-    </div>
-    <div class="student-card column">
-        <a class="blacklink" href="{{url_for('profile')}}"><h2>Profilom</h2></a>
-    </div>
-    <div class="student-card column">
-        <a class="blacklink" href="{{url_for('logout')}}"><h2>Kijelentkezés</h2></a>
-    </div>
+<div class="student-menu">
+<a class="card-link" href="{{url_for('my_exercises')}}">
+    <div class="student-card">
+        <h2>Feladatok</h2>
+    </div></a>
+    <a class="card-link" href="{{url_for('profile')}}">
+    <div class="student-card">
+        <h2>Profilom</h2>
+    </div></a>
+    <a class="card-link" href="{{url_for('logout')}}">
+    <div class="student-card">
+        <h2>Kijelentkezés</h2>
+    </div></a>
 </div>
 
 {% elif session['amigo'] %}
