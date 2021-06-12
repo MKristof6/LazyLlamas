@@ -50,10 +50,6 @@ function check(e) {
     deactivateClass()
 }
 function deactivateClass(){
-
-
-
-
     setupEventListener()
 }
 

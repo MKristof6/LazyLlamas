@@ -49,3 +49,18 @@ def save_listening_game(game_id, theme, language,  answers):
     """
     return connection.execute_dml_statement(query, {"game_id": game_id, "language": language, "theme": theme, "answers": answers,
                                                     "correct": answers[0]})
+
+
+def get_listening_games():
+    query = """
+        SELECT id, theme FROM listening_game;
+    """
+    return connection.execute_select(query)
+
+
+def get_listening_game(game_id):
+    query = """
+    SELECT * FROM listening_game
+    WHERE id = %(game_id)s
+    """
+    return connection.execute_select(query, {"game_id": game_id})
