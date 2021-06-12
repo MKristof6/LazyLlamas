@@ -1,4 +1,4 @@
-let gameId = document.querySelector(".memory-game").id
+let gameId = document.querySelector(".game").id
 
 let seconds = 0;
 let minutes = 0;
