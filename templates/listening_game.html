@@ -1,0 +1,33 @@
+{% extends 'template.html' %}
+{% block title %} Llamigos para los niños {% endblock %}
+{% block head %} {{ super() }}
+    <script defer src="https://code.responsivevoice.org/responsivevoice.js?key=wX75Gf01"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/listeningGame.js') }}" defer></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='style/listening-game.css') }}">
+{% endblock %}
+{% block content %}
+<section class="listening-game" id="{{game_id}}">
+    <button type="submit" id="save"> Beküldés </button>
+    <div class="green-background">
+
+
+        <div id="container">
+
+
+        </div>
+    </div>
+
+</section>
+{% endblock %}
+
+
+
+{#<div class="card">#}
+{#                <input type="image" id="speak" value="{{ answer[0]['answer'] }}" src="./static/images/play.png"#}
+{#                       onclick="responsiveVoice.speak(textSpeak())">#}
+{#                <div class="possibilities">#}
+{#                    <p>sas</p>#}
+{#                    <p>sad</p>#}
+{#                    <p>asd</p>#}
+{#                </div>#}
+{#            </div>#}

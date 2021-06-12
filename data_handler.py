@@ -5,6 +5,7 @@ def get_amigos():
     return connection.execute_select('SELECT id, email, password FROM amigo;')
 
 
+
 def get_students():
     return connection.execute_select('SELECT id, email, password FROM student;')
 
@@ -36,9 +37,35 @@ def update_student_languages(student_id, languages):
     return connection.execute_dml_statement(query, {"languages": languages, "student_id": student_id})
 
 
+
 def get_latest_id():
     return connection.execute_select('SELECT id FROM student ORDER BY id DESC LIMIT 1', fetchall=False)
 
+
+def get_languages():
+    query="""
+    SELECT name, voice_code FROM language
+    """
+    return connection.execute_select(query)
+
+
+def get_latest_listening_game_id():
+    return connection.execute_select('SELECT game_id FROM listening_game ORDER BY game_id DESC LIMIT 1', fetchall=False)
+
+
+def save_listening_game(game_id, theme, language,  answers):
+    query ="""
+    INSERT INTO listening_game(game_id, theme, language, answers, correct_answer) VALUES (%(game_id)s,  %(theme)s, %(language)s,
+    %(answers)s, %(correct)s);
+    """
+    return connection.execute_dml_statement(query, {"game_id": game_id, "language": language, "theme": theme, "answers": answers,
+                                                    "correct": answers[0]})
+
+
+def get_listening_games():
+    query = """
+        SELECT game_id, theme FROM listening_game;"""
+ return connection.execute_select(query)
 
 def get_memory_cards(game_id):
     query = """
@@ -147,13 +174,26 @@ def get_matching_games():
     return connection.execute_select(query)
 
 
+def get_listening_game(game_id):
+    query = """
+    SELECT * FROM listening_game
+    WHERE game_id = %(game_id)s
+     """
+return connection.execute_select(query, {"game_id": game_id})
+
 def get_matching_game(game_id):
     query = """
     SELECT * FROM matching_game
-    WHERE id = %(game_id)s
-    """
-    return connection.execute_select(query, {"game_id": game_id})
+    WHERE id = %(game_id)s"""
+ return connection.execute_select(query, {"game_id": game_id})
+   
 
+
+def save_listening_game_solution(student_id, game_id, solution):
+    query = """
+       INSERT INTO listening_game_solution(student_id, game_id, solution) VALUES (%(student_id)s,, %(game_id)s,   %(solution)s;
+       """
+    return connection.execute_dml_statement(query, {"game_id": game_id, "solution": solution, "student_id": student_id})
 
 def update_score(student_id):
     query = """UPDATE student
@@ -169,3 +209,4 @@ def save_matching_game_solution(student_id, game_id, solution_time):
      """
     return connection.execute_dml_statement(query, {"student_id": student_id, "game_id": game_id,
                                                     "solution_time": solution_time})
+

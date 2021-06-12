@@ -69,6 +69,7 @@ body {
     text-align: center;
 }
 
+
 .matching-game {
     display: grid;
     grid-template-columns: 1fr 3fr;
@@ -147,3 +148,4 @@ li:not(:last-child) {
     margin-bottom: 95px;
     font-size: xxx-large;
 }
+

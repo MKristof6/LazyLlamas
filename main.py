@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, redirect, session, request, flash, jsonify, make_response
 
+
 import data_handler
 import util
 
@@ -7,14 +8,12 @@ app = Flask("amigo")
 app.secret_key = b'_5#z2L"F7Q8q\n\xec]/'
 
 
-@app.route('/speech')
-def speech():
-    return render_template('speech.html')
-
 
 # Authenticating user based on an SQL database query by comparing POST request form data.
 # Form requires email address and password inputs. Upon successful authentication user role is set
 # as student or amigo.
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     amigos = data_handler.get_amigos()
@@ -83,33 +82,7 @@ def register():
             return redirect(url_for('home'))
     else:
         return render_template('register.html', amigo=amigo)
-
-
-def student_register():
-    birthday = request.form['birthday']
-    languages = []
-    try:
-        if request.form['eng']:
-            languages.append(int(request.form['eng']))
-    except KeyError:
-        pass
-    try:
-        if request.form['fra']:
-            languages.append(int(request.form['fra']))
-    except KeyError:
-        pass
-    try:
-        if request.form['ita']:
-            languages.append(int(request.form['ita']))
-    except KeyError:
-        pass
-    try:
-        if request.form['esp']:
-            languages.append(int(request.form['esp']))
-    except KeyError:
-        pass
-    return birthday, languages
-
+      
 
 def validate_email(email):
     users = [data_handler.get_students(), data_handler.get_amigos()]
@@ -252,6 +225,8 @@ def list_memory_games():
     return render_template('game-types.html', games=memory_games, exercise=exercise)
 
 
+
+
 @app.route('/memory-game/<game_id>')
 def memory_game_with_id(game_id):
     return render_template('memory-game.html', game_id=game_id)
@@ -271,6 +246,51 @@ def save_memory_solution(game_id):
         data_handler.update_score(session['id'])
     return jsonify('Success', 200)
 
+#Listening game  
+
+@app.route('/listening-game')
+def list_listening_games():
+    games = data_handler.get_listening_games()
+    return render_template('listening_game.html')
+
+
+@app.route('/get-listening-game/<game_id>')
+def get_listening_game(game_id):
+    data = data_handler.get_listening_game(game_id)
+    return jsonify(data)
+
+
+@app.route('/listening-game/<game_id>')
+def listening_game_with_id(game_id):
+    return render_template('listening_game.html', game_id=game_id)
+
+
+@app.route('/listening-game-upload', methods=['GET', 'POST'])
+def listening_game_upload():
+    if request.method == 'POST':
+        data = request.get_json()
+        game_id_data = data_handler.get_latest_listening_game_id()
+        if game_id_data is None:
+            game_id = 1
+        else:
+            game_id = game_id_data["game_id"] + 1
+        for card in data["cards"]:
+            data_handler.save_listening_game(game_id, data["theme"], data["language"], card)
+        return jsonify('Success', 200)
+    else:
+        languages = data_handler.get_languages()
+        return render_template('listening_game_upload.html',  languages=languages)
+
+
+@app.route('/listening-solution-saver/<game_id>', methods=['POST'])
+def save_matching_solution(game_id):
+    solution = request.get_json()
+    data_handler.save_listening_game_solution(session['id'], game_id, solution)
+    if not session['amigo']:
+        data_handler.update_score(session['id'])
+    return jsonify('Success', 200)  
+  
+  
 if __name__ == "__main__":
     app.run(
         debug=True,
