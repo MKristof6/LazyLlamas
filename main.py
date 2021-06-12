@@ -154,14 +154,20 @@ def sorting_game():
 
 
 @app.route('/listening-game')
-def listening_game():
+def list_listening_games():
+    games = data_handler.get_listening_games()
     return render_template('listening_game.html')
 
 
 @app.route('/get-listening-game/<game_id>')
-def get_data_for_listening_game(game_id):
-    data = data_handler.get_listening_game_data(game_id)
+def get_listening_game(game_id):
+    data = data_handler.get_listening_game(game_id)
     return jsonify(data)
+
+
+@app.route('/listening-game/<game_id>')
+def listening_game_with_id(game_id):
+    return render_template('listening_game.html', game_id=game_id)
 
 
 @app.route('/listening-game-upload', methods=['GET', 'POST'])
