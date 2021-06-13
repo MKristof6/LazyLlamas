@@ -31,6 +31,7 @@ DROP TABLE IF EXISTS public.sorting_game;
 DROP TABLE IF EXISTS public.matching_game;
 DROP TABLE IF EXISTS public.memory_game_solution;
 DROP TABLE IF EXISTS public.matching_game_solution;
+DROP TABLE IF EXISTS public.comprehensive_reading;
 
 
 
@@ -231,6 +232,13 @@ CREATE TABLE listening_game
     answers text[],
     correct_answer text,
     PRIMARY KEY (id)
+);
+
+CREATE TABLE comprehensive_reading(
+    id     INT GENERATED ALWAYS AS IDENTITY,
+    theme text,
+    long_text text,
+    questions text[]
 );
 
 
