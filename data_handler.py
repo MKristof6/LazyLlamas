@@ -77,7 +77,7 @@ def get_memory_cards(game_id):
 
 def get_amigo(amigo_id):
     query = """ SELECT * FROM amigo
-                WHERE id = %(id)s;
+                WHERE id = %(amigo_id)s;
     """
     return connection.execute_select(query, {"amigo_id": amigo_id}, fetchall=False)
 
