@@ -113,12 +113,12 @@ def get_student_languages(student_id):
 
 
 def new_sorting_exercise(themes, words):
-    query = 'INSERT INTO sorting_game(themes, words) VALUES (%(themes)s, %(words)s)'
+    query = 'INSERT INTO sorting_game(theme, words) VALUES (%(themes)s, %(words)s)'
     return connection.execute_dml_statement(query, {"themes": themes, "words": words})
 
 
 def get_sorting_exercise(id):
-    query = 'SELECT themes, words FROM sorting_game WHERE id=%(id)s;'
+    query = 'SELECT theme, words FROM sorting_game WHERE id=%(id)s;'
     return connection.execute_select(query, {"id": id}, fetchall=False)
 
 
@@ -152,6 +152,21 @@ def save_matching_game(language, theme, images):
                    VALUES(%(language)s, %(theme)s, %(image1)s, %(text1)s, %(image2)s, %(text2)s, %(image3)s, %(text3)s, %(image4)s, %(text4)s, %(image5)s, %(text5)s, %(image6)s, %(text6)s)
         """
     return connection.execute_dml_statement(query, {"language": language, "theme": theme, "image1": images[0]["image"],
+                                                    "text1": images[0]["text"], "image2": images[1]["image"],
+                                                    "text2": images[1]["text"],
+                                                    "image3": images[2]["image"], "text3": images[2]["text"],
+                                                    "image4": images[3]["image"],
+                                                    "text4": images[3]["text"], "image5": images[4]["image"],
+                                                    "text5": images[4]["text"],
+                                                    "image6": images[5]["image"], "text6": images[5]["text"]})
+
+
+def save_matching_game(theme, images):
+    query = """
+    INSERT INTO matching_exercise(theme, image1, word1, image2, word2, image3, word3, image4, word4, image5, word5, image6, word6)
+               VALUES(%(theme)s, %(image1)s, %(text1)s, %(image2)s, %(text2)s, %(image3)s, %(text3)s, %(image4)s, %(text4)s, %(image5)s, %(text5)s, %(image6)s, %(text6)s)
+    """
+    return connection.execute_dml_statement(query, {"theme": theme, "image1": images[0]["image"],
                                                     "text1": images[0]["text"], "image2": images[1]["image"],
                                                     "text2": images[1]["text"],
                                                     "image3": images[2]["image"], "text3": images[2]["text"],
@@ -211,3 +226,10 @@ def save_matching_game_solution(student_id, game_id, solution_time):
      """
     return connection.execute_dml_statement(query, {"student_id": student_id, "game_id": game_id,
                                                     "solution_time": solution_time})
+
+
+def get_sorting_games():
+    query = """
+            SELECT id, theme FROM sorting_game;
+        """
+    return connection.execute_select(query)

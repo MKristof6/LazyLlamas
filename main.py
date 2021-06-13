@@ -1,11 +1,11 @@
 from flask import Flask, render_template, url_for, redirect, session, request, flash, jsonify, make_response
 
-
 import data_handler
 import util
 
 app = Flask("amigo")
 app.secret_key = b'_5#z2L"F7Q8q\n\xec]/'
+
 
 # Authenticating user based on an SQL database query by comparing POST request form data.
 # Form requires email address and password inputs. Upon successful authentication user role is set
@@ -39,7 +39,6 @@ def login():
             return 'A felhasználó nem található, próbáld újra. Ha nincs még profilod, regisztrálj!'
     else:
         return render_template('login.html')
-
 
 
 @app.route('/logout')
@@ -76,7 +75,7 @@ def register():
             return redirect(url_for('home'))
     else:
         return render_template('register.html', amigo=amigo)
-      
+
 
 def validate_email(email):
     users = [data_handler.get_students(), data_handler.get_amigos()]
@@ -136,7 +135,8 @@ def solutions():
 def students():
     return 'Implementation in process. '
 
-#SORTING GAME
+
+# SORTING GAME
 
 @app.route('/upload-words', methods=['POST'])
 def upload_words():
@@ -154,17 +154,19 @@ def sorting_game_upload():
 
 @app.route('/sorting-game/<id>')
 def sorting_game(id):
-    themes = data_handler.get_sorting_exercise(id)['themes']
+    themes = data_handler.get_sorting_exercise(id)['theme']
     words = data_handler.get_sorting_exercise(id)['words']
     return render_template('sorting_game.html', themes=themes, words=words)
 
 
 @app.route('/sorting-games')
 def sorting_games():
-    return 'Implementation in process.'
+    exercise = "sorting-game"
+    sorting_games = data_handler.get_sorting_games()
+    return render_template('game-types.html', games=sorting_games, exercise=exercise)
 
 
-#MATCHING GAME
+# MATCHING GAME
 
 @app.route('/matching-game-upload', methods=['GET', 'POST'])
 def matching_game_upload():
@@ -175,20 +177,24 @@ def matching_game_upload():
     else:
         return render_template('matching_upload.html')
 
+
 @app.route('/get-matching-game/<game_id>')
 def get_matching_game(game_id):
     data = data_handler.get_matching_game(game_id)
     return jsonify(data)
 
+
 @app.route('/matching-game/<game_id>')
 def matching_game_with_id(game_id):
     return render_template('matching-game.html', game_id=game_id)
+
 
 @app.route('/matching-games')
 def list_matching_games():
     exercise = "matching-game"
     matching_games = data_handler.get_matching_games()
     return render_template('game-types.html', games=matching_games, exercise=exercise)
+
 
 @app.route('/matching-solution-saver/<game_id>', methods=['POST'])
 def save_matching_solution(game_id):
@@ -197,7 +203,6 @@ def save_matching_solution(game_id):
     if not session['amigo']:
         data_handler.update_score(session['id'])
     return jsonify('Success', 200)
-
 
 
 # MEMORY GAME
@@ -219,8 +224,6 @@ def list_memory_games():
     return render_template('game-types.html', games=memory_games, exercise=exercise)
 
 
-
-
 @app.route('/memory-game/<game_id>')
 def memory_game_with_id(game_id):
     return render_template('memory-game.html', game_id=game_id)
@@ -240,7 +243,8 @@ def save_memory_solution(game_id):
         data_handler.update_score(session['id'])
     return jsonify('Success', 200)
 
-#Listening game  
+
+# Listening game
 
 @app.route('/listening-games')
 def list_listening_games():
@@ -274,7 +278,7 @@ def listening_game_upload():
         return jsonify('Success', 200)
     else:
         languages = data_handler.get_languages()
-        return render_template('listening_game_upload.html',  languages=languages)
+        return render_template('listening_game_upload.html', languages=languages)
 
 
 @app.route('/listening-solution-saver/<game_id>', methods=['POST'])
@@ -283,9 +287,9 @@ def save_listening_solution(game_id):
     data_handler.save_listening_game_solution(session['id'], game_id, solution)
     if not session['amigo']:
         data_handler.update_score(session['id'])
-    return jsonify('Success', 200)  
-  
-  
+    return jsonify('Success', 200)
+
+
 if __name__ == "__main__":
     app.run(
         debug=True,

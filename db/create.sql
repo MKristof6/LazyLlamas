@@ -194,7 +194,7 @@ CREATE TABLE memory_game
 CREATE TABLE sorting_game
 (
     id     INT GENERATED ALWAYS AS IDENTITY,
-    themes TEXT[],
+    theme TEXT[],
     words  TEXT[],
     PRIMARY KEY (id)
 );

@@ -30,6 +30,7 @@ function collect() {
         }
     })
     console.log(SOLUTION);
+    window.location = "/";
 }
 
 SUBMIT.addEventListener('click', collect);
