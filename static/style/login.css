@@ -78,7 +78,6 @@ p{
 }
 
 .form-container {
-    /*background: white;*/
     display: flex;
     flex-direction: column;
     padding: 0 50px;
@@ -95,6 +94,12 @@ p{
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
+}
+
+.form-container input:focus {
+    transition: 0.5s;
+    background: white;
+    outline: none;
 }
 
 button {
@@ -150,7 +155,6 @@ button.ghost {
     width: 50%;
     opacity: 0;
     z-index: 1;
-    /*background: white;*/
 }
 
 .overlay-container {
