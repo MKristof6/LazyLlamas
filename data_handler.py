@@ -255,7 +255,29 @@ def save_comprehensive_reading_solution(student_id, game_id, solution):
 
 # FILLING GAPS
 
-def new_filling_exercise(theme, long_text, gaps):
+def save_filling_exercise(theme, long_text, gaps):
     query = """INSERT INTO filling_gaps(theme, long_text, gaps) VALUES (%(theme)s, %(long_text)s, %(gaps)s)
     ;"""
     return connection.execute_dml_statement(query, {"theme": theme, "long_text": long_text, "gaps": gaps})
+
+
+def get_filling_games():
+    query = """
+            SELECT id, theme FROM filling_gaps;
+        """
+    return connection.execute_select(query)
+
+
+def get_filling_game(game_id):
+    query = """
+    SELECT * FROM filling_gaps
+    WHERE id = %(game_id)s
+     """
+    return connection.execute_select(query, {"game_id": game_id}, fetchall=False)
+
+
+def save_filling_game_solution(student_id, game_id, solution):
+    query = """
+           INSERT INTO filling_game_solution(student_id, game_id, solution) VALUES (%(student_id)s, %(game_id)s,   %(solution)s);
+           """
+    return connection.execute_dml_statement(query, {"game_id": game_id, "solution": solution, "student_id": student_id})

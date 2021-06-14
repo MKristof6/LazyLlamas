@@ -29,6 +29,7 @@ DROP TABLE IF EXISTS public.listening_game_solution;
 DROP TABLE IF EXISTS public.student_exercises;
 DROP TABLE IF EXISTS public.exercise_type;
 DROP TABLE IF EXISTS public.filling_gaps;
+DROP TABLE IF EXISTS public.filling_game_solution;
 
 
 CREATE TABLE amigo
@@ -210,4 +211,12 @@ CREATE TABLE filling_gaps
     theme TEXT,
     long_text TEXT[],
     gaps INT
+);
+
+CREATE TABLE filling_game_solution
+(
+    id         INT GENERATED ALWAYS AS IDENTITY,
+    student_id INT,
+    game_id    INT,
+    solution   TEXT[]
 );
