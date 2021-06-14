@@ -68,6 +68,7 @@ def get_student_languages(student_id):
     """
     return connection.execute_select(query, {"student_id": student_id}, fetchall=False)
 
+
 def update_score(student_id):
     query = """UPDATE student
                     SET points = points + 10
@@ -76,25 +77,26 @@ def update_score(student_id):
 
 
 def get_student_exercises(student_id, game_type):
-    query ="""
+    query = """
     SELECT game_id FROM student_exercises
     WHERE student_id = %(student_id)s AND game_type = %(game_type)s;
     """
     return connection.execute_dml_statement(query, {"student_id": student_id, "game_type": game_type})
 
 
-#LISTENING GAME
+# LISTENING GAME
 
 def get_listening_games():
     query = """
         SELECT DISTINCT game_id as id, theme FROM listening_game;"""
     return connection.execute_select(query)
 
+
 def get_latest_listening_game_id():
     return connection.execute_select('SELECT game_id FROM listening_game ORDER BY game_id DESC LIMIT 1', fetchall=False)
 
 
-def save_listening_game(game_id,  language, theme, answers):
+def save_listening_game(game_id, language, theme, answers):
     query = """
     INSERT INTO listening_game(game_id, language, theme, answers, correct_answer) VALUES (%(game_id)s,  %(language)s,  
     %(theme)s,
@@ -104,12 +106,14 @@ def save_listening_game(game_id,  language, theme, answers):
                                                     "answers": answers,
                                                     "correct": answers[0]})
 
+
 def get_listening_game(game_id):
     query = """
     SELECT * FROM listening_game
     WHERE game_id = %(game_id)s
      """
     return connection.execute_select(query, {"game_id": game_id})
+
 
 def save_listening_game_solution(student_id, game_id, solution):
     query = """
@@ -118,7 +122,7 @@ def save_listening_game_solution(student_id, game_id, solution):
     return connection.execute_dml_statement(query, {"game_id": game_id, "solution": solution, "student_id": student_id})
 
 
-#MEMORY GAME
+# MEMORY GAME
 
 def get_memory_games():
     query = """
@@ -126,12 +130,14 @@ def get_memory_games():
     """
     return connection.execute_select(query)
 
+
 def get_memory_cards(game_id):
     query = """
     SELECT * FROM memory_game
     WHERE id = %(game_id)s
     """
     return connection.execute_select(query, {"game_id": game_id})
+
 
 def save_memory_game_solution(student_id, game_id, solution_time):
     query = """
@@ -156,16 +162,19 @@ def save_memory_game(language, theme, images):
                                                     "text5": images[4]["text"],
                                                     "image6": images[5]["image"], "text6": images[5]["text"]})
 
+
 # SORTING GAME
 
 def save_sorting_exercise(language, theme, categories, words):
     query = 'INSERT INTO sorting_game(language, theme, categories, words) VALUES (%(language)s, %(theme)s, %(categories)s, %(words)s)'
-    return connection.execute_dml_statement(query, {"language": language, "theme": theme, "words": words, "categories": categories})
+    return connection.execute_dml_statement(query, {"language": language, "theme": theme, "words": words,
+                                                    "categories": categories})
 
 
 def get_sorting_exercise(id):
     query = 'SELECT theme, categories, words FROM sorting_game WHERE id=%(id)s;'
     return connection.execute_select(query, {"id": id}, fetchall=False)
+
 
 def get_sorting_games():
     query = """
@@ -174,7 +183,7 @@ def get_sorting_games():
     return connection.execute_select(query)
 
 
-#MATCHING GAME
+# MATCHING GAME
 
 def save_matching_game(language, theme, images):
     query = """
@@ -214,11 +223,12 @@ def save_matching_game_solution(student_id, game_id, solution_time):
                                                     "solution_time": solution_time})
 
 
-#COMPREHENSIVE READING
+# COMPREHENSIVE READING
 
 def save_reading_exercise(language, theme, long_text, questions):
     query = """INSERT INTO comprehensive_reading(language, theme, long_text, questions) VALUES (%(language)s, %(theme)s, %(long_text)s, %(questions)s);"""
-    return connection.execute_dml_statement(query, {"language": language, "theme": theme, "long_text": long_text, "questions": questions})
+    return connection.execute_dml_statement(query, {"language": language, "theme": theme, "long_text": long_text,
+                                                    "questions": questions})
 
 
 def get_comprehensive_readings():
@@ -241,3 +251,11 @@ def save_comprehensive_reading_solution(student_id, game_id, solution):
        INSERT INTO comprehensive_reading_solution(student_id, game_id, solution) VALUES (%(student_id)s, %(game_id)s,   %(solution)s);
        """
     return connection.execute_dml_statement(query, {"game_id": game_id, "solution": solution, "student_id": student_id})
+
+
+# FILLING GAPS
+
+def new_filling_exercise(theme, long_text, gaps):
+    query = """INSERT INTO filling_gaps(theme, long_text, gaps) VALUES (%(theme)s, %(long_text)s, %(gaps)s)
+    ;"""
+    return connection.execute_dml_statement(query, {"theme": theme, "long_text": long_text, "gaps": gaps})

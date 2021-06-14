@@ -1,0 +1,20 @@
+{% extends 'template.html' %}
+{% block title %} Tölts rést! {% endblock %}
+{% block head %}
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../static/comprehensive-reading.css"/>
+<link href='https://fonts.googleapis.com/css?family=Amatic SC' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+<script src="/static/js/gUpload.js" defer></script>
+{% endblock %}
+{% block content %}
+<div class="main-card">
+    <form>
+        <input type="text" name="theme" placeholder="Téma">
+        <input type="text" name="text" id="text-inserter" placeholder="Szöveg helye">
+    </form>
+    <button class="purple button">Új szöveges mező</button>
+    <button class="green button">Új üres mező</button>
+    <button class="purple submit">Mentés</button>
+</div>
+{% endblock %}

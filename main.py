@@ -399,6 +399,16 @@ def save_comprehensive_reading_solution(game_id):
     return jsonify('Success', 200)
 
 
+# FILLING GAPS
+
+@app.route('/filling-gaps-upload', methods=['GET', 'POST'])
+def filling_gaps_upload():
+    if request.method == 'POST':
+        pass
+    else:
+        return render_template('filling_upload.html')
+
+
 if __name__ == "__main__":
     app.run(
         debug=True,
