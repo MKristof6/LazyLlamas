@@ -298,6 +298,7 @@ def comprehensive_reading_upload():
         long_text = theme_text_and_questions['long-text']
         questions = theme_text_and_questions['questions']
         data_handler.new_reading_exercise(theme, long_text, questions)
+        return jsonify('Success', 200)
     else:
         return render_template('comprehensive_reading_upload.html')
 
@@ -321,7 +322,7 @@ def comprehensive_reading_with_id(game_id):
 
 @app.route('/comprehensive-reading-solution-saver/<game_id>', methods=['POST'])
 def save_comprehensive_reading_solution(game_id):
-    solution_time = request.get_json()
+    solution = request.get_json()
     data_handler.save_comprehensive_reading_solution(session['id'], game_id, solution)
     if not session['amigo']:
         data_handler.update_score(session['id'])

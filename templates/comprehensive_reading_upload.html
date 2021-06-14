@@ -13,13 +13,14 @@
     <div class="text-container">
         <form id="text-form">
             <input type="text" name="theme" placeholder="Téma" id="theme">
-            <textarea type="text" name="text" placeholder="Másold ide a szöveget" id="long-text" maxlength="10000"></textarea>
+            <textarea type="text" name="text" placeholder="Másold ide a szöveget" id="long-text" maxlength="1000"></textarea>
         </form>
     </div>
     <div class="question-container">
         <form>
-            <input type="text" class="questions" placeholder="Itt tehetsz fel kérdéseket" id="fixed">
-            <input type="button" value="Új kérdés hozzáadása" id="button" class="submit">
+            <label for="fixed"> Új kérdés: </label>
+            <input type="text" class="questions fixed" placeholder="Itt tehetsz fel kérdéseket" id="fixed">
+            <input type="button" value="Hozzáadás" id="button" class="submit">
             <input type="submit" name="submit" value="Mentés" id="submit" class="submit">
         </form>
     </div>

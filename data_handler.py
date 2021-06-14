@@ -253,3 +253,10 @@ def get_comprehensive_reading(game_id):
     WHERE id = %(game_id)s
      """
     return connection.execute_select(query, {"game_id": game_id})
+
+
+def save_comprehensive_reading_solution(student_id, game_id, solution):
+    query = """
+       INSERT INTO comprehensive_reading_solution(student_id, game_id, solution) VALUES (%(student_id)s, %(game_id)s,   %(solution)s);
+       """
+    return connection.execute_dml_statement(query, {"game_id": game_id, "solution": solution, "student_id": student_id})

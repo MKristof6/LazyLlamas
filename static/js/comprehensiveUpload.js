@@ -12,20 +12,16 @@ function collectAndSend() {
     const questionInputs = document.querySelectorAll('.questions'); //Question's number are dependent on the user, so looping through them by class
     let questions = [];
     for (let question of questionInputs) {
-        if (question.value !== 'Itt tehetsz fel újabb kérdést') questions.push(question.value);
+        if (question.value !== 'Itt tehetsz fel újabb kérdést') questions.push(question.value);}
     DATA['questions'] = questions;
     console.log(DATA);
-    postData().then(r => {
-        console.log(r);
-        console.log('What is the meaning of Stonehenge?!');
-        // if (r.status.code === 200) window.location = '/';
-    });
-}}
+    postData();
+}
 
 function newQuestion() {
     let additionalQuestion = `<input type="text" class="questions" value="${questionAdder.previousElementSibling.value}">`;
     document.querySelector('.question-container').firstElementChild.insertAdjacentHTML('beforeend', additionalQuestion);
-    questionAdder.previousElementSibling.value = 'Itt tehetsz fel újabb kérdést';
+    questionAdder.previousElementSibling.value = '';
 }
 
 function postData() {
