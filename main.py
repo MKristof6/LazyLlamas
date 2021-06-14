@@ -302,6 +302,22 @@ def comprehensive_reading_upload():
         return render_template('comprehensive_reading_upload.html')
 
 
+@app.route('/comprehensive-readings')
+def list_comprehensive_readings():
+    exercise = "comprehensive-reading"
+    games = data_handler.get_comprehensive_readings()
+    return render_template('game-types.html', games=games, exercise=exercise)
+
+@app.route('/get-listening-game/<game_id>')
+def get_comprehensive_reading(game_id):
+    data = data_handler.get_listening_game(game_id)
+    return jsonify(data)
+
+
+@app.route('/listening-game/<game_id>')
+def listening_game_with_id(game_id):
+    return render_template('comprehensive-reading.html', game_id=game_id)
+
 if __name__ == "__main__":
     app.run(
         debug=True,
