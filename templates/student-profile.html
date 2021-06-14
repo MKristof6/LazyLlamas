@@ -34,10 +34,14 @@
     <div class="section2">
         <h2> Eredményeim </h2>
         <div id="progress">
-            <label for="languages">Tanult nyelvek:</label>
-            <p id="languages">{{ languages['languages'] }}</p>
-            <label for="points">Pontjaim:</label>
-            <p id="points">{{ student['points'] }}</p>
+            <div class="language">
+                <label for="languages">Tanult nyelvek:</label>
+                <p id="languages">{{ languages['languages'] }}</p>
+            </div>
+            <div class="points">
+                <label for="points">Pontjaim:</label>
+                <p id="points">{{ student['points'] }}</p>
+            </div>
         </div>
     </div>
     <div class="section3">
