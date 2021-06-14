@@ -207,4 +207,3 @@ CREATE TABLE listening_game_solution
     game_id       INT,
     solution text[]
 );
-
