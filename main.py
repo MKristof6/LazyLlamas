@@ -17,13 +17,12 @@ def login():
 
     if request.method == 'POST':
         # TODO: authentication function
-        session['pw'] = request.form['password']
         session['email'] = request.form['email']
         for user in amigos:
             if session['email'] == user['email']:
                 session['amigo'] = True
                 session['id'] = user['id']
-                if util.verify_pw(session['pw'], user['password']):
+                if util.verify_pw(request.form['password'], user['password']):
                     return redirect(url_for('home'))
 
         # Check if user is a student
@@ -33,7 +32,7 @@ def login():
                 session['amigo'] = False
                 session['id'] = user['id']
                 # Verify password
-                if util.verify_pw(session['pw'], user['password']):
+                if util.verify_pw(request.form['password'], user['password']):
                     return redirect(url_for('home'))
         else:
             return 'A felhasználó nem található, próbáld újra. Ha nincs még profilod, regisztrálj!'
@@ -53,8 +52,7 @@ def register():
         # Check if user is trying to register as amigo
         amigo = int(request.args.get('amigo'))
     else:
-        # Ha nem amigo, akkor lesz 1 az amigo változó?
-        amigo = 1
+        amigo = 0
     if request.method == 'POST':
         error = None
         email = request.form['email']
@@ -64,7 +62,7 @@ def register():
             error = "Ezzel az e-mail címmel már regisztráltak a rendszerünkbe. Kérjük, próbáld újra egy másik fiókkal."
             return render_template('register.html')
         else:
-            if int(request.form['amigo']) == 0:
+            if int(request.form['amigo']) == 1:
                 data_handler.register_amigo(name, email, pw)
                 session['amigo'] = True
             else:
@@ -141,10 +139,11 @@ def students():
 @app.route('/upload-words', methods=['POST'])
 def upload_words():
     data = request.get_json()
+    language = data['language']
     theme = data['theme']
     themes = data['themes']
     words = data['words']
-    data_handler.new_sorting_exercise(theme, themes, words)
+    data_handler.save_sorting_exercise(language, theme, themes, words)
     return jsonify(data)
 
 
@@ -162,7 +161,7 @@ def sorting_game(id):
 
 
 @app.route('/sorting-games')
-def sorting_games():
+def list_sorting_games():
     exercise = "sorting-game"
     sorting_games = data_handler.get_sorting_games()
     return render_template('game-types.html', games=sorting_games, exercise=exercise)
@@ -276,7 +275,7 @@ def listening_game_upload():
         else:
             game_id = game_id_data["game_id"] + 1
         for card in data["cards"]:
-            data_handler.save_listening_game(game_id, data["theme"], data["language"], card)
+            data_handler.save_listening_game(game_id, data["language"], data["theme"], card)
         return jsonify('Success', 200)
     else:
         languages = data_handler.get_languages()
@@ -287,6 +286,48 @@ def listening_game_upload():
 def save_listening_solution(game_id):
     solution = request.get_json()
     data_handler.save_listening_game_solution(session['id'], game_id, solution)
+    if not session['amigo']:
+        data_handler.update_score(session['id'])
+    return jsonify('Success', 200)
+
+
+# COMPREHENSIVE READING
+
+@app.route('/comprehensive-reading-upload', methods=['GET', 'POST'])
+def comprehensive_reading_upload():
+    if request.method == 'POST':
+        theme_text_and_questions = request.get_json()
+        language = theme_text_and_questions['language']
+        theme = theme_text_and_questions['theme']
+        long_text = theme_text_and_questions['long-text']
+        questions = theme_text_and_questions['questions']
+        data_handler.save_reading_exercise(language, theme, long_text, questions)
+        return jsonify('Success', 200)
+    else:
+        return render_template('comprehensive_reading_upload.html')
+
+
+@app.route('/comprehensive-readings')
+def list_comprehensive_readings():
+    exercise = "comprehensive-reading"
+    games = data_handler.get_comprehensive_readings()
+    return render_template('game-types.html', games=games, exercise=exercise)
+
+@app.route('/get-comprehensive-reading/<game_id>')
+def get_comprehensive_reading(game_id):
+    data = data_handler.get_comprehensive_reading(game_id)
+    return jsonify(data)
+
+
+@app.route('/comprehensive-reading/<game_id>')
+def comprehensive_reading_with_id(game_id):
+    return render_template('comprehensive-reading.html', game_id=game_id)
+
+
+@app.route('/comprehensive-reading-solution-saver/<game_id>', methods=['POST'])
+def save_comprehensive_reading_solution(game_id):
+    solution = request.get_json()
+    data_handler.save_comprehensive_reading_solution(session['id'], game_id, solution)
     if not session['amigo']:
         data_handler.update_score(session['id'])
     return jsonify('Success', 200)
