@@ -23,21 +23,25 @@
 
         <form action="/profile" method="post">
             <label for="name">Nevem:</label>
-            <input type="text" id="name" name="name" value="{{ student['name'] }}"><br><br>
+            <input type="text" id="name" name="name" value="{{ student['name'] }}">
             <label for="email">Email:</label>
-            <input type="text" id="email" name="email" value="{{ student['email'] }}"><br><br>
+            <input type="text" id="email" name="email" value="{{ student['email'] }}">
             <label for="birthday">Születési időm:</label>
-            <input type="date" id="birthday" name="birthday" value="{{ student['birthday'] }}"><br><br>
+            <input type="date" id="birthday" name="birthday" value="{{ student['birthday'] }}">
             <button type="submit">Adatok módosítása</button>
         </form>
     </div>
     <div class="section2">
         <h2> Eredményeim </h2>
         <div id="progress">
-            <label for="languages">Tanult nyelvek:</label>
-            <p id="languages">{{ languages['languages'] }}</p>
-            <label for="points">Pontjaim:</label>
-            <p id="points">{{ student['points'] }}</p>
+            <div class="language">
+                <label for="languages">Tanult nyelvek:</label>
+                <p id="languages">{{ languages['languages'] }}</p>
+            </div>
+            <div class="points">
+                <label for="points">Pontjaim:</label>
+                <p id="points">{{ student['points'] }}</p>
+            </div>
         </div>
     </div>
     <div class="section3">
