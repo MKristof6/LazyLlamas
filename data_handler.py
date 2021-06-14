@@ -252,32 +252,32 @@ def save_comprehensive_reading_solution(student_id, game_id, solution):
 
 def student_search_by_language(language):
     query = """
-    SELECT student.name AS name , email , DATE_PART('year', birthday) AS birthday,  array_agg(l.name)  AS language , points  FROM student
+    SELECT student.id, student.name AS name , email , DATE_PART('year', birthday) AS birthday,  array_agg(l.name)  AS language , points  FROM student
     FULL JOIN student_languages sl on student.id = sl.student_id
     FULL JOIN language l on sl.language_id = l.id
     WHERE l.name ILIKE %(language)s AND student.name IS NOT NULL
-    GROUP BY student.name, email, DATE_PART('year', birthday), points
+    GROUP BY student.id, student.name, email, DATE_PART('year', birthday), points
     """
     return connection.execute_select(query, {'language': '%' + language + '%'})
 
 
 def student_search_by_email(student_email):
     query = """
-    SELECT student.name  , email , DATE_PART('year', birthday) AS birthday,  array_agg(l.name)   AS language, points  FROM student
+    SELECT student.id, student.name  , email , DATE_PART('year', birthday) AS birthday,  array_agg(l.name)   AS language, points  FROM student
     join student_languages sl on student.id = sl.student_id
     join language l on sl.language_id = l.id
     WHERE email ILIKE %(student_email)s
-    GROUP BY student.name, email, DATE_PART('year', birthday), points
+    GROUP BY student.id, student.name, email, DATE_PART('year', birthday), points
     """
     return connection.execute_select(query, {'student_email': '%' + student_email + '%'})
 
 
 def student_search_by_birthday(bday):
     query = """
-    SELECT student.name , email , DATE_PART('year', birthday) AS birthday, array_agg(l.name)  AS language, points  FROM student
+    SELECT student.id, student.name , email , DATE_PART('year', birthday) AS birthday, array_agg(l.name)  AS language, points  FROM student
     join student_languages sl on student.id = sl.student_id
     join language l on sl.language_id = l.id
     WHERE DATE_PART('year', birthday) > %(bday)s
-    GROUP BY student.name, email, DATE_PART('year', birthday), points
+    GROUP BY student.id, student.name, email, DATE_PART('year', birthday), points
     """
     return connection.execute_select(query, {'bday': bday})

@@ -3,9 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Feladat küldés</title>
-    <script src="/static/js/sendTask.js" defer></script>
+    <link href="../static/style/send.css" rel='stylesheet'>
 </head>
 <body>
 
-<button class="send" id="/save/{{game_type}}/{{game_id}}"> Küldés </button>
+{#<div class="">#}
+
+{#<section>#}
+
+<div class="search-bar">
+    <h3>Nyelv: </h3>
+    <input type="text" id="search_language">
+    <h3>E-mail: </h3>
+    <input type="text" id="search_email">
+    <h3>Születési dátum: </h3> <br>
+    <input type="text" id="search_bday">
+{#    <input type="text" id="max-year">#}
+</div>
+
+<div class="search-bar">
+    <table id="container">
+
+    </table>
+
+</div>
+
+{#</section>#}
+{#</div>#}
+
+<button class="send" id="/send/{{game_type}}/{{game_id}}"> Küldés </button>
+
+
+<script src="/static/js/sendTask.js" ></script>
+<script src="/static/js/list_students.js" ></script>
 </body>

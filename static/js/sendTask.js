@@ -1,17 +1,20 @@
 let sendBtn = document.querySelector('.send');
 let route = sendBtn.id;
 let selectedStudents = [];
+let studentList = [];
 
 sendBtn.addEventListener('click', () => {
     selectedStudents = document.querySelectorAll('.selected');
-    console.log(route);
-
+    for (let student of selectedStudents){
+        studentList.push(student.id);
+    }
+    sendData(studentList);
 })
 
-function sendData(solution) {
+function sendData(studentList) {
     fetch(`${route}`, {
         method: "POST",
-        body: JSON.stringify(solution),
+        body: JSON.stringify(studentList),
         headers: {"Content-type": "application/json; charset=UTF-8"}
     })
         .then(response => response.json())

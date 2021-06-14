@@ -1,5 +1,3 @@
-console.log("ok")
-
 function searchByLanguage(language) {
     fetch(`/get-students-by-language/${language}`)
         .then(response => response.json())
@@ -39,7 +37,7 @@ function getElementsData(data) {
 
         elements += `
       
-  <tr>
+  <tr id="${element['id']}">
     <td>${element['name']}</td>
     <td>${element['email']}</td>
     <td>${element['birthday']}</td>
@@ -55,6 +53,14 @@ function getElementsData(data) {
 function showElements(elements) {
     let container = document.getElementById('container')
     container.innerHTML = elements
+    console.log('fut');
+    let rows = document.querySelectorAll("tr");
+    for (let row of rows){
+        row.addEventListener('click', ()=>{
+            row.classList.add('selected');
+        })
+    }
+
 }
 
 
@@ -62,7 +68,6 @@ function setup() {
 
     let searchLanguage = document.getElementById('search_language')
     searchLanguage.addEventListener("input", function () {
-        console.log("okkkke")
         searchByLanguage(searchLanguage.value)
     })
 

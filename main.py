@@ -129,12 +129,13 @@ def my_exercises_student(id):
     return render_template('student-exercises.html', student_id=id)
 
 
-@app.route('/send/<game_type>/<game_id>')
+@app.route('/send/<game_type>/<game_id>', methods=['GET', 'POST'])
 def send_game_to_student(game_type, game_id):
     if request.method == 'POST':
         student_list = request.get_json()
         for student in student_list:
-            data_handler.add_student_exercises(student['id'], game_id, game_type)
+            data_handler.add_student_exercises(student, game_id, game_type)
+        return jsonify('Success', 200)
     else:
         return render_template('send-task.html', game_type=game_type, game_id=game_id)
 
@@ -209,7 +210,7 @@ def list_student_sorting_games(id):
     sorting_games = []
     if len(game_ids) != 0:
         for g_id in game_ids:
-            sorting_games.append(data_handler.get_sorting_exercise(g_id)[0])
+            sorting_games.append(data_handler.get_sorting_exercise(g_id['game_id']))
         return render_template('game-types.html', games=sorting_games, exercise=exercise)
     else:
         return render_template('empty.html', exercise=exercise)
@@ -253,7 +254,7 @@ def list_student_matching_games(id):
     if len(game_ids) != 0:
         matching_games = []
         for g_id in game_ids:
-            matching_games.append(data_handler.get_matching_game(g_id)[0])
+            matching_games.append(data_handler.get_matching_game(g_id['game_id']))
         return render_template('game-types.html', games=matching_games, exercise=exercise)
     else:
         return render_template('empty.html', exercise=exercise)
@@ -380,7 +381,8 @@ def list_student_listening_games(id):
     if len(game_ids) != 0:
         listening_games = []
         for g_id in game_ids:
-            listening_games.append(data_handler.get_listening_game(g_id)[0])
+            listening_games.append(data_handler.get_listening_game(g_id['game_id']))
+            print(listening_games[0])
         return render_template('game-types.html', games=listening_games, exercise=exercise)
     else:
         return render_template('empty.html', exercise=exercise)
@@ -418,7 +420,7 @@ def list_student_comprehensive_readings(id):
     if len(game_ids) != 0:
         games = []
         for g_id in game_ids:
-            games.append(data_handler.get_comprehensive_reading(g_id)[0])
+            games.append(data_handler.get_comprehensive_reading(g_id['game_id']))
         return render_template('game-types.html', games=games, exercise=exercise)
     else:
         return render_template('empty.html', exercise=exercise)
