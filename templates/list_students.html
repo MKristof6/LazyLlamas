@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/list_students.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/students-list.css') }}">
+    <title>Students</title>
+</head>
+
+<body>
+{#<div class="">#}
+
+{#<section>#}
+
+<div class="search-bar">
+    <h3>Nyelv: </h3>
+    <input type="text" id="search_language">
+    <h3>E-mail: </h3>
+    <input type="text" id="search_email">
+    <h3>Születési dátum: </h3> <br>
+    <input type="text" id="search_bday">
+{#    <input type="text" id="max-year">#}
+</div>
+
+<div class="search-bar">
+    <table id="container">
+
+    </table>
+
+</div>
+
+{#</section>#}
+{#</div>#}
+
+</body>
+
+</html>

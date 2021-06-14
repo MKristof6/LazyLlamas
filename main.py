@@ -146,7 +146,25 @@ def solutions():
 
 @app.route('/students')
 def students():
-    return 'Implementation in process. '
+    return render_template("list_students.html")
+
+
+@app.route('/get-students-by-language/<language>')
+def get_students_by_language(language):
+    data = data_handler.student_search_by_language(language)
+    return jsonify(data)
+
+
+@app.route('/get-students-by-email/<email>')
+def get_students_by_email(email):
+    data = data_handler.student_search_by_email(email)
+    return jsonify(data)
+
+
+@app.route('/get-students-by-birthday/<bday>')
+def get_students_by_birthday(bday):
+    data = data_handler.student_search_by_birthday(bday)
+    return jsonify(data)
 
 
 # SORTING GAME
@@ -404,6 +422,7 @@ def list_student_comprehensive_readings(id):
         return render_template('game-types.html', games=games, exercise=exercise)
     else:
         return render_template('empty.html', exercise=exercise)
+
 
 
 @app.route('/get-comprehensive-reading/<game_id>')
