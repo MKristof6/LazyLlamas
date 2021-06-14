@@ -89,14 +89,17 @@ function postData() {
 }
 
 function getAllData() {
+    let theme = document.getElementById("theme").value;
     let themes = [];
     let words = [];
     THEMES.forEach(theme => {
         if (theme.textContent !== "Új téma hozzáadása" && theme.textContent !== "") themes.push(theme.textContent);
     });
     document.querySelectorAll('.to-add').forEach(word => words.push(word.value));
+    DATA['theme'] = theme;
     DATA['themes'] = themes;
     DATA['words'] = words;
+    console.log(DATA);
     postData();
 }
 

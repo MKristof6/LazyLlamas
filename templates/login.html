@@ -1,13 +1,63 @@
-{% extends 'template.html' %}
-{% block title %} Login {% endblock %}
-{% block head %} {{ super() }} {% endblock %}
-{% block content %}
-<form action="/login" method="post">
-    <input type="email" name="email" placeholder="E-mail cím"><br>
-    <input type="password" name="password" placeholder="Jelszó"><br>
-    <input type="submit" value="Belépés">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/style/login.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
 
-<h4>Tanulnál, de még nem vagy tag? Csatlakozz hozzánk <form action="{{url_for('register')}}" method="get"><input type="hidden" value="1" name="amigo"><input type="submit" href="{{ url_for('register')}}" value="itt"></form></h4>
-<h4>Tanítanál, de még nincs profilod? Amigoként <form action="{{url_for('register')}}" method="get"><input type="hidden" value="0" name="amigo"><a href="{{ url_for('register')}}"><input type="submit" value="itt"></a></form>tudsz csatlakozni</h4><br><br>
-{% endblock %}
+    <title> Login </title>
+    <script src="../static/js/login.js" defer></script>
+
+
+</head>
+<body>
+{#<div class="circle1"></div>#}
+<div class="circle2"></div>
+<div class="circle3"></div>
+<div class="main">
+    <div class="form" id="container">
+        <div class="login-form form-container">
+            <form action="/login" method="post">
+                <h2>Üdv újra nálunk</h2>
+                <input type="email" name="email" placeholder="E-mail cím"><br>
+                <input type="password" name="password" placeholder="Jelszó"><br>
+                <button type="submit">Belépés</button>
+            </form>
+
+        </div>
+        <div class="register-form form-container">
+            <h2>Nincs még fiókod?</h2>
+            <p>Új felhasználói fiók létrehozásához kérlek írj nekünk az <a>info@amigos.hu</a> e-mail címen.</p>
+            <h2>Elfelejtetted a jelszavad?</h2>
+            <button>Új jelszó kérése</button>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h2>Van már fiókod?</h2>
+                    <button class="ghost" id="sign-in">Bejelentkezés</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h2>Nem tudsz bejelentkezni?</h2>
+                    <button class="ghost" id="sign-up">Segítség</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{#<h4>Tanulnál, de még nem vagy tag? Csatlakozz hozzánk#}
+{#    <form action="{{ url_for('register') }}" method="get"><input type="hidden" value="1" name="amigo"><input#}
+{#            type="submit" href="{{ url_for('register') }}" value="itt"></form>#}
+{#</h4>#}
+{#<h4>Tanítanál, de még nincs profilod? Amigoként#}
+{#    <form action="{{ url_for('register') }}" method="get"><input type="hidden" value="0" name="amigo"><a#}
+{#            href="{{ url_for('register') }}"><input type="submit" value="itt"></a></form>#}
+{#    tudsz csatlakozni#}
+{#</h4>#}
+{#<br><br>#}
+</body>
+</html>

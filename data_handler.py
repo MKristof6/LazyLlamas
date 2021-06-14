@@ -112,13 +112,13 @@ def get_student_languages(student_id):
     return connection.execute_select(query, {"student_id": student_id}, fetchall=False)
 
 
-def new_sorting_exercise(themes, words):
-    query = 'INSERT INTO sorting_game(theme, words) VALUES (%(themes)s, %(words)s)'
-    return connection.execute_dml_statement(query, {"themes": themes, "words": words})
+def new_sorting_exercise(theme, categories, words):
+    query = 'INSERT INTO sorting_game(theme, categories, words) VALUES (%(theme)s, %(categories)s, %(words)s)'
+    return connection.execute_dml_statement(query, {"theme": theme, "words": words, "categories": categories})
 
 
 def get_sorting_exercise(id):
-    query = 'SELECT theme, words FROM sorting_game WHERE id=%(id)s;'
+    query = 'SELECT theme, categories, words FROM sorting_game WHERE id=%(id)s;'
     return connection.execute_select(query, {"id": id}, fetchall=False)
 
 
