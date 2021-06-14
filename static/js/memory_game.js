@@ -1,5 +1,6 @@
 import { stopCheck } from "./stopper.js";
-let gameId = document.querySelector(".memory-game").id
+let gameId = document.querySelector(".memory-game").id;
+let theme = document.getElementById('theme');
 let numberOfCards = 6;
 
 const memoryGame = {
@@ -11,6 +12,8 @@ const memoryGame = {
     },
 
     showData: function (cards) {
+        console.log(cards);
+        theme.innerHTML = cards['theme'];
         let gameUI = document.querySelector('.memory-game');
         let rows = ''
         for (let i=1; i<=numberOfCards; i++) {
