@@ -11,6 +11,7 @@
         }
     </style>
     <title>Profilom</title>
+    <script src="../static/js/badges.js" defer></script>
 </head>
 <body>
 <div class="circle2"></div>
@@ -37,9 +38,56 @@
             <p id="languages">{{ languages['languages'] }}</p>
             <label for="points">Pontjaim:</label>
             <p id="points">{{ student['points'] }}</p>
-            <label for="badges">Kitűzőim:</label>
-            <div id="badges">
-                badges
+        </div>
+    </div>
+    <div class="section3">
+        <h2>Kitűzőim:</h2>
+        <div class="progress">
+            <div class="progressbar">
+                <div class="progression"></div>
+            </div>
+
+        </div>
+        <div class="badges">
+            <div class="badge">
+                <div class="picture">
+                    <img src="../static/images/badges/badge_turtle.png">
+                </div>
+                <div class="cover" id="1"></div>
+            </div>
+
+            <div class="badge">
+                <div class="picture">
+                    <img src="../static/images/badges/badge_panda.png">
+                </div>
+                <div class="cover" id="2"></div>
+            </div>
+
+            <div class="badge">
+                <div class="picture">
+                    <img src="../static/images/badges/badge_dolphin.png">
+                </div>
+                <div class="cover" id="3"></div>
+            </div>
+
+            <div class="badge">
+                <div class="picture">
+                    <img src="../static/images/badges/badge_owl.png">
+                </div>
+                <div class="cover" id="4"></div>
+            </div>
+
+            <div class="badge">
+                <div class="picture">
+                    <img src="../static/images/badges/badge_wolf.png">
+                </div>
+                <div class="cover" id="5"></div>
+            </div>
+            <div class="badge">
+                <div class="picture">
+                    <img src="../static/images/badges/badge_lion.png">
+                </div>
+                <div class="cover" id="6"></div>
             </div>
         </div>
     </div>
