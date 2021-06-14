@@ -63,11 +63,8 @@ INSERT INTO student_languages (student_id, language_id)
 VALUES (3, 2);
 
 
-INSERT INTO exercise_type (game_type) VALUES ('memory_game');
-INSERT INTO exercise_type (game_type) VALUES ('sorting_game');
-INSERT INTO exercise_type (game_type) VALUES ('matching_game');
-INSERT INTO exercise_type (game_type) VALUES ('comprehensive_reading');
-INSERT INTO exercise_type (game_type) VALUES ('listening_game');
+
+INSERT INTO student_exercises (student_id, game_id, game_type) VALUES (1, 1, 'memory-game');
 
 
 

@@ -123,6 +123,10 @@ def new_exercise():
 def my_exercises():
     return render_template('exercises.html')
 
+@app.route('/my-exercises/<id>')
+def my_exercises_student(id):
+    return render_template('student-exercises.html', student_id=id)
+
 
 @app.route('/solutions')
 def solutions():
@@ -166,6 +170,17 @@ def list_sorting_games():
     sorting_games = data_handler.get_sorting_games()
     return render_template('game-types.html', games=sorting_games, exercise=exercise)
 
+@app.route('/sorting-games/<id>')
+def list_student_sorting_games(id):
+    exercise = "sorting-game"
+    game_ids = data_handler.get_student_exercises(id, exercise)
+    sorting_games = []
+    if game_ids is not None:
+        for g_id in game_ids:
+            sorting_games.append(data_handler.get_sorting_exercise(g_id)[0])
+        return render_template('game-types.html', games=sorting_games, exercise=exercise)
+    else:
+        return render_template('empty.html', exercise=exercise)
 
 # MATCHING GAME
 
@@ -196,6 +211,19 @@ def list_matching_games():
     matching_games = data_handler.get_matching_games()
     return render_template('game-types.html', games=matching_games, exercise=exercise)
 
+@app.route('/matching-games/<id>')
+def list_student_matching_games(id):
+    exercise = "matching-game"
+    game_ids = data_handler.get_student_exercises(id, exercise)
+    if game_ids is not None:
+        matching_games = []
+        for g_id in game_ids:
+            matching_games.append(data_handler.get_matching_game(g_id)[0])
+        return render_template('game-types.html', games=matching_games, exercise=exercise)
+    else:
+        return render_template('empty.html', exercise=exercise)
+
+
 
 @app.route('/matching-solution-saver/<game_id>', methods=['POST'])
 def save_matching_solution(game_id):
@@ -223,6 +251,19 @@ def list_memory_games():
     exercise = "memory-game"
     memory_games = data_handler.get_memory_games()
     return render_template('game-types.html', games=memory_games, exercise=exercise)
+
+@app.route('/memory-games/<id>')
+def list_student_memory_games(id):
+    exercise = "memory-game"
+    game_ids = data_handler.get_student_exercises(id, exercise)
+    if game_ids is not None:
+        memory_games = []
+        for g_id in game_ids:
+            memory_games.append(data_handler.get_memory_cards(g_id)[0])
+        return render_template('game-types.html', games=memory_games, exercise=exercise)
+    else:
+        return render_template('empty.html', exercise=exercise)
+
 
 
 @app.route('/memory-game/<game_id>')
@@ -290,6 +331,17 @@ def save_listening_solution(game_id):
         data_handler.update_score(session['id'])
     return jsonify('Success', 200)
 
+@app.route('/listening-games/<id>')
+def list_student_listening_games(id):
+    exercise = "sorting-game"
+    game_ids = data_handler.get_student_exercises(id, exercise)
+    if game_ids is not None:
+        listening_games = []
+        for g_id in game_ids:
+            listening_games.append(data_handler.get_listening_game(g_id)[0])
+        return render_template('game-types.html', games=listening_games, exercise=exercise)
+    else:
+        return render_template('empty.html', exercise=exercise)
 
 # COMPREHENSIVE READING
 
@@ -312,6 +364,20 @@ def list_comprehensive_readings():
     exercise = "comprehensive-reading"
     games = data_handler.get_comprehensive_readings()
     return render_template('game-types.html', games=games, exercise=exercise)
+
+
+@app.route('/comprehensive-readings/<id>')
+def list_student_comprehensive_readings(id):
+    exercise = "sorting-game"
+    game_ids = data_handler.get_student_exercises(id, exercise)
+    if game_ids is not None:
+        games = []
+        for g_id in game_ids:
+            games.append(data_handler.get_comprehensive_reading(g_id)[0])
+        return render_template('game-types.html', games=games, exercise=exercise)
+    else:
+        return render_template('empty.html', exercise=exercise)
+
 
 @app.route('/get-comprehensive-reading/<game_id>')
 def get_comprehensive_reading(game_id):

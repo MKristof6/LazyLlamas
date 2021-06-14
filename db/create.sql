@@ -57,14 +57,10 @@ CREATE TABLE student_exercises
  id          INT GENERATED ALWAYS AS IDENTITY,
  student_id INT,
  game_id INT,
- game_type INT
+ game_type text
 );
 
-CREATE TABLE exercise_type
-(
-    id  INT GENERATED ALWAYS AS IDENTITY,
-    game_type text
-);
+
 
 
 CREATE TABLE feedback

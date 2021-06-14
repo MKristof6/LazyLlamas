@@ -75,6 +75,14 @@ def update_score(student_id):
     return connection.execute_dml_statement(query, {"student_id": student_id})
 
 
+def get_student_exercises(student_id, game_type):
+    query ="""
+    SELECT game_id FROM student_exercises
+    WHERE student_id = %(student_id)s AND game_type = %(game_type)s;
+    """
+    return connection.execute_dml_statement(query, {"student_id": student_id, "game_type": game_type})
+
+
 #LISTENING GAME
 
 def get_listening_games():
