@@ -139,10 +139,11 @@ def students():
 @app.route('/upload-words', methods=['POST'])
 def upload_words():
     data = request.get_json()
+    language = data['language']
     theme = data['theme']
     themes = data['themes']
     words = data['words']
-    data_handler.save_sorting_exercise(theme, themes, words)
+    data_handler.save_sorting_exercise(language, theme, themes, words)
     return jsonify(data)
 
 
@@ -160,7 +161,7 @@ def sorting_game(id):
 
 
 @app.route('/sorting-games')
-def sorting_games():
+def list_sorting_games():
     exercise = "sorting-game"
     sorting_games = data_handler.get_sorting_games()
     return render_template('game-types.html', games=sorting_games, exercise=exercise)
@@ -274,7 +275,7 @@ def listening_game_upload():
         else:
             game_id = game_id_data["game_id"] + 1
         for card in data["cards"]:
-            data_handler.save_listening_game(game_id, data["theme"], data["language"], card)
+            data_handler.save_listening_game(game_id, data["language"], data["theme"], card)
         return jsonify('Success', 200)
     else:
         languages = data_handler.get_languages()
@@ -296,10 +297,11 @@ def save_listening_solution(game_id):
 def comprehensive_reading_upload():
     if request.method == 'POST':
         theme_text_and_questions = request.get_json()
+        language = theme_text_and_questions['language']
         theme = theme_text_and_questions['theme']
         long_text = theme_text_and_questions['long-text']
         questions = theme_text_and_questions['questions']
-        data_handler.save_reading_exercise(theme, long_text, questions)
+        data_handler.save_reading_exercise(language, theme, long_text, questions)
         return jsonify('Success', 200)
     else:
         return render_template('comprehensive_reading_upload.html')

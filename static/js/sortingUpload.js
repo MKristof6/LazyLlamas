@@ -96,6 +96,7 @@ function getAllData() {
         if (theme.textContent !== "Új téma hozzáadása" && theme.textContent !== "") themes.push(theme.textContent);
     });
     document.querySelectorAll('.to-add').forEach(word => words.push(word.value));
+    DATA['language'] = document.getElementById("language").value;
     DATA['theme'] = theme;
     DATA['themes'] = themes;
     DATA['words'] = words;

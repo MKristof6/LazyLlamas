@@ -7,6 +7,7 @@ submit.addEventListener('click', collectAndSend);
 
 
 function collectAndSend() {
+    DATA['language'] = document.getElementById("language").value;
     DATA['theme'] = document.getElementById('theme').value;
     DATA['long-text'] = document.getElementById('long-text').value;
     const questionInputs = document.querySelectorAll('.questions'); //Question's number are dependent on the user, so looping through them by class

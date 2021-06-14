@@ -8,10 +8,14 @@
 <script src="/static/js/comprehensiveUpload.js" defer></script>
 {% endblock %}
 {% block content %}
-
+<label for="language"> Nyelv: </label>
+<input type="text" id="language" name="language"><br><br>
 <div class="container">
+
+      <form id="text-form">
+
     <div class="text-container">
-        <form id="text-form">
+
             <input type="text" name="theme" placeholder="Téma" id="theme">
             <textarea type="text" name="text" placeholder="Másold ide a szöveget" id="long-text" maxlength="1000"></textarea>
         </form>

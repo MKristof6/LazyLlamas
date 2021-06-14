@@ -2,6 +2,7 @@ let gameId = document.querySelector(".comprehensive-reading").id;
 
 let saveBtn = document.getElementById('save');
 
+
 let solution = [];
 let answers = [];
 saveBtn.addEventListener('click', () => {
