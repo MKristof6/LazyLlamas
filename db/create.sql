@@ -58,7 +58,7 @@ CREATE TABLE student_exercises
     id         INT GENERATED ALWAYS AS IDENTITY,
     student_id INT,
     game_id    INT,
-    game_type  text
+    game_type  TEXT
 );
 
 
@@ -68,16 +68,16 @@ CREATE TABLE feedback
     id         INT,
     amigo_id   INT,
     student_id INT,
-    title      text,
-    feedback   text
+    title      TEXT,
+    feedback   TEXT
 );
 
 
 CREATE TABLE language
 (
     id         INT GENERATED ALWAYS AS IDENTITY,
-    name       text,
-    voice_code text,
+    name       TEXT,
+    voice_code TEXT,
     PRIMARY KEY (id)
 );
 
@@ -96,20 +96,20 @@ CREATE TABLE memory_game
 
     id            INT GENERATED ALWAYS AS IDENTITY,
     exercise_type INT DEFAULT 1,
-    language      text NOT NULL,
-    theme         text NOT NULL,
+    language      TEXT NOT NULL,
+    theme         TEXT NOT NULL,
     image1        VARCHAR,
-    text1         text,
+    text1         TEXT,
     image2        VARCHAR,
-    text2         text,
+    text2         TEXT,
     image3        VARCHAR,
-    text3         text,
+    text3         TEXT,
     image4        VARCHAR,
-    text4         text,
+    text4         TEXT,
     image5        VARCHAR,
-    text5         text,
+    text5         TEXT,
     image6        VARCHAR,
-    text6         text,
+    text6         TEXT,
     PRIMARY KEY (id)
 );
 
@@ -117,8 +117,8 @@ CREATE TABLE sorting_game
 (
     id            INT GENERATED ALWAYS AS IDENTITY,
     exercise_type INT DEFAULT 2,
-    language      text,
-    theme         text,
+    language      TEXT,
+    theme         TEXT,
     categories    TEXT[],
     words         TEXT[],
     PRIMARY KEY (id)
@@ -130,20 +130,20 @@ CREATE TABLE matching_game
 (
     id            INT GENERATED ALWAYS AS IDENTITY,
     exercise_type INT DEFAULT 3,
-    language      text not null,
-    theme         text NOT NULL,
+    language      TEXT not null,
+    theme         TEXT NOT NULL,
     image1        VARCHAR,
-    text1         text,
+    text1         TEXT,
     image2        VARCHAR,
-    text2         text,
+    text2         TEXT,
     image3        VARCHAR,
-    text3         text,
+    text3         TEXT,
     image4        VARCHAR,
-    text4         text,
+    text4         TEXT,
     image5        VARCHAR,
-    text5         text,
+    text5         TEXT,
     image6        VARCHAR,
-    text6         text,
+    text6         TEXT,
     PRIMARY KEY (id)
 );
 
@@ -151,10 +151,10 @@ CREATE TABLE comprehensive_reading
 (
     id            INT GENERATED ALWAYS AS IDENTITY,
     exercise_type INT DEFAULT 4,
-    language      text,
-    theme         text,
+    language      TEXT,
+    theme         TEXT,
     long_text     varchar(1000),
-    questions     text[]
+    questions     TEXT[]
 );
 
 CREATE TABLE listening_game
@@ -162,10 +162,10 @@ CREATE TABLE listening_game
     id             INT GENERATED ALWAYS AS IDENTITY,
     exercise_type  INT DEFAULT 5,
     game_id        INT,
-    language       text,
-    theme          text,
-    answers        text[],
-    correct_answer text,
+    language       TEXT,
+    theme          TEXT,
+    answers        TEXT[],
+    correct_answer TEXT,
     PRIMARY KEY (id)
 );
 
@@ -192,7 +192,7 @@ CREATE TABLE comprehensive_reading_solution
     id         INT GENERATED ALWAYS AS IDENTITY,
     student_id INT,
     game_id    INT,
-    solution   text[]
+    solution   TEXT[]
 );
 
 
@@ -201,13 +201,13 @@ CREATE TABLE listening_game_solution
     id         INT GENERATED ALWAYS AS IDENTITY,
     student_id INT,
     game_id    INT,
-    solution   text[]
+    solution   TEXT[]
 );
 
 CREATE TABLE filling_gaps
 (
     id INT GENERATED ALWAYS AS IDENTITY,
-    theme text,
-    long_text text[],
-    gaps text[]
+    theme TEXT,
+    long_text TEXT[],
+    gaps INT
 );
