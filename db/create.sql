@@ -234,6 +234,15 @@ CREATE TABLE listening_game
 );
 
 
+CREATE TABLE listening_game_solution
+(
+    id            INT GENERATED ALWAYS AS IDENTITY,
+    student_id    INT,
+    game_id       INT,
+    solution text[]
+);
+
+
 
 INSERT INTO language(name, voice_code)
 VALUES ('English', 'US English Female');
