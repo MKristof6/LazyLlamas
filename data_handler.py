@@ -233,3 +233,30 @@ def get_sorting_games():
             SELECT id, theme FROM sorting_game;
         """
     return connection.execute_select(query)
+
+
+def new_reading_exercise(theme, long_text, questions):
+    query = """INSERT INTO comprehensive_reading(theme, long_text, questions) VALUES (%(theme)s, %(long_text)s, %(questions)s);"""
+    return connection.execute_dml_statement(query, {"theme": theme, "long_text": long_text, "questions": questions})
+
+
+def get_comprehensive_readings():
+    query = """
+             SELECT id, theme FROM comprehensive_reading;
+         """
+    return connection.execute_select(query)
+
+
+def get_comprehensive_reading(game_id):
+    query = """
+    SELECT * FROM comprehensive_reading
+    WHERE id = %(game_id)s
+     """
+    return connection.execute_select(query, {"game_id": game_id})
+
+
+def save_comprehensive_reading_solution(student_id, game_id, solution):
+    query = """
+       INSERT INTO comprehensive_reading_solution(student_id, game_id, solution) VALUES (%(student_id)s, %(game_id)s,   %(solution)s);
+       """
+    return connection.execute_dml_statement(query, {"game_id": game_id, "solution": solution, "student_id": student_id})

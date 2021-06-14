@@ -31,6 +31,7 @@ DROP TABLE IF EXISTS public.sorting_game;
 DROP TABLE IF EXISTS public.matching_game;
 DROP TABLE IF EXISTS public.memory_game_solution;
 DROP TABLE IF EXISTS public.matching_game_solution;
+DROP TABLE IF EXISTS public.comprehensive_reading;
 
 
 
@@ -234,6 +235,26 @@ CREATE TABLE listening_game
     PRIMARY KEY (id)
 );
 
+CREATE TABLE comprehensive_reading(
+    id     INT GENERATED ALWAYS AS IDENTITY,
+    theme text,
+    long_text varchar(1000),
+    questions text[]
+);
+
+CREATE TABLE comprehensive_reading_solution
+(
+    id            INT GENERATED ALWAYS AS IDENTITY,
+    student_id    INT,
+    game_id       INT,
+    solution text[]
+);
+
+INSERT INTO  comprehensive_reading(theme, long_text, questions) VALUES('greyhound', 'Greyhound owners consider them wonderful pets.[9] They are very loving, and enjoy the company of their humans and other dogs.  Many owners describe their Greyhounds as "45-mile-per-hour couch potatoes". Greyhounds live most happily as pets in quiet environments. They do well in families with children, as long as the children are taught to treat the dog properly with politeness and appropriate respect.
+
+Occasionally, a Greyhound may bark; however, they are generally not barkers, which is beneficial in suburban environments, and they are usually as friendly to strangers as they are with their own families.
+
+A common misconception regarding Greyhounds is that they are hyperactive. This is usually not the case with retired racing Greyhounds. Greyhounds can live comfortably as apartment dogs, as they do not require much space and sleep almost 18 hours per day. Due to their calm temperament, Greyhounds can make better "apartment dogs" than smaller, more active breeds.', ARRAY ['What are greyhounds like?', 'Do greyhounds make good family pets?']);
 
 CREATE TABLE listening_game_solution
 (
