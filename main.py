@@ -308,15 +308,25 @@ def list_comprehensive_readings():
     games = data_handler.get_comprehensive_readings()
     return render_template('game-types.html', games=games, exercise=exercise)
 
-@app.route('/get-listening-game/<game_id>')
+@app.route('/get-comprehensive-reading/<game_id>')
 def get_comprehensive_reading(game_id):
-    data = data_handler.get_listening_game(game_id)
+    data = data_handler.get_comprehensive_reading(game_id)
     return jsonify(data)
 
 
-@app.route('/listening-game/<game_id>')
-def listening_game_with_id(game_id):
+@app.route('/comprehensive-reading/<game_id>')
+def comprehensive_reading_with_id(game_id):
     return render_template('comprehensive-reading.html', game_id=game_id)
+
+
+@app.route('/comprehensive-reading-solution-saver/<game_id>', methods=['POST'])
+def save_comprehensive_reading_solution(game_id):
+    solution_time = request.get_json()
+    data_handler.save_comprehensive_reading_solution(session['id'], game_id, solution)
+    if not session['amigo']:
+        data_handler.update_score(session['id'])
+    return jsonify('Success', 200)
+
 
 if __name__ == "__main__":
     app.run(
