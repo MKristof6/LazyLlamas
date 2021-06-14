@@ -141,9 +141,10 @@ def students():
 @app.route('/upload-words', methods=['POST'])
 def upload_words():
     data = request.get_json()
+    theme = data['theme']
     themes = data['themes']
     words = data['words']
-    data_handler.new_sorting_exercise(themes, words)
+    data_handler.new_sorting_exercise(theme, themes, words)
     return jsonify(data)
 
 
@@ -154,9 +155,10 @@ def sorting_game_upload():
 
 @app.route('/sorting-game/<id>')
 def sorting_game(id):
-    themes = data_handler.get_sorting_exercise(id)['theme']
+    theme = data_handler.get_sorting_exercise(id)['theme']
+    themes = data_handler.get_sorting_exercise(id)['categories']
     words = data_handler.get_sorting_exercise(id)['words']
-    return render_template('sorting_game.html', themes=themes, words=words)
+    return render_template('sorting_game.html', theme=theme, themes=themes, words=words)
 
 
 @app.route('/sorting-games')
