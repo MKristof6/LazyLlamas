@@ -142,7 +142,7 @@ def upload_words():
     theme = data['theme']
     themes = data['themes']
     words = data['words']
-    data_handler.new_sorting_exercise(theme, themes, words)
+    data_handler.save_sorting_exercise(theme, themes, words)
     return jsonify(data)
 
 
@@ -299,7 +299,7 @@ def comprehensive_reading_upload():
         theme = theme_text_and_questions['theme']
         long_text = theme_text_and_questions['long-text']
         questions = theme_text_and_questions['questions']
-        data_handler.new_reading_exercise(theme, long_text, questions)
+        data_handler.save_reading_exercise(theme, long_text, questions)
         return jsonify('Success', 200)
     else:
         return render_template('comprehensive_reading_upload.html')
