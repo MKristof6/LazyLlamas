@@ -18,7 +18,7 @@ function insertText() {
 }
 
 function insertGap() { //Can only insert gaps
-    const field = `<input type="text" name="text" value="" class="gap">`;
+    const field = `<input type="text" name="text" value="" class="gap" READONLY/>`;
 
     inserter.parentElement.insertAdjacentHTML('beforeend', field);
 }

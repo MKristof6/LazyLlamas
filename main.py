@@ -429,7 +429,7 @@ def list_comprehensive_readings():
 
 @app.route('/comprehensive-readings/<id>')
 def list_student_comprehensive_readings(id):
-    exercise = "sorting-game"
+    exercise = "comprehensive-reading"
     game_ids = data_handler.get_student_exercises(id, exercise)
     if len(game_ids) != 0:
         games = []
@@ -482,16 +482,33 @@ def get_filling_game(game_id):
     return jsonify(data)
 
 
-@app.route('/filling-games/<game_id>')
+@app.route('/filling-games/<id>')
+def list_student_filling_games(id):
+    exercise = "filling-game"
+    game_ids = data_handler.get_student_exercises(id, exercise)
+    if len(game_ids) != 0:
+        games = []
+        for g_id in game_ids:
+            games.append(data_handler.get_filling_game(g_id['game_id']))
+        return render_template('game-types.html', games=games, exercise=exercise)
+    else:
+        return render_template('empty.html', exercise=exercise)
+
+
+@app.route('/filling-game/<game_id>')
 def filling_gaps(game_id):
     return render_template('filling-game.html', game_id=game_id)
 
 
 @app.route('/filling-games')
 def filling_games():
-    exercise = "filling-games"
+    exercise = "filling-game"
     games = data_handler.get_filling_games()
-    return render_template('game-types.html', exercise=exercise, games=games)
+    if session['amigo']:
+        return render_template('amigo-game-types.html', games=games, exercise=exercise)
+    else:
+        return render_template('game-types.html', games=games, exercise=exercise)
+
 
 
 @app.route('/filling-gap-solution-saver/<game_id>', methods=['POST'])
