@@ -79,11 +79,14 @@ def get_student_exercises(student_id, game_type):
     """
     return connection.execute_select(query, {"student_id": student_id, "game_type": game_type})
 
+
 def add_student_exercises(student_id, game_id, game_type):
-    query ="""
+    query = """
         INSERT INTO student_exercises (student_id, game_id, game_type) VALUES (%(student_id)s, %(game_id)s, %(game_type)s);
     """
-    return connection.execute_dml_statement(query, {"student_id": student_id, "game_id": game_id, "game_type": game_type})
+    return connection.execute_dml_statement(query,
+                                            {"student_id": student_id, "game_id": game_id, "game_type": game_type})
+
 
 # LISTENING GAME
 
@@ -155,6 +158,15 @@ def save_sorting_exercise(language, theme, categories, words):
     query = 'INSERT INTO sorting_game(language, theme, categories, words) VALUES (%(language)s, %(theme)s, %(categories)s, %(words)s)'
     return connection.execute_dml_statement(query, {"language": language, "theme": theme, "words": words,
                                                     "categories": categories})
+
+
+def save_sorting_game_solution(student_id, game_id, solution):
+    query = """
+     INSERT INTO sorting_game_solution(student_id, game_id, solution) 
+                VALUES(%(student_id)s, %(game_id)s, %(solution)s)
+     """
+    return connection.execute_dml_statement(query, {"student_id": student_id, "game_id": game_id,
+                                                    "solution": solution})
 
 
 # MATCHING GAME
@@ -229,8 +241,8 @@ def give_feedback(amigo_id, student_id, title, feedback):
     INSERT INTO feedback(amigo_id, student_id, title, feedback) 
     VALUES (%(amigo_id)s, %(student_id)s, %(title)s, %(feedback)s);
     """
-    return connection.execute_dml_statement(query, {"amigo_id": amigo_id, "student_id": student_id, "title": title, "feedback": feedback})
-
+    return connection.execute_dml_statement(query, {"amigo_id": amigo_id, "student_id": student_id, "title": title,
+                                                    "feedback": feedback})
 
 def get_game_by_id(game_type, game_id):
     query = """

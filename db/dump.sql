@@ -37,17 +37,17 @@ VALUES ('Brazilian Portuguese', 'Brazilian Portuguese Female');
 
 
 INSERT INTO amigo (name, email, password)
-VALUES ('balintovics', 'molnar99b@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu');
+VALUES ('Amigo', 'amigo@example.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu');
 
 INSERT INTO student (name, email, password, birthday, points)
-VALUES ('Zsófi', 'zsofiaszonja.kassai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu',
-        '1969.06.09.', 33);
+VALUES ('Badgeless Student', 'student@example.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu',
+        '2009.10.11.', 11);
 INSERT INTO student (name, email, password, birthday, points)
-VALUES ('Kristóf', 'kristof.murai@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu',
-        '1969.06.09.', 2344);
+VALUES ('1 Badge Student', 'student1@example.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu',
+        '2004.03.29.', 222);
 INSERT INTO student (name, email, password, birthday, points)
-VALUES ('Barna', 'barna.urmossy@gmail.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu',
-        '1969.06.09.', 233);
+VALUES ('6 Badge Student', 'student6@example.com', '$2b$12$N/XIozKGAVxNZGqDpa.IW.pi1JYdlXguyTyKmXekvjel.5GC6uRpu',
+        '2000.05.18.', 666);
 
 INSERT INTO student_languages (student_id, language_id)
 VALUES (1, 1);

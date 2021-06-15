@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, render_template, url_for, redirect, session, request, flash, jsonify, make_response
 
 import data_handler
@@ -147,7 +149,6 @@ def list_student_games(game_type, student_id):
         games = []
         for g_id in game_ids:
             games.append(data_handler.get_game_by_id(exercise, g_id['game_id']))
-
         return render_template('game-types.html', games=games, exercise=exercise)
     else:
         return render_template('game-types.html', exercise=exercise)
@@ -175,6 +176,14 @@ def sorting_game(id):
     words = data_handler.get_sorting_exercise(id)['words']
     return render_template('sorting_game.html', theme=theme, themes=themes, words=words)
 
+@app.route('/sorting-solution-saver/<game_id>', methods=['POST'])
+def save_sorting_solution(game_id):
+    data = request.get_json()
+    data = json.dumps(data)     # Converts JSON object to string, which can be inserted into DB
+    data_handler.save_sorting_game_solution(session['id'], game_id, data)
+    if not session['amigo']:
+        data_handler.update_score(session['id'])
+    return jsonify('Success', 200)
 
 # MATCHING GAME
 
@@ -197,9 +206,6 @@ def get_matching_game(game_id):
 @app.route('/matching-game/<game_id>')
 def matching_game_with_id(game_id):
     return render_template('matching-game.html', game_id=game_id)
-
-
-
 
 
 @app.route('/matching-solution-saver/<game_id>', methods=['POST'])
@@ -304,7 +310,6 @@ def list_student_listening_games(id):
         return render_template('game-types.html', games=listening_games, exercise=exercise)
     else:
         return render_template('game-types.html', exercise=exercise)
-
 
 
 # COMPREHENSIVE READING

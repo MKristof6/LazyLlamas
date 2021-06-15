@@ -10,7 +10,7 @@ function resetInserter() {
 }
 
 function insertText() {
-    if (!inserter.value) return; //Can't insert gaps
+    if (!inserter.value) return; //Can't insert empty field
     let content = inserter.value;
     const field = `<input type="text" name="text" value="${content}" class="long-text">`;
     inserter.parentElement.insertAdjacentHTML('beforeend', field);
@@ -36,7 +36,6 @@ function collectAndSend() {
     }
     DATA['long'] = longText;
     DATA['gaps'] = longText.length - 1;
-    console.log(DATA);
     postData();
 }
 

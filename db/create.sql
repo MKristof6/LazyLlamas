@@ -30,6 +30,7 @@ DROP TABLE IF EXISTS public.student_exercises;
 DROP TABLE IF EXISTS public.exercise_type;
 DROP TABLE IF EXISTS public.filling_gaps;
 DROP TABLE IF EXISTS public.filling_game_solution;
+DROP TABLE IF EXISTS public.sorting_game_solution;
 
 CREATE OR REPLACE FUNCTION
 student_age( birthday date )
@@ -232,4 +233,12 @@ CREATE TABLE filling_game_solution
     student_id INT,
     game_id    INT,
     solution   TEXT[]
+);
+
+CREATE TABLE sorting_game_solution
+(
+    id         INT GENERATED ALWAYS AS IDENTITY,
+    student_id INT,
+    game_id    INT,
+    solution   TEXT
 );
