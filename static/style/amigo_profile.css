@@ -4,6 +4,15 @@
     box-sizing: border-box;
 }
 
+h2 {
+    font-family: "Amatic SC";
+    font-size: 38px;
+}
+
+input, p {
+    font-family: 'Lato';
+}
+
 body {
     height: 100vh;
     width: 100%;
