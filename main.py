@@ -461,6 +461,48 @@ def save_comprehensive_reading_solution(game_id):
     return jsonify('Success', 200)
 
 
+# FILLING GAPS
+
+@app.route('/filling-gaps-upload', methods=['GET', 'POST'])
+def filling_gaps_upload():
+    if request.method == 'POST':
+        data = request.get_json()
+        theme = data['theme']
+        long_text = data['long']
+        gaps = data['gaps']
+        data_handler.save_filling_exercise(theme, long_text, gaps)
+        return jsonify('Success', 200)
+    else:
+        return render_template('filling_upload.html')
+
+
+@app.route('/get-filling-game/<game_id>')
+def get_filling_game(game_id):
+    data = data_handler.get_filling_game(game_id)
+    return jsonify(data)
+
+
+@app.route('/filling-games/<game_id>')
+def filling_gaps(game_id):
+    return render_template('filling-game.html', game_id=game_id)
+
+
+@app.route('/filling-games')
+def filling_games():
+    exercise = "filling-games"
+    games = data_handler.get_filling_games()
+    return render_template('game-types.html', exercise=exercise, games=games)
+
+
+@app.route('/filling-gap-solution-saver/<game_id>', methods=['POST'])
+def save_filling_game_solution(game_id):
+    solution = request.get_json()
+    data_handler.save_filling_game_solution(session['id'], game_id, solution)
+    if not session['amigo']:
+        data_handler.update_score(session['id'])
+    return jsonify('Success', 200)
+
+
 if __name__ == "__main__":
     app.run(
         debug=True,

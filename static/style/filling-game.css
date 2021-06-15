@@ -1,0 +1,15 @@
+.container-card {
+    position: fixed;
+    top: 7%;
+    left: 7%;
+    height: 85vh;
+    width: 85vw;
+    opacity: 0.8;
+    border-radius: 10px;
+    background-color: white;
+    padding: 50px;
+}
+
+#theme {
+    font-family: "Amatic SC", sans-serif;
+}
