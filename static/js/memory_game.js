@@ -7,12 +7,11 @@ const memoryGame = {
     getData: function (route, callback) {
         fetch(route)
             .then(response => response.json())
-            .then(data => this.showData(data))
+            .then(data => callback(data))
 
     },
 
     showData: function (cards) {
-        console.log(cards);
         theme.innerHTML = cards['theme'];
         let gameUI = document.querySelector('.memory-game');
         let rows = ''

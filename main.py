@@ -46,35 +46,6 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.args:
-        # Check if user is trying to register as amigo
-        amigo = int(request.args.get('amigo'))
-    else:
-        amigo = 0
-    if request.method == 'POST':
-        error = None
-        email = request.form['email']
-        name = request.form['name']
-        pw = str(util.hash_it(request.form['password']))[2:-1]
-        if not validate_email(email):
-            error = "Ezzel az e-mail címmel már regisztráltak a rendszerünkbe. Kérjük, próbáld újra egy másik fiókkal."
-            return render_template('register.html')
-        else:
-            if int(request.form['amigo']) == 1:
-                data_handler.register_amigo(name, email, pw)
-                session['amigo'] = True
-            else:
-                # student_id = data_handler.get_latest_id()['id'] + 1
-                # data_handler.register_student(name, email, pw, birthday, languages, student_id)
-                session['amigo'] = False
-            session['email'] = email
-            return redirect(url_for('home'))
-    else:
-        return render_template('register.html', amigo=amigo)
-
-
 def validate_email(email):
     users = [data_handler.get_students(), data_handler.get_amigos()]
     for userz in users:
@@ -305,14 +276,26 @@ def list_memory_games():
     else:
         return render_template('game-types.html', all=True, games=memory_games, exercise=exercise)
 
-@app.route('/memory-games/<id>')
-def list_student_memory_games(id):
-    exercise = "memory-game"
-    game_ids = data_handler.get_student_exercises(id, exercise)
+
+@app.route('/<game_type>s/<student_id>')
+def list_student_memory_games(game_type, student_id):
+    callback = switch_game_type(game_type)
+    return list_student_games(student_id, callback, game_type)
+
+
+def switch_game_type(i):
+    switcher = {
+            'memory-game': data_handler.get_memory_cards
+         }
+    return switcher.get(i, "Not found")
+
+
+def list_student_games(student_id, callback, exercise):
+    game_ids = data_handler.get_student_exercises(student_id, exercise)
     if len(game_ids) != 0:
         memory_games = []
         for g_id in game_ids:
-            memory_games.append(data_handler.get_memory_cards(g_id['game_id']))
+            memory_games.append(callback(g_id['game_id']))
             print(memory_games)
         return render_template('game-types.html', games=memory_games, exercise=exercise)
     else:
@@ -400,6 +383,8 @@ def list_student_listening_games(id):
         return render_template('game-types.html', games=listening_games, exercise=exercise)
     else:
         return render_template('game-types.html', exercise=exercise)
+
+
 
 # COMPREHENSIVE READING
 
