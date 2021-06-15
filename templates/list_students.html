@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <script type="text/javascript" src="{{ url_for('static', filename='js/list_students.js') }}" defer></script>
+    <script type="module" src="{{ url_for('static', filename='js/searchStudents.js') }}" defer></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style/students-list.css') }}">
     <title>Diákok</title>
 </head>
@@ -23,7 +23,7 @@
 </div>
 
 <div class="search-bar">
-    <table id="container">
+    <table class="feedback" id="container">
 
     </table>
 

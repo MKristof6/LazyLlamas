@@ -7,7 +7,7 @@ const memoryGame = {
     getData: function (route, callback) {
         fetch(route)
             .then(response => response.json())
-            .then(data => callback(data))
+            .then(data => this.showData(data))
 
     },
 
