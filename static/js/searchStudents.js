@@ -48,21 +48,23 @@ export let searchStudents = {
     displayTable: function (table) {
         let tableContainer = document.getElementById('container');
         tableContainer.innerHTML = table;
-
-        let rows = document.querySelectorAll("tr");
+        let rows = document.querySelectorAll(".student");
+        if (tableContainer.classList.contains('feedback') ){
+            searchStudents.displayFeedbackBtn(rows);
+        }
+        else{
+            searchStudents.selectStudents(rows);
+        }
+    },
+    selectStudents: function (rows){
         for (let row of rows) {
             row.addEventListener('click', () => {
                 row.classList.toggle('selected');
             })
         }
-        if (tableContainer.classList.contains('feedback') ){
-            searchStudents.displayFeedbackBtn();
-        }
-
-
     },
-    displayFeedbackBtn: function () {
-        let rows = document.querySelectorAll(".student");
+
+    displayFeedbackBtn: function (rows) {
         for (let row of rows) {
             let feedbackBtn = document.createElement('td');
             feedbackBtn.innerHTML = `<intput type="button" onclick="location.href='/feedback/${row.id}';"> Értékelés </intput>`

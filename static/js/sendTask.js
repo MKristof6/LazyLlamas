@@ -11,7 +11,7 @@ let sendTask = {
             for (let student of selectedStudents) {
                 studentList.push(student.id);
             }
-            networkHandler.sendData(studentList, route);
+            networkHandler.sendData(studentList, route, networkHandler.redirectHome);
         })
     },
 
