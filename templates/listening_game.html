@@ -1,33 +1,33 @@
-{% extends 'template.html' %}
-{% block title %} Llamigos para los niños {% endblock %}
-{% block head %} {{ super() }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Szövegértés</title>
     <script defer src="https://code.responsivevoice.org/responsivevoice.js?key=wX75Gf01"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/listeningGame.js') }}" defer></script>
-<link rel="stylesheet" href="{{ url_for('static', filename='style/listening-game.css') }}">
-{% endblock %}
-{% block content %}
-<section class="listening-game" id="{{game_id}}">
-    <button type="submit" id="save"> Beküldés </button>
-    <div class="green-background">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Lato&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/listening-game.css') }}">
+    <link rel="stylesheet" href="../static/style/navigation.css"/>
 
+</head>
+<body>
+{% include "navigation.html" %}
+<div class="circle1"></div>
+<div class="circle2"></div>
+<div class="main">
 
-        <div id="container">
+    <section class="listening-game" id="{{ game_id }}">
 
+        <div class="container" id="container">
 
         </div>
-    </div>
 
-</section>
-{% endblock %}
+         <button type="submit" id="save"> Beküldés</button>
 
+    </section>
+</div>
+</body>
+</html>
 
-
-{#<div class="card">#}
-{#                <input type="image" id="speak" value="{{ answer[0]['answer'] }}" src="./static/images/play.png"#}
-{#                       onclick="responsiveVoice.speak(textSpeak())">#}
-{#                <div class="possibilities">#}
-{#                    <p>sas</p>#}
-{#                    <p>sad</p>#}
-{#                    <p>asd</p>#}
-{#                </div>#}
-{#            </div>#}
