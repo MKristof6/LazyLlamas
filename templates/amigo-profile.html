@@ -2,18 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Profilom</title>
+    <title>Felhasználók</title>
+    <link href="../static/style/amigo_profile.css" rel='stylesheet'>
 </head>
 <body>
-<form action="/profile">
-  <label for="name">Nevem:</label>
-  <input type="text" id="name" name="name"><br><br>
-  <label for="birthday">Születési időm:</label>
-<!--    TODO: birthday column for amigo table?! -->
-  <input type="date" id="birthday" name="birthday"><br><br>
-  <label for="password">Jelszavam:</label>
-  <input type="password" id="password" name="password"><br><br>
-  <input type="submit"  value="Adataim módosítása">
-</form>
+<div class="circle1"></div>
+<div class="circle2"></div>
+<div class="main">
+    <div class="section1">
+        <h2>Személyes adataim</h2>
+        <form action="/profile">
+            <p>Nevem:</p>
+            <input type="text" id="name" name="name">
+            <p>Születési időm:</p>
+            <input type="date" id="birthday" name="birthday">
+            <p>Jelszavam:</p>
+            <input type="password" id="password" name="password">
+            <button type="submit">Adatok módosítása</button>
+        </form>
+    </div>
+    <div class="section2">
+        <h2>Új felhasználó regisztrálása</h2>
+        <form>
+            <p>Név:</p>
+            <input type="text" id="name" name="name">
+            <p>E-mail:</p>
+            <input type="text" id="email" name="email" value="">
+            <p>Születési idő:</p>
+            <input type="date" id="birthday" name="birthday">
+            <p>Jelszó:</p>
+            <input type="password" id="password" name="password">
+            <p>Amigo jogosultság</p>
+            <input type="checkbox" id="role" name="role">
+            <button type="submit">Felhasználó létrehozása</button>
+        </form>
+    </div>
 </body>
 </html>

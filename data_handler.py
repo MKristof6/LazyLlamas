@@ -81,8 +81,13 @@ def get_student_exercises(student_id, game_type):
     SELECT game_id FROM student_exercises
     WHERE student_id = %(student_id)s AND game_type = %(game_type)s;
     """
-    return connection.execute_dml_statement(query, {"student_id": student_id, "game_type": game_type})
+    return connection.execute_select(query, {"student_id": student_id, "game_type": game_type})
 
+def add_student_exercises(student_id, game_id, game_type):
+    query ="""
+        INSERT INTO student_exercises (student_id, game_id, game_type) VALUES (%(student_id)s, %(game_id)s, %(game_type)s);
+    """
+    return connection.execute_dml_statement(query, {"student_id": student_id, "game_id": game_id, "game_type": game_type})
 
 # LISTENING GAME
 
@@ -136,7 +141,7 @@ def get_memory_cards(game_id):
     SELECT * FROM memory_game
     WHERE id = %(game_id)s
     """
-    return connection.execute_select(query, {"game_id": game_id})
+    return connection.execute_select(query, {"game_id": game_id}, fetchall=False)
 
 
 def save_memory_game_solution(student_id, game_id, solution_time):
@@ -211,7 +216,7 @@ def get_matching_game(game_id):
     query = """
     SELECT * FROM matching_game
     WHERE id = %(game_id)s"""
-    return connection.execute_select(query, {"game_id": game_id})
+    return connection.execute_select(query, {"game_id": game_id}, fetchall=False)
 
 
 def save_matching_game_solution(student_id, game_id, solution_time):
@@ -243,7 +248,7 @@ def get_comprehensive_reading(game_id):
     SELECT * FROM comprehensive_reading
     WHERE id = %(game_id)s
      """
-    return connection.execute_select(query, {"game_id": game_id})
+    return connection.execute_select(query, {"game_id": game_id}, fetchall=False)
 
 
 def save_comprehensive_reading_solution(student_id, game_id, solution):
@@ -281,3 +286,45 @@ def save_filling_game_solution(student_id, game_id, solution):
            INSERT INTO filling_game_solution(student_id, game_id, solution) VALUES (%(student_id)s, %(game_id)s,   %(solution)s);
            """
     return connection.execute_dml_statement(query, {"game_id": game_id, "solution": solution, "student_id": student_id})
+
+
+def student_search_by_language(language):
+    query = """
+    SELECT student.id, student.name AS name , email , DATE_PART('year', birthday) AS birthday,  array_agg(l.name)  AS language , points  FROM student
+    FULL JOIN student_languages sl on student.id = sl.student_id
+    FULL JOIN language l on sl.language_id = l.id
+    WHERE l.name ILIKE %(language)s AND student.name IS NOT NULL
+    GROUP BY student.id, student.name, email, DATE_PART('year', birthday), points
+    """
+    return connection.execute_select(query, {'language': '%' + language + '%'})
+
+
+def student_search_by_email(student_email):
+    query = """
+    SELECT student.id, student.name  , email , DATE_PART('year', birthday) AS birthday,  array_agg(l.name)   AS language, points  FROM student
+    join student_languages sl on student.id = sl.student_id
+    join language l on sl.language_id = l.id
+    WHERE email ILIKE %(student_email)s
+    GROUP BY student.id, student.name, email, DATE_PART('year', birthday), points
+    """
+    return connection.execute_select(query, {'student_email': '%' + student_email + '%'})
+
+
+def student_search_by_birthday(bday):
+    query = """
+    SELECT student.id, student.name , email , DATE_PART('year', birthday) AS birthday, array_agg(l.name)  AS language, points  FROM student
+    join student_languages sl on student.id = sl.student_id
+    join language l on sl.language_id = l.id
+    WHERE DATE_PART('year', birthday) > %(bday)s
+    GROUP BY student.id, student.name, email, DATE_PART('year', birthday), points
+    """
+    return connection.execute_select(query, {'bday': bday})
+
+
+def give_feedback(amigo_id, student_id, title, feedback):
+    query = """
+    INSERT INTO feedback(amigo_id, student_id, title, feedback) 
+    VALUES (%(amigo_id)s, %(student_id)s, %(title)s, %(feedback)s);
+    """
+    return connection.execute_dml_statement(query, {"amigo_id": amigo_id, "student_id": student_id, "title": title, "feedback": feedback})
+

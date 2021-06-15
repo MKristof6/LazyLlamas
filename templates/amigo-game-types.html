@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feladat témák</title>
+    <script src="/static/js/amigo-exercise-types.js" defer></script>
+</head>
+<body>
+    {% for game in games %}
+    <div class="exercise-type" id="{{exercise}}/{{game.id}}"> {{game.theme}} </div> <a href="/send/{{exercise}}/{{game.id}}"> Küldés diáknak </a>
+
+    {%endfor%}
+
+
+</body>
+</html>

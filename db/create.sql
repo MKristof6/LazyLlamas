@@ -66,11 +66,12 @@ CREATE TABLE student_exercises
 
 CREATE TABLE feedback
 (
-    id         INT,
-    amigo_id   INT,
-    student_id INT,
-    title      TEXT,
-    feedback   TEXT
+    id                          INT GENERATED ALWAYS AS IDENTITY,
+    amigo_id                    INT,
+    student_id                  INT,
+    title                       text,
+    feedback                    text
+
 );
 
 
