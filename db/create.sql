@@ -31,6 +31,18 @@ DROP TABLE IF EXISTS public.exercise_type;
 DROP TABLE IF EXISTS public.filling_gaps;
 DROP TABLE IF EXISTS public.filling_game_solution;
 
+CREATE OR REPLACE FUNCTION
+student_age( birthday date )
+RETURNS int
+AS $CODE$
+BEGIN
+    RETURN extract( year FROM CURRENT_DATE )
+           - extract( year FROM birthday )
+           + 1;
+END
+$CODE$
+LANGUAGE plpgsql IMMUTABLE;
+
 
 CREATE TABLE amigo
 (
@@ -50,7 +62,7 @@ CREATE TABLE student
     password TEXT        NOT NULL,
     birthday DATE,
     points   INT,
-
+    age      TEXT GENERATED ALWAYS AS ( student_age( birthday )) STORED,
     PRIMARY KEY (id)
 );
 
@@ -78,7 +90,7 @@ CREATE TABLE feedback
 CREATE TABLE language
 (
     id         INT GENERATED ALWAYS AS IDENTITY,
-    name       TEXT,
+    language       TEXT,
     voice_code TEXT,
     PRIMARY KEY (id)
 );

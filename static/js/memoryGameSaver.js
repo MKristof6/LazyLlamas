@@ -7,7 +7,6 @@ let saveBtn = document.getElementById("save");
 
 saveBtn.addEventListener('click', uploadData);
 
-
 async function uploadData(){
     let imageUploads = document.querySelectorAll('input[type=file]');
     let textUploads = document.querySelectorAll('.text');

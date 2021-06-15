@@ -1,6 +1,6 @@
+from psycopg2._psycopg import AsIs
+
 import connection
-
-
 def get_amigos():
     return connection.execute_select('SELECT id, email, password FROM amigo;')
 
@@ -19,10 +19,6 @@ def update_student_languages(student_id, languages):
                 SET language_id=(%s) 
                 WHERE student_id=(%s)"""
     return connection.execute_dml_statement(query, {"languages": languages, "student_id": student_id})
-
-
-def get_latest_id():
-    return connection.execute_select('SELECT id FROM student ORDER BY id DESC LIMIT 1', fetchall=False)
 
 
 def get_languages():
@@ -129,21 +125,6 @@ def save_listening_game_solution(student_id, game_id, solution):
 
 # MEMORY GAME
 
-def get_memory_games():
-    query = """
-        SELECT id, theme FROM memory_game;
-    """
-    return connection.execute_select(query)
-
-
-def get_memory_cards(game_id):
-    query = """
-    SELECT * FROM memory_game
-    WHERE id = %(game_id)s
-    """
-    return connection.execute_select(query, {"game_id": game_id}, fetchall=False)
-
-
 def save_memory_game_solution(student_id, game_id, solution_time):
     query = """
     INSERT INTO memory_game_solution(student_id, game_id, solution_time) 
@@ -176,18 +157,6 @@ def save_sorting_exercise(language, theme, categories, words):
                                                     "categories": categories})
 
 
-def get_sorting_exercise(id):
-    query = 'SELECT theme, categories, words FROM sorting_game WHERE id=%(id)s;'
-    return connection.execute_select(query, {"id": id}, fetchall=False)
-
-
-def get_sorting_games():
-    query = """
-            SELECT id, theme FROM sorting_game;
-        """
-    return connection.execute_select(query)
-
-
 # MATCHING GAME
 
 def save_matching_game(language, theme, images):
@@ -203,20 +172,6 @@ def save_matching_game(language, theme, images):
                                                     "text4": images[3]["text"], "image5": images[4]["image"],
                                                     "text5": images[4]["text"],
                                                     "image6": images[5]["image"], "text6": images[5]["text"]})
-
-
-def get_matching_games():
-    query = """
-        SELECT id, theme FROM matching_game;
-    """
-    return connection.execute_select(query)
-
-
-def get_matching_game(game_id):
-    query = """
-    SELECT * FROM matching_game
-    WHERE id = %(game_id)s"""
-    return connection.execute_select(query, {"game_id": game_id}, fetchall=False)
 
 
 def save_matching_game_solution(student_id, game_id, solution_time):
@@ -236,21 +191,6 @@ def save_reading_exercise(language, theme, long_text, questions):
                                                     "questions": questions})
 
 
-def get_comprehensive_readings():
-    query = """
-             SELECT id, theme FROM comprehensive_reading;
-         """
-    return connection.execute_select(query)
-
-
-def get_comprehensive_reading(game_id):
-    query = """
-    SELECT * FROM comprehensive_reading
-    WHERE id = %(game_id)s
-     """
-    return connection.execute_select(query, {"game_id": game_id}, fetchall=False)
-
-
 def save_comprehensive_reading_solution(student_id, game_id, solution):
     query = """
        INSERT INTO comprehensive_reading_solution(student_id, game_id, solution) VALUES (%(student_id)s, %(game_id)s,   %(solution)s);
@@ -266,21 +206,6 @@ def save_filling_exercise(theme, long_text, gaps):
     return connection.execute_dml_statement(query, {"theme": theme, "long_text": long_text, "gaps": gaps})
 
 
-def get_filling_games():
-    query = """
-            SELECT id, theme FROM filling_gaps;
-        """
-    return connection.execute_select(query)
-
-
-def get_filling_game(game_id):
-    query = """
-    SELECT * FROM filling_gaps
-    WHERE id = %(game_id)s
-     """
-    return connection.execute_select(query, {"game_id": game_id}, fetchall=False)
-
-
 def save_filling_game_solution(student_id, game_id, solution):
     query = """
            INSERT INTO filling_game_solution(student_id, game_id, solution) VALUES (%(student_id)s, %(game_id)s,   %(solution)s);
@@ -288,37 +213,15 @@ def save_filling_game_solution(student_id, game_id, solution):
     return connection.execute_dml_statement(query, {"game_id": game_id, "solution": solution, "student_id": student_id})
 
 
-def student_search_by_language(language):
+def search_students(search_param, searched_column):
     query = """
-    SELECT student.id, student.name AS name , email , DATE_PART('year', birthday) AS birthday,  array_agg(l.name)  AS language , points  FROM student
-    FULL JOIN student_languages sl on student.id = sl.student_id
-    FULL JOIN language l on sl.language_id = l.id
-    WHERE l.name ILIKE %(language)s AND student.name IS NOT NULL
+    SELECT student.id, student.name AS name , email , age,  array_agg(language) as language, points  FROM student
+    LEFT JOIN student_languages sl on student.id = sl.student_id
+    LEFT JOIN language l on sl.language_id = l.id
+    WHERE %(searched_column)s LIKE %(search_param)s 
     GROUP BY student.id, student.name, email, DATE_PART('year', birthday), points
     """
-    return connection.execute_select(query, {'language': '%' + language + '%'})
-
-
-def student_search_by_email(student_email):
-    query = """
-    SELECT student.id, student.name  , email , DATE_PART('year', birthday) AS birthday,  array_agg(l.name)   AS language, points  FROM student
-    join student_languages sl on student.id = sl.student_id
-    join language l on sl.language_id = l.id
-    WHERE email ILIKE %(student_email)s
-    GROUP BY student.id, student.name, email, DATE_PART('year', birthday), points
-    """
-    return connection.execute_select(query, {'student_email': '%' + student_email + '%'})
-
-
-def student_search_by_birthday(bday):
-    query = """
-    SELECT student.id, student.name , email , DATE_PART('year', birthday) AS birthday, array_agg(l.name)  AS language, points  FROM student
-    join student_languages sl on student.id = sl.student_id
-    join language l on sl.language_id = l.id
-    WHERE DATE_PART('year', birthday) > %(bday)s
-    GROUP BY student.id, student.name, email, DATE_PART('year', birthday), points
-    """
-    return connection.execute_select(query, {'bday': bday})
+    return connection.execute_select(query, {'search_param': '%' + str(search_param) + '%', "searched_column": AsIs(searched_column)})
 
 
 def give_feedback(amigo_id, student_id, title, feedback):
@@ -328,3 +231,17 @@ def give_feedback(amigo_id, student_id, title, feedback):
     """
     return connection.execute_dml_statement(query, {"amigo_id": amigo_id, "student_id": student_id, "title": title, "feedback": feedback})
 
+
+def get_game_by_id(game_type, game_id):
+    query = """
+                SELECT * FROM %(game_type)s
+                WHERE id = %(game_id)s;
+            """
+    return connection.execute_select(query, {"game_type": AsIs(game_type), "game_id": game_id}, fetchall=False)
+
+
+def get_games(game_type):
+    query = """
+             SELECT id, theme FROM %(game_type)s;
+         """
+    return connection.execute_select(query, {"game_type": AsIs(game_type)})

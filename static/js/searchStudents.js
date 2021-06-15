@@ -2,19 +2,13 @@ import {networkHandler} from "./networkHandler.js";
 
 export let searchStudents = {
     setUp: function () {
-        let searchByLanguage = document.getElementById('search_language');
-        let searchByEmail = document.getElementById('search_email');
-        let searchByBirth = document.getElementById('search_bday');
-
-        searchByLanguage.addEventListener("input", function () {
-            networkHandler.getData(`/get-students-by-language/${searchByLanguage.value}`, searchStudents.showData)
-        })
-        searchByEmail.addEventListener("input", function () {
-            networkHandler.getData(`/get-students-by-email/${searchByEmail.value}`, searchStudents.showData)
-        })
-        searchByBirth.addEventListener("input", function () {
-            networkHandler.getData(`/get-students-by-birthday/${searchByBirth.value}`, searchStudents.showData)
-        })
+        let searchByLanguage = document.getElementById('language');
+        let searchByEmail = document.getElementById('email');
+        let searchByBirth = document.getElementById('age');
+        let searchParams = [searchByBirth, searchByEmail, searchByLanguage]
+        searchParams.forEach(item => item.addEventListener('input', function () {
+            networkHandler.getData(`/search/${item.id}/${item.value}`, searchStudents.showData)}
+        ))
     },
 
     showData: function (studentList) {
@@ -34,7 +28,7 @@ export let searchStudents = {
   <tr class=student id="${student['id']}">
     <td>${student['name']}</td>
     <td>${student['email']}</td>
-    <td>${student['birthday']}</td>
+    <td>${student['age']}</td>
     <td>${student['language']}</td>
     <td>${student['points']}</td>
   </tr>

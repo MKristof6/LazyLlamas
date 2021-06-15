@@ -1,38 +1,38 @@
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('English', 'US English Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('Français', 'French Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('Italiano', 'Italian Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('Español', 'Spanish Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('Deutsch', 'Deutsch Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('Magyar', 'Hungarian Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('Português', 'Portuguese Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('Tiếng Việt', 'Vietnamese Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('Polskie', 'Polish Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('Ελληνικά', 'Greek Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('Српски', 'Serbian Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('Română', 'Romanian Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('Norske', 'Norwegian Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('Türkçe', 'Turkish Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('Suomalainen', 'Finnish Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('bahasa Indonesia', 'Indonesian Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('русский', 'Russian Female');
-INSERT INTO language(name, voice_code)
+INSERT INTO language(language, voice_code)
 VALUES ('Brazilian Portuguese', 'Brazilian Portuguese Female');
 
 
