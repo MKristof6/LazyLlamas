@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../static/style/exercises.css"/>
+    <link rel="stylesheet" href="../static/style/navigation.css"/>
     <link href='https://fonts.googleapis.com/css?family=Amatic SC' rel='stylesheet'>
     <script src="/static/js/student-exercises.js" defer></script>
     <meta charset="UTF-8">
     <title>Az én feladataim</title>
 </head>
 <body>
+{% include "navigation.html" %}
 <div class="circle1"></div>
 <div class="circle2"></div>
 <div class="main" id="{{student_id}}">
