@@ -1,11 +1,13 @@
+import {networkHandler} from "./networkHandler.js";
+
 const WORD_ADDER = document.getElementById('word-source');
 const THEMES = document.querySelectorAll('.theme-card');
 let THEME_ADDER = document.getElementById('theme-adder');
 const SAVE_THEME = document.getElementById('theme-button');
 let DATA = {};
 
-function removeIfEmpty(e) {
-    if (e.target.value === '') e.target.remove();
+function removeIfEmpty() {
+    if (this.value === '') this.remove();
 }
 
 function checkWordAvailability(word) {
@@ -67,7 +69,7 @@ function addThemeListener() {
     THEME_ADDER.addEventListener('focusin', insertTheme);
 }
 
-function styleThemeAdder() { //Failed to color it in css, JS solution works however
+function styleThemeAdder() {
     THEME_ADDER.style.background = '#993166';
     THEME_ADDER.style.color = 'white';
     THEME_ADDER.style.textAlign = 'center';
@@ -75,18 +77,6 @@ function styleThemeAdder() { //Failed to color it in css, JS solution works howe
 
 addThemeListener();
 
-function postData() {
-    fetch('/upload-words', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(DATA)
-    }).then(r => {
-        if (r.status === 200) window.location = '/';
-    });
-}
 
 function getAllData() {
     let theme = document.getElementById("theme").value;
@@ -100,8 +90,7 @@ function getAllData() {
     DATA['theme'] = theme;
     DATA['themes'] = themes;
     DATA['words'] = words;
-    console.log(DATA);
-    postData();
+    networkHandler.sendData(DATA, '/sorting-game-upload', networkHandler.redirectHome)
 }
 
 SAVE_THEME.addEventListener('click', getAllData);
