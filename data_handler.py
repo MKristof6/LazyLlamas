@@ -83,11 +83,14 @@ def get_student_exercises(student_id, game_type):
     """
     return connection.execute_select(query, {"student_id": student_id, "game_type": game_type})
 
+
 def add_student_exercises(student_id, game_id, game_type):
-    query ="""
+    query = """
         INSERT INTO student_exercises (student_id, game_id, game_type) VALUES (%(student_id)s, %(game_id)s, %(game_type)s);
     """
-    return connection.execute_dml_statement(query, {"student_id": student_id, "game_id": game_id, "game_type": game_type})
+    return connection.execute_dml_statement(query,
+                                            {"student_id": student_id, "game_id": game_id, "game_type": game_type})
+
 
 # LISTENING GAME
 
@@ -176,7 +179,7 @@ def save_sorting_exercise(language, theme, categories, words):
                                                     "categories": categories})
 
 
-def get_sorting_exercise(id):
+def get_sorting_game(id):
     query = 'SELECT theme, categories, words FROM sorting_game WHERE id=%(id)s;'
     return connection.execute_select(query, {"id": id}, fetchall=False)
 
@@ -186,6 +189,15 @@ def get_sorting_games():
             SELECT id, theme FROM sorting_game;
         """
     return connection.execute_select(query)
+
+
+def save_sorting_game_solution(student_id, game_id, solution):
+    query = """
+     INSERT INTO sorting_game_solution(student_id, game_id, solution) 
+                VALUES(%(student_id)s, %(game_id)s, %(solution)s)
+     """
+    return connection.execute_dml_statement(query, {"student_id": student_id, "game_id": game_id,
+                                                    "solution": solution})
 
 
 # MATCHING GAME
@@ -260,6 +272,7 @@ def save_comprehensive_reading_solution(student_id, game_id, solution):
 
 # FILLING GAPS
 
+
 def save_filling_exercise(theme, long_text, gaps):
     query = """INSERT INTO filling_gaps(theme, long_text, gaps) VALUES (%(theme)s, %(long_text)s, %(gaps)s)
     ;"""
@@ -286,6 +299,9 @@ def save_filling_game_solution(student_id, game_id, solution):
            INSERT INTO filling_game_solution(student_id, game_id, solution) VALUES (%(student_id)s, %(game_id)s,   %(solution)s);
            """
     return connection.execute_dml_statement(query, {"game_id": game_id, "solution": solution, "student_id": student_id})
+
+
+# STUDENT FILTERING
 
 
 def student_search_by_language(language):
@@ -321,10 +337,13 @@ def student_search_by_birthday(bday):
     return connection.execute_select(query, {'bday': bday})
 
 
+# FEEDBACK
+
+
 def give_feedback(amigo_id, student_id, title, feedback):
     query = """
     INSERT INTO feedback(amigo_id, student_id, title, feedback) 
     VALUES (%(amigo_id)s, %(student_id)s, %(title)s, %(feedback)s);
     """
-    return connection.execute_dml_statement(query, {"amigo_id": amigo_id, "student_id": student_id, "title": title, "feedback": feedback})
-
+    return connection.execute_dml_statement(query, {"amigo_id": amigo_id, "student_id": student_id, "title": title,
+                                                    "feedback": feedback})
