@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Feladat küldés</title>
-    <link href="../static/style/send.css" rel='stylesheet'>
+    <link href="/static/style/send.css" rel='stylesheet'>
+    <script type="module" src="{{ url_for('static', filename='js/sendTask.js') }}"  defer></script>
 </head>
 <body>
 
@@ -34,6 +35,5 @@
 <button class="send" id="/send/{{game_type}}/{{game_id}}"> Küldés </button>
 
 
-<script src="/static/js/sendTask.js" ></script>
 <script src="/static/js/list_students.js" ></script>
 </body>

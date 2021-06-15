@@ -1,3 +1,8 @@
+let listStudent = {
+
+
+}
+
 function searchByLanguage(language) {
     fetch(`/get-students-by-language/${language}`)
         .then(response => response.json())
