@@ -72,7 +72,7 @@ def get_student_languages(student_id):
 def update_score(student_id):
     query = """UPDATE student
                     SET points = points + 10
-                    WHERE id=(%s)"""
+                    WHERE id=%(student_id)s"""
     return connection.execute_dml_statement(query, {"student_id": student_id})
 
 
