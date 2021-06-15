@@ -215,7 +215,7 @@ def list_sorting_games():
     if session['amigo']:
         return render_template('amigo-game-types.html', games=sorting_games, exercise=exercise)
     else:
-        return render_template('game-types.html', games=sorting_games, exercise=exercise)
+        return render_template('game-types.html', all=True, games=sorting_games, exercise=exercise)
 
 @app.route('/sorting-games/<id>')
 def list_student_sorting_games(id):
@@ -227,7 +227,7 @@ def list_student_sorting_games(id):
             sorting_games.append(data_handler.get_sorting_exercise(g_id['game_id']))
         return render_template('game-types.html', games=sorting_games, exercise=exercise)
     else:
-        return render_template('empty.html', exercise=exercise)
+        return render_template('game-types.html', exercise=exercise)
 
 # MATCHING GAME
 
@@ -259,7 +259,7 @@ def list_matching_games():
     if session['amigo']:
         return render_template('amigo-game-types.html', games=matching_games, exercise=exercise)
     else:
-        return render_template('game-types.html', games=matching_games, exercise=exercise)
+        return render_template('game-types.html', all=True, games=matching_games, exercise=exercise)
 
 @app.route('/matching-games/<id>')
 def list_student_matching_games(id):
@@ -271,7 +271,7 @@ def list_student_matching_games(id):
             matching_games.append(data_handler.get_matching_game(g_id['game_id']))
         return render_template('game-types.html', games=matching_games, exercise=exercise)
     else:
-        return render_template('empty.html', exercise=exercise)
+        return render_template('game-types.html', exercise=exercise)
 
 
 
@@ -303,7 +303,7 @@ def list_memory_games():
     if session['amigo']:
         return render_template('amigo-game-types.html', games=memory_games, exercise=exercise)
     else:
-        return render_template('game-types.html', games=memory_games, exercise=exercise)
+        return render_template('game-types.html', all=True, games=memory_games, exercise=exercise)
 
 @app.route('/memory-games/<id>')
 def list_student_memory_games(id):
@@ -316,7 +316,7 @@ def list_student_memory_games(id):
             print(memory_games)
         return render_template('game-types.html', games=memory_games, exercise=exercise)
     else:
-        return render_template('empty.html', exercise=exercise)
+        return render_template('game-types.html', exercise=exercise)
 
 
 
@@ -349,7 +349,7 @@ def list_listening_games():
     if session['amigo']:
         return render_template('amigo-game-types.html', games=games, exercise=exercise)
     else:
-        return render_template('game-types.html', games=games, exercise=exercise)
+        return render_template('game-types.html', all=True, games=games, exercise=exercise)
 
 
 @app.route('/get-listening-game/<game_id>')
@@ -399,7 +399,7 @@ def list_student_listening_games(id):
             print(listening_games[0])
         return render_template('game-types.html', games=listening_games, exercise=exercise)
     else:
-        return render_template('empty.html', exercise=exercise)
+        return render_template('game-types.html', exercise=exercise)
 
 # COMPREHENSIVE READING
 
@@ -424,7 +424,7 @@ def list_comprehensive_readings():
     if session['amigo']:
         return render_template('amigo-game-types.html', games=games, exercise=exercise)
     else:
-        return render_template('game-types.html', games=games, exercise=exercise)
+        return render_template('game-types.html', all=True, games=games, exercise=exercise)
 
 
 @app.route('/comprehensive-readings/<id>')
@@ -437,7 +437,7 @@ def list_student_comprehensive_readings(id):
             games.append(data_handler.get_comprehensive_reading(g_id['game_id']))
         return render_template('game-types.html', games=games, exercise=exercise)
     else:
-        return render_template('empty.html', exercise=exercise)
+        return render_template('game-types.html', exercise=exercise)
 
 
 
@@ -492,7 +492,7 @@ def list_student_filling_games(id):
             games.append(data_handler.get_filling_game(g_id['game_id']))
         return render_template('game-types.html', games=games, exercise=exercise)
     else:
-        return render_template('empty.html', exercise=exercise)
+        return render_template('game-types.html', exercise=exercise)
 
 
 @app.route('/filling-game/<game_id>')
@@ -507,7 +507,7 @@ def filling_games():
     if session['amigo']:
         return render_template('amigo-game-types.html', games=games, exercise=exercise)
     else:
-        return render_template('game-types.html', games=games, exercise=exercise)
+        return render_template('game-types.html', all=True, games=games, exercise=exercise)
 
 
 
