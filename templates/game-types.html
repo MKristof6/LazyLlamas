@@ -7,10 +7,14 @@
 </head>
 <body>
     {% if exercise == "listening-game" -%}
-    {% for game in games %}
 
-    <div class="exercise-type" id="{{exercise}}/{{game[0].game_id}}"> {{game[0].theme}}</div>
-    {%endfor%}
+        {% for game in games %}
+            {% if game[0] -%}
+            <div class="exercise-type" id="{{exercise}}/{{game[0].game_id}}"> {{game[0].theme}}</div>
+            {%else %}
+            <div class="exercise-type" id="{{exercise}}/{{game.id}}"> {{game.theme}}</div>
+            {% endif%}
+        {%endfor%}
     {%else%}
     {% for game in games %}
     <div class="exercise-type" id="{{exercise}}/{{game.id}}"> {{game.theme}}</div>
