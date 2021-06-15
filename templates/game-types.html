@@ -2,25 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Feladat témák</title>
-    <script src="/static/js/exercise-types.js" defer></script>
+    <title>Feladataim</title>
+    <link rel="stylesheet" href="../static/style/navigation.css">
+    <link rel="stylesheet" href="../static/style/empty.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Lato&display=swap"
+          rel="stylesheet">
 </head>
 <body>
+{% include "navigation.html" %}
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+    <div class="main">
+    {% if games %}
     {% if exercise == "listening-game" -%}
-
         {% for game in games %}
             {% if game[0] -%}
-            <div class="exercise-type" id="{{exercise}}/{{game[0].game_id}}"> {{game[0].theme}}</div>
+            <div class="exercise-type" id="{{exercise}}/{{game[0].game_id}}"> <p>{{game[0].theme}}</p></div>
             {%else %}
-            <div class="exercise-type" id="{{exercise}}/{{game.id}}"> {{game.theme}}</div>
+            <div class="exercise-type" id="{{exercise}}/{{game.id}}"> <p>{{game.theme}}</p></div>
             {% endif%}
         {%endfor%}
     {%else%}
-    {% for game in games %}
-    <div class="exercise-type" id="{{exercise}}/{{game.id}}"> {{game.theme}}</div>
-    {%endfor%}
+        {% for game in games %}
+        <div class="exercise-type" id="{{exercise}}/{{game.id}}"> <p>{{game.theme}}</p> </div>
+        {%endfor%}
     {% endif%}
+    {%else%}
 
-
+        <h2> Jelenleg nincs ilyen feladatod</h2>
+    {%endif %}
+        {% if not all%}
+        <a href="/{{ exercise }}s"><button> Böngészés az összes feladat között</button></a>
+        {%endif %}
+    </div>
 </body>
 </html>

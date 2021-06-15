@@ -3,28 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Memory game</title>
-     <link rel="stylesheet" href="../static/memory-game.css"/>
-     <link rel="stylesheet" href="../static/style/navigation.css"/>
-
+    <link rel="stylesheet" href="../static/memory-game.css"/>
+    <link rel="stylesheet" href="../static/style/navigation.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Lato&display=swap"
+          rel="stylesheet">
 </head>
 <body>
 {% include "navigation.html" %}
 <div class="circle1"></div>
 <div class="circle2"></div>
-    <div class="stopper">
-        <p id="theme" > </p>
+<div class="stopper">
+    <p id="theme"></p>
     <div id="stopper-display">
         00:00
     </div>
-     <button class="stop"> Beküldés </button>
+    <button class="stop"> Beküldés</button>
 
 </div>
-  <h2 class="theme"></h2>
-    <section class="memory-game" id="{{game_id}}">
+<h2 class="theme"></h2>
+<section class="memory-game" id="{{ game_id }}">
 
-    </section>
+</section>
 
-   <script type="module" src="/static/js/memory_game.js"></script>
-    <script src="/static/js/stopper.js"></script>
+<script type="module" src="/static/js/memory_game.js"></script>
+<script src="/static/js/stopper.js"></script>
 </body>
 </html>
