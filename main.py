@@ -142,7 +142,21 @@ def send_game_to_student(game_type, game_id):
 
 @app.route('/solutions')
 def solutions():
-    return 'Implementation in process. '
+    return render_template('solutions.html')
+
+
+@app.route('/feedback/<student_id>', methods=['GET', 'POST'])
+def feedbacks(student_id):
+    if request.method == 'POST':
+        amigo_id = session['id']
+        title = request.form['title']
+        feedback = request.form['feedback']
+        data_handler.give_feedback(amigo_id, student_id, title, feedback)
+        return redirect(url_for('students'))
+    else:
+        return render_template('feedback.html', student_id=student_id)
+
+
 
 
 @app.route('/students')
