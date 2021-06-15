@@ -5,23 +5,26 @@
     <title>Értékelés</title>
     <link href="../static/style/feedback.css" rel='stylesheet'>
     <link href="../static/style/navigation.css" rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Lato&display=swap"
+          rel="stylesheet">
 </head>
 <body>
 {% include "navigation.html" %}
-
-<section class="main">
-    <form action="/feedback/{{student_id}}" method="post">
-        <label for="title">Tárgy:</label>
-        <input type="text" id="title" name="title">
-        <label for="feedback">Értékelés:</label>
-        <textarea type="text" id="feedback" name="feedback"></textarea>
-
-        <button type="submit">Küldés</button>
+<div class="circle1"></div>
+<div class="circle2"></div>
+<div class="main">
+    <form action="/feedback/{{ student_id }}" method="post">
+        <div class="feedback-form">
+            <label for="title"><h2>Tárgy:</h2></label>
+            <input type="text" id="title" name="title">
+            <div class="text-area">
+                <label for="feedback"><h2>Értékelés:</h2></label>
+                <textarea type="text" id="feedback" name="feedback"></textarea>
+            </div>
+            <button type="submit">Küldés</button>
+        </div>
     </form>
-
-
-</section>
-
-
+</div>
 </body>
 </html>

@@ -3,14 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Feladat témák</title>
+    <link rel="stylesheet" href="../static/style/navigation.css">
+    <link rel="stylesheet" href="../static/style/game-types.css">
+    <link rel="stylesheet" href="../static/style/game-types-send.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Lato&display=swap"
+          rel="stylesheet">
     <script src="/static/js/amigo-exercise-types.js" defer></script>
 </head>
 <body>
-    {% for game in games %}
-    <div class="exercise-type" id="{{exercise}}/{{game.id}}"> {{game.theme}} </div> <a href="/send/{{exercise}}/{{game.id}}"> Küldés diáknak </a>
-
-    {%endfor%}
-
-
+{% include "navigation.html" %}
+<div class="circle1"></div>
+<div class="circle2"></div>
+<div class="main">
+    <h2>Feladatok</h2>
+    <div class="exercises">
+        {% for game in games %}
+            <div class="exercise-type" id="{{ exercise }}/{{ game.id }}">
+                <p>{{ game.theme }}</p>
+                <a href="/send/{{ exercise }}/{{ game.id }}">
+                    <button> Küldés diáknak</button>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 </body>
 </html>

@@ -2,36 +2,39 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <title>Diákok</title>
+
+    <link href="/static/style/send-task.css" rel='stylesheet'>
+    <link href="/static/style/navigation.css" rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Lato&display=swap"
+          rel="stylesheet">
     <script type="text/javascript" src="{{ url_for('static', filename='js/list_students.js') }}" defer></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/students-list.css') }}">
-    <title>Students</title>
 </head>
-
 <body>
-{#<div class="">#}
-
-{#<section>#}
-
-<div class="search-bar">
-    <h3>Nyelv: </h3>
-    <input type="text" id="search_language">
-    <h3>E-mail: </h3>
-    <input type="text" id="search_email">
-    <h3>Születési dátum: </h3> <br>
-    <input type="text" id="search_bday">
-{#    <input type="text" id="max-year">#}
-</div>
-
-<div class="search-bar">
-    <table id="container">
-
-    </table>
-
-</div>
-
-{#</section>#}
-{#</div>#}
-
+{% include "navigation.html" %}
+<div class="circle1"></div>
+<div class="circle2"></div>
+<div class="main">
+    <h2>Diák keresése</h2>
+    <div class="filter">
+        <div class="search-bar">
+            <h3>Nyelv: </h3>
+            <input type="text" id="search_language">
+            <h3>E-mail: </h3>
+            <input type="text" id="search_email">
+            <h3>Születési dátum: </h3> <br>
+            <input type="text" id="search_bday">
+        </div>
+        <div class="results">
+            <div class="search-bar">
+                <div class="table-container">
+                    <table id="container">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -16,6 +16,7 @@
     border-radius: 40px;
     overflow: hidden;
     transition: 0.4s;
+    z-index: 100000;
 }
 
 .nav-arrow-container {
