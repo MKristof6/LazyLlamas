@@ -6,6 +6,7 @@
     <script src="/static/js/exercise-types.js" defer></script>
 </head>
 <body>
+    {% if games %}
     {% if exercise == "listening-game" -%}
 
         {% for game in games %}
@@ -20,7 +21,11 @@
     <div class="exercise-type" id="{{exercise}}/{{game.id}}"> {{game.theme}}</div>
     {%endfor%}
     {% endif%}
-
-
+    {%else%}
+        <p> Jelenleg nincs ilyen feladatod</p>
+    {%endif %}
+    {% if not all%}
+    <a href="/{{exercise}}s"> Böngészés az összes feladat között</a>
+    {%endif %}
 </body>
 </html>
