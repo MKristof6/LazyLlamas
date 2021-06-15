@@ -281,3 +281,11 @@ def student_search_by_birthday(bday):
     GROUP BY student.id, student.name, email, DATE_PART('year', birthday), points
     """
     return connection.execute_select(query, {'bday': bday})
+
+
+def give_feedback(amigo_id, student_id, title, feedback):
+    query = """
+    INSERT INTO feedback(amigo_id, student_id, title, feedback) 
+    VALUES (%(amigo_id)s, %(student_id)s, %(title)s, %(feedback)s);
+    """
+    return connection.execute_dml_statement(query, {"amigo_id": amigo_id, "student_id": student_id, "title": title, "feedback": feedback})

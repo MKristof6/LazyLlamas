@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Értékelés</title>
+</head>
+<body>
+
+        <form action="/feedback/{{student_id}}" method="post">
+            <label for="title">Tárgy:</label>
+            <input type="text" id="title" name="title" >
+            <label for="feedback">Értékelés:</label>
+            <input type="text" id="feedback" name="feedback" >
+
+            <button type="submit">Küldés</button>
+        </form>
+
+</body>
+</html>

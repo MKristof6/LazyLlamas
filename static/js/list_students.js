@@ -43,6 +43,7 @@ function getElementsData(data) {
     <td>${element['birthday']}</td>
     <td>${element['language']}</td>
     <td>${element['points']}</td>
+    <td><intput type="button" onclick="location.href='/feedback/${element['id']}';"> Értékelés </intput></td>
   </tr>
        `
     }
@@ -53,7 +54,7 @@ function getElementsData(data) {
 function showElements(elements) {
     let container = document.getElementById('container')
     container.innerHTML = elements
-    console.log('fut');
+
     let rows = document.querySelectorAll("tr");
     for (let row of rows){
         row.addEventListener('click', ()=>{
