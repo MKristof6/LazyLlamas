@@ -23,18 +23,19 @@ function getElements(data) {
     for (let element of data) {
         elements += `
             <div class="card">
+            <div class="play">
                 <input type="image" value="${element['correct_answer']}" name="${element['language']}" src="../static/images/play.png"
                     draggable="false"  class="answer" >
-                <div class="answers" id="${element['correct_answer']}">
-                <div class="possibilities" >
-                    <p>${element["answers"][0]}</p>
-                   </div>
-                    <div class="possibilities">
-                    <p>${element["answers"][1]}</p>
-                    </div>
-                    <div class="possibilities">
-                    <p>${element["answers"][2]}</p>
                 </div>
+                <div class="answers" id="${element['correct_answer']}">
+                `
+        for (let i = 0; i < 3; i++) {
+            elements += `
+            <button class="possibilities">${element["answers"][i]}</button>
+        `
+        }
+        elements += `
+
                 </div>
             </div>
     `
