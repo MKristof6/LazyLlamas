@@ -4,7 +4,6 @@ export let networkHandler = {
         fetch(route)
             .then(response => response.json())
             .then(data => callback(data))
-
     },
 
     sendData: function (data, route, callback) {
@@ -19,6 +18,6 @@ export let networkHandler = {
     },
 
     redirectHome: function (r) {
-        if (r.status.code === 200) window.location = '/';
+        if (r.status === 200) window.location = '/';
     }
 }

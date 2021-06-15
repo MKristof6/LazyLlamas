@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, render_template, url_for, redirect, session, request, flash, jsonify, make_response
 
 import data_handler
@@ -128,8 +130,6 @@ def feedbacks(student_id):
         return render_template('feedback.html', student_id=student_id)
 
 
-
-
 @app.route('/students')
 def students():
     return render_template("list_students.html")
@@ -155,28 +155,29 @@ def get_students_by_birthday(bday):
 
 # SORTING GAME
 
-@app.route('/upload-words', methods=['POST'])
-def upload_words():
-    data = request.get_json()
-    language = data['language']
-    theme = data['theme']
-    themes = data['themes']
-    words = data['words']
-    data_handler.save_sorting_exercise(language, theme, themes, words)
+@app.route('/sorting-game-upload', methods=['GET', 'POST'])
+def sorting_game_upload():
+    if request.method == 'POST':
+        data = request.get_json()
+        language = data['language']
+        theme = data['theme']
+        themes = data['themes']
+        words = data['words']
+        data_handler.save_sorting_exercise(language, theme, themes, words)
+        return jsonify('Success', 200)
+    else:
+        return render_template('sorting_game_upload.html')
+
+
+@app.route('/get-sorting-game/<game_id>')
+def get_sorting_game(game_id):
+    data = data_handler.get_sorting_game(game_id)
     return jsonify(data)
 
 
-@app.route('/sorting-game-upload')
-def sorting_game_upload():
-    return render_template('sorting_game_upload.html')
-
-
-@app.route('/sorting-game/<id>')
-def sorting_game(id):
-    theme = data_handler.get_sorting_exercise(id)['theme']
-    themes = data_handler.get_sorting_exercise(id)['categories']
-    words = data_handler.get_sorting_exercise(id)['words']
-    return render_template('sorting_game.html', theme=theme, themes=themes, words=words)
+@app.route('/sorting-game/<game_id>')
+def sorting_game_with_id(game_id):
+    return render_template('sorting_game.html', game_id=game_id)
 
 
 @app.route('/sorting-games')
@@ -188,6 +189,7 @@ def list_sorting_games():
     else:
         return render_template('game-types.html', all=True, games=sorting_games, exercise=exercise)
 
+
 @app.route('/sorting-games/<id>')
 def list_student_sorting_games(id):
     exercise = "sorting-game"
@@ -195,10 +197,21 @@ def list_student_sorting_games(id):
     sorting_games = []
     if len(game_ids) != 0:
         for g_id in game_ids:
-            sorting_games.append(data_handler.get_sorting_exercise(g_id['game_id']))
+            sorting_games.append(data_handler.get_sorting_game(g_id['game_id']))
         return render_template('game-types.html', games=sorting_games, exercise=exercise)
     else:
         return render_template('game-types.html', exercise=exercise)
+
+
+@app.route('/sorting-solution-saver/<game_id>', methods=['POST'])
+def save_sorting_solution(game_id):
+    data = request.get_json()
+    data = json.dumps(data)     # Converts JSON object to string, which can be inserted into DB
+    data_handler.save_sorting_game_solution(session['id'], game_id, data)
+    if not session['amigo']:
+        data_handler.update_score(session['id'])
+    return jsonify('Success', 200)
+
 
 # MATCHING GAME
 
@@ -232,6 +245,7 @@ def list_matching_games():
     else:
         return render_template('game-types.html', all=True, games=matching_games, exercise=exercise)
 
+
 @app.route('/matching-games/<id>')
 def list_student_matching_games(id):
     exercise = "matching-game"
@@ -243,7 +257,6 @@ def list_student_matching_games(id):
         return render_template('game-types.html', games=matching_games, exercise=exercise)
     else:
         return render_template('game-types.html', exercise=exercise)
-
 
 
 @app.route('/matching-solution-saver/<game_id>', methods=['POST'])
@@ -285,8 +298,8 @@ def list_student_memory_games(game_type, student_id):
 
 def switch_game_type(i):
     switcher = {
-            'memory-game': data_handler.get_memory_cards
-         }
+        'memory-game': data_handler.get_memory_cards
+    }
     return switcher.get(i, "Not found")
 
 
@@ -300,7 +313,6 @@ def list_student_games(student_id, callback, exercise):
         return render_template('game-types.html', games=memory_games, exercise=exercise)
     else:
         return render_template('game-types.html', exercise=exercise)
-
 
 
 @app.route('/memory-game/<game_id>')
@@ -371,6 +383,7 @@ def save_listening_solution(game_id):
         data_handler.update_score(session['id'])
     return jsonify('Success', 200)
 
+
 @app.route('/listening-games/<id>')
 def list_student_listening_games(id):
     exercise = "listening-game"
@@ -383,7 +396,6 @@ def list_student_listening_games(id):
         return render_template('game-types.html', games=listening_games, exercise=exercise)
     else:
         return render_template('game-types.html', exercise=exercise)
-
 
 
 # COMPREHENSIVE READING
@@ -423,7 +435,6 @@ def list_student_comprehensive_readings(id):
         return render_template('game-types.html', games=games, exercise=exercise)
     else:
         return render_template('game-types.html', exercise=exercise)
-
 
 
 @app.route('/get-comprehensive-reading/<game_id>')
@@ -493,7 +504,6 @@ def filling_games():
         return render_template('amigo-game-types.html', games=games, exercise=exercise)
     else:
         return render_template('game-types.html', all=True, games=games, exercise=exercise)
-
 
 
 @app.route('/filling-gap-solution-saver/<game_id>', methods=['POST'])
