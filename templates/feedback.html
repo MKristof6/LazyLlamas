@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>Értékelés</title>
     <link href="../static/style/feedback.css" rel='stylesheet'>
+    <link href="../static/style/navigation.css" rel='stylesheet'>
 </head>
 <body>
+{% include "navigation.html" %}
+
 <section class="main">
     <form action="/feedback/{{student_id}}" method="post">
         <label for="title">Tárgy:</label>
