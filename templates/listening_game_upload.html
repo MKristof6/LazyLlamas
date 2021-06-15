@@ -10,9 +10,9 @@
 <div class="circle2"></div>
 <div class="form-container">
     <label for="theme"> Téma: </label>
-    <input type="text" id="theme">
+    <input type="text" id="theme" required>
     <label for="language"> Nyelv: </label>
-    <select name="language" id="language">
+    <select name="language" id="language" required>
         {% for language in languages %}
         <option value="{{language['voice_code']}}">{{ language['name'] }}</option>  <br><br>
         {% endfor %}
@@ -22,10 +22,10 @@
     <br><br>
     <div class="card">
     <label for="correct-answer"> Helyes válasz: </label>
-    <input type="text" class="card {{n}}" data-name="{{n}}" id="correct-answer" >
+    <input type="text" class="card {{n}}" data-name="{{n}}" id="correct-answer"  required>
     <h4> Helytelen válaszok: </h4>
-    <input type="text" class="card {{n}}"  data-name="{{n}}" name="text"><br><br>
-    <input type="text"  class="card {{n}}" data-name="{{n}}" name="text"><br><br>
+    <input type="text" class="card {{n}}"  data-name="{{n}}" name="text" required><br><br>
+    <input type="text"  class="card {{n}}" data-name="{{n}}" name="text" required><br><br>
     </div>
 
     {% endfor %}

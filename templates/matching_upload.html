@@ -11,15 +11,15 @@
 <div class="circle2"></div>
 <div class="form-container">
 <label for="language"> Nyelv: </label>
-<input type="text" id="language" name="language"><br><br>
+<input type="text" id="language" name="language" required><br><br>
 <label for="theme"> Téma: </label>
-<input type="text" id="theme" name="theme"><br><br>
+<input type="text" id="theme" name="theme" required><br><br>
 
 {% for n in range(6) %}
 <label for="fileId"> Kép: </label>
-<input type="file" name="" id="fileId" class="image"><br><br>
+<input type="file" name="" id="fileId" class="image" required><br><br>
 <label for="text"> Szöveg: </label>
-<input type="text" id="text" class="text" name="text"><br><br>
+<input type="text" id="text" class="text" name="text" required><br><br>
 
 {% endfor %}
 <button id="save">

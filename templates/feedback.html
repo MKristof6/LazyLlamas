@@ -13,9 +13,9 @@
 <section class="main">
     <form action="/feedback/{{student_id}}" method="post">
         <label for="title">Tárgy:</label>
-        <input type="text" id="title" name="title">
+        <input type="text" id="title" name="title" required>
         <label for="feedback">Értékelés:</label>
-        <textarea type="text" id="feedback" name="feedback"></textarea>
+        <textarea type="text" id="feedback" name="feedback" required></textarea>
 
         <button type="submit">Küldés</button>
     </form>
