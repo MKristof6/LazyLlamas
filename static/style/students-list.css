@@ -50,3 +50,15 @@ table td {
     margin: 0;
     padding: 6px;
 }
+
+input{
+   border-radius: 20px;
+    border: 1px solid #993166;
+    color: #993166;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}

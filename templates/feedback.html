@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Értékelés</title>
+    <link href="../static/style/feedback.css" rel='stylesheet'>
 </head>
 <body>
+<section class="main">
+    <form action="/feedback/{{student_id}}" method="post">
+        <label for="title">Tárgy:</label>
+        <input type="text" id="title" name="title">
+        <label for="feedback">Értékelés:</label>
+        <textarea type="text" id="feedback" name="feedback"></textarea>
 
-        <form action="/feedback/{{student_id}}" method="post">
-            <label for="title">Tárgy:</label>
-            <input type="text" id="title" name="title" >
-            <label for="feedback">Értékelés:</label>
-            <input type="text" id="feedback" name="feedback" >
+        <button type="submit">Küldés</button>
+    </form>
 
-            <button type="submit">Küldés</button>
-        </form>
+
+</section>
+
 
 </body>
 </html>
