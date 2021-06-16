@@ -22,14 +22,14 @@ const memoryGame = {
                 <img src="data:image/png;base64,${cards[`image${i}`]}" />
                 <p> ${cards[`text${i}`]}</p>
             </div>
-            <img class="back-face" src="../static/images/amigo_logo.png"/>
+            <img class="back-face" src="http://127.0.0.1:8000/static/images/amigo_logo.png"/>
         </div>
         <div class="memory-card"  data-framework="${cards[`text${i}`]}">
             <div class="front-face">
                 <img src="data:image/png;base64,${cards[`image${i}`]}" />
                 <p> ${cards[`text${i}`]}</p>
             </div>
-            <img class="back-face" src="../static/images/amigo_logo.png"/>
+            <img class="back-face" src="{{ url_for('static', filename='images/amigo_logo.png') }}"/>
         </div>`
         }
         gameUI.innerHTML = rows

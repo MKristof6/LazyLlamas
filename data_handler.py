@@ -189,10 +189,22 @@ def search_students(search_param, searched_column):
     SELECT student.id, student.name AS name , email , age,  array_agg(language) as language, points  FROM student
     LEFT JOIN student_languages sl on student.id = sl.student_id
     LEFT JOIN language l on sl.language_id = l.id
-    WHERE %(searched_column)s LIKE %(search_param)s 
+    WHERE %(searched_column)s ILIKE %(search_param)s 
+    GROUP BY student.id, student.name, email, age, points
+    """
+    return connection.execute_select(query, {'search_param': '%' + search_param + '%', "searched_column": AsIs(searched_column)})
+
+
+def search_students_by_age(age):
+    query = """
+    SELECT student.id, student.name AS name , email , age,  array_agg(language) as language, points  FROM student
+    LEFT JOIN student_languages sl on student.id = sl.student_id
+    LEFT JOIN language l on sl.language_id = l.id
+    WHERE age = %(age)s 
     GROUP BY student.id, student.name, email, DATE_PART('year', birthday), points
     """
-    return connection.execute_select(query, {'search_param': '%' + str(search_param) + '%', "searched_column": AsIs(searched_column)})
+    return connection.execute_select(query, {'age': age})
+
 
 
 def give_feedback(amigo_id, student_id, title, feedback):

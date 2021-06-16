@@ -139,7 +139,10 @@ def students():
 
 @app.route('/search/<search_column>/<search_param>')
 def search_students(search_param, search_column):
-    data = data_handler.search_students(search_param.capitalize(), search_column)
+    if search_column == 'age':
+        data = data_handler.search_students_by_age(search_param)
+    else:
+        data = data_handler.search_students(search_param, search_column)
     return jsonify(data)
 
 

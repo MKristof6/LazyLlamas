@@ -114,4 +114,4 @@ VALUES('English', 'Állatok',
        'cat');
 
 
-INSERT INTO filling_gaps(theme, long_text, gaps) VALUES ('Animals', '{Dogs wag their,when they happy.,usually make a purring sound when you pet them. The, is known for it''s very long neck. Amphibious animals\, like frogs\, can breathe both on, and underwater.}', 4);
+INSERT INTO filling_game(theme, long_text, gaps) VALUES ('Animals', '{Dogs wag their,when they happy.,usually make a purring sound when you pet them. The, is known for it''s very long neck. Amphibious animals\, like frogs\, can breathe both on, and underwater.}', 4);
