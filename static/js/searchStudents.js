@@ -17,7 +17,7 @@ export let searchStudents = {
     <tr>
     <th>Tanuló neve</th>
     <th>Email</th>
-    <th>Születési idő</th>
+    <th>Kor:</th>
     <th>Tanult nyelv</th>
     <th>Pontok</th>
     </tr>`
