@@ -23,7 +23,7 @@ def update_student_languages(student_id, languages):
 
 def get_languages():
     query = """
-    SELECT name, voice_code FROM language
+    SELECT language, voice_code FROM language
     """
     return connection.execute_select(query)
 
