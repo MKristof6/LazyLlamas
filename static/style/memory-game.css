@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-body{
+body {
     display: flex;
     background-image: linear-gradient(45deg, #5C9129, #8BBF58);
     height: 100vh;
@@ -12,7 +12,7 @@ body{
     position: relative;
 }
 
-.circle1{
+.circle1 {
     background-color: #993166;
     width: 20%;
     padding-top: 20%;
@@ -22,7 +22,7 @@ body{
     left: -3%;
 }
 
-.circle2{
+.circle2 {
     background-color: #5C9123;
     width: 25%;
     padding-top: 25%;
@@ -33,33 +33,33 @@ body{
 }
 
 
-.memory-game{
+.memory-game {
     perspective: 1000px;
     width: 80%;
     height: 90vh;
-    background-color: rgba(255,255,255,0.85);
+    background-color: rgba(255, 255, 255, 0.85);
     margin: auto;
     display: flex;
     flex-wrap: wrap;
     padding: 5%;
     border-radius: 30px;
     backdrop-filter: blur(5px);
-    filter: drop-shadow(10px 15px 20px rgba(0,0,0,0.25));
+    filter: drop-shadow(10px 15px 20px rgba(0, 0, 0, 0.25));
 }
 
-.memory-card{
+.memory-card {
     transform-style: preserve-3d;
     width: 25%;
     height: 33.33333%;
     position: relative;
     display: flex;
     transform: scale(1);
-    transition: transform .1s ;
+    transition: transform .1s;
     backface-visibility: hidden;
     padding-bottom: 10%;
 }
 
-.front-face{
+.front-face {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -67,10 +67,10 @@ body{
     justify-content: space-around;
     margin: auto;
 
-    transform: rotateY(180deg) ;
+    transform: rotateY(180deg);
 }
 
-.front-face p{
+.front-face p {
 
     margin-top: 10px;
     /*transform: translateX(50%);*/
@@ -82,7 +82,7 @@ body{
 }
 
 
-.back-face{
+.back-face {
     position: absolute;
     margin: auto;
     width: 215px;
@@ -95,4 +95,21 @@ body{
 .memory-card.flip {
     transform: rotateY(180deg);
 }
+
+#theme {
+    display: none;
+}
+
+.stopper {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(255, 255, 255, 0.85);
+    font-family: 'Lato';
+    font-size: 38px;
+    padding: 15px;
+    border-radius: 30px;
+}
+
+
 

@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Összekötő feltöltés</title>
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/navigation.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Lato&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/picture_upload.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/navigation.css') }}">
+
 
     <script type="module" src="{{ url_for('static', filename='js/pictureGameSaver.js') }}" defer></script>
 </head>
@@ -31,8 +34,8 @@
                 <div class="upload-content">
                     <label for="fileId"> Kép </label>
                     <input type="file" name="" id="fileId" class="image" required>
-                    </div>
-                    <div class="upload-content">
+                </div>
+                <div class="upload-content">
                     <label for="text"> Szöveg </label>
                     <input type="text" id="text" class="text" name="text" required>
                 </div>
