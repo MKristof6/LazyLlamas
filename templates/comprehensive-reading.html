@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Szövegértés</title>
-    <link rel="stylesheet" href="../static/style/main.css"/>
-    <link rel="stylesheet" href="../static/style/navigation.css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/main.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/navigation.css') }}"/>
 </head>
 <body>
 {% include "navigation.html" %}
@@ -26,6 +26,6 @@
 
 </section>
 
-<script  type="module" src="/static/js/comprehensiveReading.js"></script>
+<script  type="module" src="{{ url_for('static', filename='js/comprehensiveReading.js') }}"></script>
 </body>
 </html>

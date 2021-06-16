@@ -13,7 +13,7 @@ let comprehensiveReading = {
             }
             networkHandler.sendData(solution, `/comprehensive-reading-solution-saver/${gameId}`, networkHandler.redirectHome);
         })
-        networkHandler.getData(`/get-comprehensive-reading/${gameId}`, comprehensiveReading.showData);
+        networkHandler.getData(`/get-game/comprehensive-reading/${gameId}`, comprehensiveReading.showData);
 
     },
     showData: function (data) {
@@ -32,4 +32,4 @@ let comprehensiveReading = {
 
     }
 }
-init();
+comprehensiveReading.init();

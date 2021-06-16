@@ -82,7 +82,7 @@ function logic() {
 
     function mark() {
         let img = document.createElement('img');
-        img.src = "../static/images/tick.jpg";
+        img.src = "{{ url_for('static', filename='images/tick.jpg') }}";
         img.classList.add('tick');
         document.querySelector('.flashcard-active').appendChild(img);
     }
@@ -131,7 +131,7 @@ function logic() {
 }
 
 function init() {
-    matchingGame.getData(`/get-matching-game/${gameId}`, matchingGame.showData);
+    matchingGame.getData(`/get-game/matching-game/${gameId}`, matchingGame.showData);
 }
 
 init();

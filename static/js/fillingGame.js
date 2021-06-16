@@ -2,7 +2,7 @@ import {networkHandler} from "./networkHandler.js";
 
 const fillingGame = {
     init: function () {
-        const gameId = document.querySelector(".filling-gaps").id;
+        const gameId = document.querySelector(".filling-game").id;
         let solution = [];
         const saveBtn = document.getElementById('save');
 
@@ -12,7 +12,7 @@ const fillingGame = {
             networkHandler.sendData(solution, `/filling-gap-solution-saver/${gameId}`, networkHandler.redirectHome);
         })
 
-        networkHandler.getData(`/get-filling-game/${gameId}`, fillingGame.showData);
+        networkHandler.getData(`/get-game/filling-game/${gameId}`, fillingGame.showData);
 
     },
     showData: function (data) {

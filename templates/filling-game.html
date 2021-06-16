@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Kiegészítés</title>
-    <link rel="stylesheet" href="../static/style/main.css"/>
-    <link rel="stylesheet" href="../static/style/filling-game.css"/>
-    <link rel="stylesheet" href="../static/style/navigation.css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/main.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/filling-game.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/navigation.css') }}"/>
 </head>
 <body>
 {% include "navigation.html" %}
@@ -15,7 +15,7 @@
 
 <button id="save"> Beküldés</button>
 
-<section class="filling-gaps" id="{{game_id}}">
+<section class="filling-game" id="{{game_id}}">
     <div class="container-card">
 
         <h2 id="theme"></h2>
@@ -25,6 +25,6 @@
 
 </section>
 
-<script type="module" src="/static/js/fillingGame.js"></script>
+<script type="module" src="{{ url_for('static', filename='js/fillingGame.js') }}"></script>
 </body>
 </html>
