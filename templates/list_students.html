@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <script type="module" src="{{ url_for('static', filename='js/searchStudents.js') }}" defer></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/students-list.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/send-task.css') }}">
     <title>Diákok</title>
-    <link href="/static/style/send-task.css" rel='stylesheet'>
-    <link href="/static/style/navigation.css" rel='stylesheet'>
+
+    <link href="{{ url_for('static', filename='style/navigation.css') }}" rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Lato&display=swap"
           rel="stylesheet">
@@ -28,8 +28,8 @@
         </div>
         <div class="results">
             <div class="search-bar">
-                <div class="table-container">
-                    <table id="container">
+                <div class="table-container"  >
+                    <table id="container" class="feedback">
                     </table>
                 </div>
             </div>

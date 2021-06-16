@@ -61,7 +61,7 @@ function logic() {
 
 
 function init() {
-    networkHandler.getData(`/get-sorting-game/${gameId}`, sortingGame.showData);
+    networkHandler.getData(`/get-game/sorting-game/${gameId}`, sortingGame.showData);
 }
 
 init();

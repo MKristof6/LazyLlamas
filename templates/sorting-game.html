@@ -2,26 +2,22 @@
 {% block title %} Húzd és dobd! {% endblock %}
 {% block head %}
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../static/style/sorting-game.css"/>
-<link rel="stylesheet" href="../static/style/navigation.css"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='style/sorting-game.css') }}"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='style/navigation.css') }}"/>
 <link href='https://fonts.googleapis.com/css?family=Amatic SC' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
-<script type="module" src="/static/js/sortingGame.js" defer></script>
+<script type="module" src="{{ url_for('static', filename='js/sortingGame.js') }}" defer></script>
 {% endblock %}
 {% block content %}
     {% include "navigation.html" %}
 <section class="sorting-game" id="{{game_id}}">
 <div class="container">
     <div class="word-container droppable">
-<!--        {% for word in words %}-->
-<!--        <p class="words draggable" draggable="true">{{ word }}</p>-->
-<!--        {% endfor %}-->
+
     </div>
 
     <div class="theme-container">
-<!--        {% for theme in themes %}-->
-<!--        <div class="theme-card droppable">{{ theme }}</div>-->
-<!--        {% endfor %}-->
+
         <p class="submit">Beküldés</p>
     </div>
 </div>
