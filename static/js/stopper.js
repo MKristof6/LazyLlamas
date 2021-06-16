@@ -1,4 +1,4 @@
-let gameId = document.querySelector(".memory-game").id
+import {networkHandler} from "./networkHandler.js";
 
 let seconds = 0;
 let minutes = 0;
@@ -14,10 +14,6 @@ let stopBtn = document.querySelector(".stop");
 
 
 window.addEventListener('click', start);
-
-
-// stopBtn.addEventListener('click', stop);
-
 
 function stopWatch() {
     seconds++;
@@ -46,7 +42,7 @@ function start() {
 }
 
 export let stopCheck = {
-    stop: function () {
+    stop: function (route) {
         let isComplete = true;
         let cards = document.querySelectorAll(".memory-card");
         cards.forEach(item => {
@@ -55,23 +51,12 @@ export let stopCheck = {
                 }
             }
         )
-
-        //    TODO: Leáll a timer, ha átfordult minden kártya, de automatikusan be is küldi.
-        //    TODO: Kiszervezendő a beküldés, hogy gombhoz lehessen kötni. De akár így is jó(?)
-
         if (isComplete) {
             window.clearInterval(interval);
             time = document.getElementById("stopper-display").innerHTML
-            fetch(`/memory-solution-saver/${gameId}`, {
-                method: "POST",
-                body: JSON.stringify(countSeconds(time)),
-                headers: {"Content-type": "application/json; charset=UTF-8"}
-            })
-                .then(response => response.json())
-                .then(json => console.log(json))
-        }
+            networkHandler.sendData(countSeconds(time), route, networkHandler.redirectHome);
     }
-}
+}}
 
 
 const countSeconds = (str) => {

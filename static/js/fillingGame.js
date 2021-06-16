@@ -1,6 +1,8 @@
 import {networkHandler} from "./networkHandler.js";
 
 const fillingGame = {
+    /* Get data with fetch API get request via the networkHandler module
+   Set up sending data with click eventListener on saving button*/
     init: function () {
         const gameId = document.querySelector(".filling-game").id;
         let solution = [];
@@ -15,6 +17,8 @@ const fillingGame = {
         networkHandler.getData(`/get-game/filling-game/${gameId}`, fillingGame.showData);
 
     },
+    /* Callback function for fetch
+    Display game data*/
     showData: function (data) {
         let readingContainer = document.querySelector('.filling-container');
         document.getElementById('theme').textContent = data['theme'];

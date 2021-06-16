@@ -1,4 +1,3 @@
-
 let gameId = document.querySelector(".matching-game").id;
 let seconds = 0;
 let minutes = 0;

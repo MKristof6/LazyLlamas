@@ -2,7 +2,9 @@ import {networkHandler} from "./networkHandler.js";
 
 
 let listeningGame = {
-
+        /* Get data with fetch API get request via the networkHandler module
+       Set up sending data with click eventListener on saving button
+    * */
     init: function () {
         let gameId = document.querySelector(".listening-game").id;
         let saveBtn = document.getElementById('save');
@@ -20,7 +22,7 @@ let listeningGame = {
         networkHandler.getData(`/get-listening-game/${gameId}`, listeningGame.getElements);
 
     },
-
+    /* Complie HTML to display game data*/
     getElements: function (data) {
         let elements = ``
         for (let element of data) {
@@ -46,6 +48,7 @@ let listeningGame = {
         listeningGame.showElements(elements);
 
     },
+    /* Display game data on template and shuffle answer cards*/
     showElements: function (elements) {
         let container = document.getElementById("container");
         container.innerHTML = elements;
@@ -57,6 +60,9 @@ let listeningGame = {
             });
         })();
     },
+    /* Words are selected and unselected by click
+    *  ResponsiveVoice API reads the word
+    * */
     logic: function () {
         let words = document.querySelectorAll('.possibilities');
         for (let word of words) {
@@ -70,12 +76,10 @@ let listeningGame = {
                 let answer = e.target.value
                 let language = e.target.name
                 responsiveVoice.speak(answer, language);
-                console.log(language)
             });
         }
 
     }
-
 
 }
 

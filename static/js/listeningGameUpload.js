@@ -1,15 +1,23 @@
-let data = {};
-let questionNumber = 6;
-let saveBtn = document.getElementById("save");
-saveBtn.addEventListener('click', uploadData);
+import {networkHandler} from "./networkHandler";
 
-function uploadData(){
+
+/*Set up eventListeners for adding new question and submitting the data*/
+function init() {
+    let saveBtn = document.getElementById("save");
+    saveBtn.addEventListener('click', uploadData);
+
+}
+
+/*Collect data from input fields and send via fetch post request to server*/
+function uploadData() {
+    let data = {};
+    let questionNumber = 6;
     let cardAnswers = [];
     let textUploads = [];
     let language = document.getElementById("language").value;
     let theme = document.getElementById("theme").value;
     let cards = [];
-    for (let i=0; i<questionNumber; i++){
+    for (let i = 0; i < questionNumber; i++) {
         textUploads.push(document.querySelectorAll(`[data-name=${CSS.escape(i.toString())}]`));
     }
     for (let card of textUploads) {
@@ -24,16 +32,8 @@ function uploadData(){
     data.language = language;
     data.theme = theme;
 
-    saveData(data);
+    networkHandler.sendData(data, '/listening-game-upload', networkHandler.redirectHome);
+
 }
 
-function saveData(data) {
-         fetch('/listening-game-upload', {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: {"Content-type": "application/json; charset=UTF-8"}
-            })
-                .then(response => response.json())
-                .then(json => console.log(json))
-                .catch(err => console.log(err));
-}
+init();

@@ -1,5 +1,11 @@
 import {networkHandler} from "./networkHandler.js";
+
+
 let comprehensiveReading = {
+
+    /* Get data with fetch API get request via the networkHandler module
+       Set up sending data with click eventListener on saving button
+    * */
     init: function () {
         let gameId = document.querySelector(".comprehensive-reading").id;
         let saveBtn = document.getElementById('save');
@@ -16,6 +22,10 @@ let comprehensiveReading = {
         networkHandler.getData(`/get-game/comprehensive-reading/${gameId}`, comprehensiveReading.showData);
 
     },
+
+    /* Callback function for fetch
+        Display game data
+    * */
     showData: function (data) {
         let readingContainer = document.querySelector('.reading-container');
         let questionContainer = document.querySelector('.question-container');

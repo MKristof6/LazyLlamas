@@ -61,7 +61,7 @@ function logic(){
         hasFlippedCard = false;
         secondCard = this;
         checkForMatch();
-        stopCheck.stop();
+        stopCheck.stop(`/memory-solution-saver/${gameId}`);
     }
 
     function checkForMatch() {
