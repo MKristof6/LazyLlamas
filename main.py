@@ -245,7 +245,7 @@ def get_listening_game(game_id):
 
 @app.route('/listening-game/<game_id>')
 def listening_game_with_id(game_id):
-    return render_template('listening_game.html', game_id=game_id)
+    return render_template('listening-game.html', game_id=game_id)
 
 
 @app.route('/listening-game-upload', methods=['GET', 'POST'])
@@ -274,10 +274,10 @@ def save_listening_solution(game_id):
     return jsonify('Success', 200)
 
 
-@app.route('/listening-games/<id>')
-def list_student_listening_games(id):
+@app.route('/listening-games/<student_id>')
+def list_student_listening_games(student_id):
     exercise = "listening-game"
-    game_ids = data_handler.get_student_exercises(id, exercise)
+    game_ids = data_handler.get_student_exercises(student_id, exercise)
     if len(game_ids) != 0:
         listening_games = []
         for g_id in game_ids:

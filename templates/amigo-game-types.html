@@ -18,6 +18,19 @@
 <div class="main">
     <h2>Feladatok</h2>
     <div class="exercises">
+          {% if exercise == "listening-game" -%}
+                {% for game in games %}
+                    {% if game[0] -%}
+                        <div class="exercise-type" id="{{ exercise }}/{{ game[0].game_id }}"><p>{{ game[0].theme }}</p>
+                        <a href="/send/{{ exercise }}/{{ game.id }}">
+                        </div>
+                    {% else %}
+
+                        <div class="exercise-type" id="{{exercise}}/{{game.id}}"><p>{{ game.theme }}</p></div>
+                        <a href="/send/{{ exercise }}/{{ game.id }}">
+        {% endif %}
+                {% endfor %}
+            {% else %}
         {% for game in games %}
             <div class="exercise-type" id="play-game/{{ exercise }}/{{ game.id }}">
                 <p>{{ game.theme }}</p>
@@ -26,7 +39,9 @@
                 </a>
             </div>
         {% endfor %}
+        {% endif %}
     </div>
+
 </div>
 </body>
 </html>
