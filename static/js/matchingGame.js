@@ -82,7 +82,7 @@ function logic() {
 
     function mark() {
         let img = document.createElement('img');
-        img.src = "{{ url_for('static', filename='/images/tick.jpg') }}";
+        img.src = "/static/images/tick.jpg";
         img.classList.add('tick');
         document.querySelector('.flashcard-active').appendChild(img);
     }
