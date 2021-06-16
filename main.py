@@ -56,7 +56,9 @@ def home():
         id = session['id']
         return render_template('index.html', id=id)
 
-
+# Get user data from database and display it on the appropriate user profile template.
+# Updates user information in database on user post request
+# Amigos get access to add new users interface (not yet implemented).
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     if session['amigo']:
@@ -77,22 +79,23 @@ def profile():
         else:
             return render_template('student-profile.html', student=student, languages=languages)
 
-
+# Display selectable game categories when adding a new game
 @app.route('/new_exercise')
 def new_exercise():
     return render_template("new_exercises.html")
 
-
+# Display selectable game categories when browsing all existing games
 @app.route('/my_exercises')
 def my_exercises():
     return render_template('exercises.html')
 
-
+# Display selectable game categories when student is browsing games sent to them
 @app.route('/my-exercises/<id>')
 def my_exercises_student(id):
     return render_template('student-exercises.html', student_id=id)
 
 
+# Save game solution into database
 @app.route('/send/<game_type>/<game_id>', methods=['GET', 'POST'])
 def send_game_to_student(game_type, game_id):
     if request.method == 'POST':
