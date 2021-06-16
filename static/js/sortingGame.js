@@ -12,9 +12,9 @@ const sortingGame = {
             wordContainer.insertAdjacentHTML('beforeend', pTag);
         }
         for (let i = 0; i < data.categories.length; i++) {
-            const themeContainer = document.querySelector('.theme-container');
-            let categoryDiv = `<div class="theme-card droppable">${data.categories[i]}</div>`;
-            themeContainer.insertAdjacentHTML('beforeend', categoryDiv);
+            const categoryContainer = document.querySelector('.category-container');
+            let categoryDiv = `<div class="category-card droppable">${data.categories[i]}</div>`;
+            categoryContainer.insertAdjacentHTML('beforeend', categoryDiv);
         }
         logic();
     }
@@ -45,15 +45,14 @@ function logic() {
 
     function collectSolution() {
         let SOLUTION = {};
-        const themes = document.querySelectorAll('.theme-card');
-        themes.forEach(theme => { //Initializing object's keys as given themes
-            SOLUTION[theme.innerText.split("\n")[0]] = [];
-            for (let i = 0; i < theme.childElementCount; i++) {
-                SOLUTION[theme.innerText.split("\n")[0]].push(theme.children[i].innerText);
+        const categories = document.querySelectorAll('.category-card');
+        categories.forEach(category => { //Initializing object's keys as given themes
+            SOLUTION[category.innerText.split("\n")[0]] = [];
+            for (let i = 0; i < category.childElementCount; i++) {
+                SOLUTION[category.innerText.split("\n")[0]].push(category.children[i].innerText);
             }
         })
-        console.log(SOLUTION);
-        networkHandler.sendData(SOLUTION, `/sorting-solution-saver/${gameId}`)//, networkHandler.redirectHome);
+        networkHandler.sendData(SOLUTION, `/sorting-solution-saver/${gameId}`, networkHandler.redirectHome);
     }
 
     SUBMIT.addEventListener('click', collectSolution);
