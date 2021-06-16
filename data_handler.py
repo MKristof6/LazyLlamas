@@ -58,7 +58,7 @@ def update_student(name, email, birthday, id):
 
 
 def get_student_languages(student_id):
-    query = """ SELECT string_agg(DISTINCT l.name, ', ') as languages FROM student
+    query = """ SELECT string_agg(DISTINCT language, ', ') as languages FROM student
                 INNER JOIN student_languages sl on student.id = sl.student_id
                 INNER JOIN language l on sl.language_id=l.id;
     """
