@@ -1,5 +1,6 @@
 import {networkHandler} from "./networkHandler.js";
 
+/* Send task to selected students with fetch POST request*/
 let sendTask = {
     init: function () {
         let sendBtn = document.querySelector('.send');

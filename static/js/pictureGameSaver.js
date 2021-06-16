@@ -1,5 +1,7 @@
 import {networkHandler} from "./networkHandler.js";
 
+/* Add new picture based games, used both for matching and memory games*/
+
 let base64String = "";
 let images =[];
 let texts =[];
@@ -10,7 +12,7 @@ let gameType = document.querySelector(".form-container").id;
 
 saveBtn.addEventListener('click', uploadData);
 
-
+/* Async function for collecting data from input fields and storing them in a data element, which is then sent to the server*/
 async function uploadData(){
     let imageUploads = document.querySelectorAll('input[type=file]');
     let textUploads = document.querySelectorAll('.text');
@@ -32,6 +34,7 @@ async function uploadData(){
     networkHandler.sendData(data, `/save/pictures/${gameType}`, networkHandler.redirectHome );
 }
 
+/* converts images to base64 string and returns promise to uploadData function */
 function imageUploader(file, text) {
     let done;
     let promise = new Promise((resolved)=>{done = resolved});

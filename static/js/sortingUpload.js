@@ -1,15 +1,19 @@
 import {networkHandler} from "./networkHandler.js";
 
+/* Uploads new sorting game*/
+
 const wordInput = document.getElementById('word-source');
 let saveBtn = document.querySelector('.save');
 let addWordBtn = document.getElementById('addWord');
 let data = {};
 
 let sortingUpload = {
+
     init: function () {
         addWordBtn.addEventListener('click', sortingUpload.insertWord);
         saveBtn.addEventListener('click', sortingUpload.getAllData);
     },
+
     insertWord: function () {
         const target = document.getElementById('word-form');
         wordInput.placeholder = ' Írj ide ';

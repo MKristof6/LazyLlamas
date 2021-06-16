@@ -7,6 +7,12 @@
     background-image: url("/static/images/math.jpg");
 }
 
+h2 {
+    font-family: "Amatic SC";
+    font-size: 38px;
+    margin-bottom: 80px;
+}
+
 .word-container {
     position: relative;
     top: 1%;
@@ -128,5 +134,14 @@ p.words {
     opacity: 0.5;
     border: 3px solid #993166;
 }
+
+.submit {
+    font-size: xx-large;
+    padding: 10px;
+    font-family: "Amatic SC", sans-serif;
+    font-weight: bold;
+
+}
+
 
 

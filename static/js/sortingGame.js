@@ -3,6 +3,7 @@ import {networkHandler} from "./networkHandler.js";
 let gameId = document.querySelector(".sorting-game").id;
 
 const sortingGame = {
+    //Display game data on page and call game logic driver function
     showData: function (data) {
         const wordContainer = document.querySelector('.word-container');
         const theme = `<h2>${data.theme}</h2>`;
@@ -20,6 +21,7 @@ const sortingGame = {
     }
 }
 
+//Set up drag and drop logic
 function logic() {
     const DRAGGABLES = document.querySelectorAll('.draggable');
     const DROPPABLES = document.querySelectorAll('.droppable');
@@ -43,6 +45,7 @@ function logic() {
         });
     })
 
+    /* Collect solution data and save it to database with fetch API post*/
     function collectSolution() {
         let SOLUTION = {};
         const categories = document.querySelectorAll('.category-card');
