@@ -16,14 +16,16 @@
 <div class="circle2"></div>
 <div class="main">
 
-    <h2>Témák</h2>
-    <div class="exercises">
+
+
         {% if exercise == "listening-game" -%}
             {% if games %}
+                <h2>Témák</h2>
+       <div class="exercises">
                 {% for game in games %}
+
                     {% if game[0] -%}
-                        <div class="exercise-type" id="{{ exercise }}/{{ game[0].game_id }}"><p>{{ game[0].theme }}</p>
-                        </div>
+                        <div class="exercise-type" id="{{ exercise }}/{{ game[0].game_id }}"><p>{{ game[0].theme }}</p></div>
                     {% else %}
                         <div class="exercise-type" id="{{exercise}}/{{game.id}}"><p>{{ game.theme }}</p></div>
                     {% endif %}
@@ -40,6 +42,8 @@
             {% endif %}
         {% else %}
             {% if games %}
+                <h2>Témák</h2>
+              <div class="exercises">
                 {% for game in games %}
                         <div class="exercise-type" id="play-game/{{exercise}}/{{game.id}}"><p>{{ game.theme }}</p></div>
                 {% endfor %}
@@ -54,11 +58,7 @@
                 {% endif %}
             {% endif %}
         {% endif %}
-
-
     </div>
-
-
 </div>
 </body>
 </html>
