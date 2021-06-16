@@ -1,4 +1,5 @@
 import {networkHandler} from "./networkHandler.js";
+
 let comprehensiveReading = {
     init: function () {
         let gameId = document.querySelector(".comprehensive-reading").id;
@@ -20,6 +21,9 @@ let comprehensiveReading = {
         let readingContainer = document.querySelector('.reading-container');
         let questionContainer = document.querySelector('.question-container');
         let questions = data['questions'];
+        let theme = document.querySelector(".theme");
+        theme.innerHTML = data['theme'];
+
 
         let questionList = '<ul>';
         for (let question of questions) {
@@ -27,7 +31,7 @@ let comprehensiveReading = {
 
         }
         questionList += '</ul>'
-        readingContainer.innerHTML = data['long_text'];
+        readingContainer.insertAdjacentHTML("beforeend", data['long_text'] )
         questionContainer.innerHTML = questionList;
 
     }
