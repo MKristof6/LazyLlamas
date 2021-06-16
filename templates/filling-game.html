@@ -11,20 +11,13 @@
 {% include "navigation.html" %}
 <div class="circle1"></div>
 <div class="circle2"></div>
-
-
-<button id="save"> Beküldés</button>
-
 <section class="filling-game" id="{{game_id}}">
     <div class="container-card">
-
         <h2 id="theme"></h2>
         <div class="filling-container"></div>
-
+            <button id="save"> Beküldés </button>
     </div>
-
 </section>
-
 <script type="module" src="{{ url_for('static', filename='js/fillingGame.js') }}"></script>
 </body>
 </html>
