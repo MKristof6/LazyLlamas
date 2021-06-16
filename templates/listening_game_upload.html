@@ -14,7 +14,7 @@
     <label for="language"> Nyelv: </label>
     <select name="language" id="language" required>
         {% for language in languages %}
-        <option value="{{language['voice_code']}}">{{ language['name'] }}</option>  <br><br>
+        <option value="{{language['voice_code']}}">{{ language['language'] }}</option>  <br><br>
         {% endfor %}
     </select>
 
