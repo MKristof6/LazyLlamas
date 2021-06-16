@@ -126,32 +126,6 @@ def save_listening_game_solution(student_id, game_id, solution):
     return connection.execute_dml_statement(query, {"game_id": game_id, "solution": solution, "student_id": student_id})
 
 
-# MEMORY GAME
-
-def save_memory_game_solution(student_id, game_id, solution_time):
-    query = """
-    INSERT INTO memory_game_solution(student_id, game_id, solution_time) 
-               VALUES(%(student_id)s, %(game_id)s, %(solution_time)s)
-    """
-    return connection.execute_dml_statement(query, {"student_id": student_id, "game_id": game_id,
-                                                    "solution_time": solution_time})
-
-
-def save_memory_game(language, theme, images):
-    query = """
-    INSERT INTO memory_game(language, theme, image1, text1, image2, text2, image3, text3, image4, text4, image5, text5, image6, text6)
-               VALUES(%(language)s, %(theme)s, %(image1)s, %(text1)s, %(image2)s, %(text2)s, %(image3)s, %(text3)s, %(image4)s, %(text4)s, %(image5)s, %(text5)s, %(image6)s, %(text6)s)
-    """
-    return connection.execute_dml_statement(query, {"language": language, "theme": theme, "image1": images[0]["image"],
-                                                    "text1": images[0]["text"], "image2": images[1]["image"],
-                                                    "text2": images[1]["text"],
-                                                    "image3": images[2]["image"], "text3": images[2]["text"],
-                                                    "image4": images[3]["image"],
-                                                    "text4": images[3]["text"], "image5": images[4]["image"],
-                                                    "text5": images[4]["text"],
-                                                    "image6": images[5]["image"], "text6": images[5]["text"]})
-
-
 # SORTING GAME
 
 def save_sorting_exercise(language, theme, categories, words):
@@ -170,21 +144,6 @@ def save_sorting_game_solution(student_id, game_id, solution):
 
 
 # MATCHING GAME
-
-def save_matching_game(language, theme, images):
-    query = """
-        INSERT INTO matching_game(language, theme, image1, text1, image2, text2, image3, text3, image4, text4, image5, text5, image6, text6)
-                   VALUES(%(language)s, %(theme)s, %(image1)s, %(text1)s, %(image2)s, %(text2)s, %(image3)s, %(text3)s, %(image4)s, %(text4)s, %(image5)s, %(text5)s, %(image6)s, %(text6)s)
-        """
-    return connection.execute_dml_statement(query, {"language": language, "theme": theme, "image1": images[0]["image"],
-                                                    "text1": images[0]["text"], "image2": images[1]["image"],
-                                                    "text2": images[1]["text"],
-                                                    "image3": images[2]["image"], "text3": images[2]["text"],
-                                                    "image4": images[3]["image"],
-                                                    "text4": images[3]["text"], "image5": images[4]["image"],
-                                                    "text5": images[4]["text"],
-                                                    "image6": images[5]["image"], "text6": images[5]["text"]})
-
 
 def save_matching_game_solution(student_id, game_id, solution_time):
     query = """
@@ -257,3 +216,27 @@ def get_games(game_type):
              SELECT id, theme FROM %(game_type)s;
          """
     return connection.execute_select(query, {"game_type": AsIs(game_type)})
+
+
+def save_picture_game(game_type, language, theme, images):
+    query = """
+        INSERT INTO %(game_type)s (language, theme, image1, text1, image2, text2, image3, text3, image4, text4, image5, text5, image6, text6)
+                   VALUES(%(language)s, %(theme)s, %(image1)s, %(text1)s, %(image2)s, %(text2)s, %(image3)s, %(text3)s, %(image4)s, %(text4)s, %(image5)s, %(text5)s, %(image6)s, %(text6)s)
+        """
+    return connection.execute_dml_statement(query,
+                                            {"game_type": AsIs(game_type), "language": language, "theme": theme, "image1": images[0]["image"],
+                                             "text1": images[0]["text"], "image2": images[1]["image"],
+                                             "text2": images[1]["text"],
+                                             "image3": images[2]["image"], "text3": images[2]["text"],
+                                             "image4": images[3]["image"],
+                                             "text4": images[3]["text"], "image5": images[4]["image"],
+                                             "text5": images[4]["text"],
+                                             "image6": images[5]["image"], "text6": images[5]["text"]})
+
+def save_memory_game_solution(student_id, game_id, solution_time):
+    query = """
+    INSERT INTO memory_game_solution(student_id, game_id, solution_time) 
+               VALUES(%(student_id)s, %(game_id)s, %(solution_time)s)
+    """
+    return connection.execute_dml_statement(query, {"student_id": student_id, "game_id": game_id,
+                                                    "solution_time": solution_time})

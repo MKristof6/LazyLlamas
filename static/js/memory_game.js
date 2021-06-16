@@ -101,7 +101,7 @@ function logic(){
 }
 
 function init() {
-    memoryGame.getData(`/get-memory-game/${gameId}`, memoryGame.showData);
+    memoryGame.getData(`/get-game/memory-game/${gameId}`, memoryGame.showData);
 }
 
 init();

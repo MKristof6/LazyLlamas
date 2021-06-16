@@ -1,17 +1,22 @@
+import {networkHandler} from "./networkHandler.js";
+
 let base64String = "";
 let images =[];
 let texts =[];
 let data = {};
 
 let saveBtn = document.getElementById("save");
+let gameType = document.querySelector(".form-container").id;
 
 saveBtn.addEventListener('click', uploadData);
+
 
 async function uploadData(){
     let imageUploads = document.querySelectorAll('input[type=file]');
     let textUploads = document.querySelectorAll('.text');
     let theme = document.getElementById("theme").value;
     let language = document.getElementById("language").value;
+
     textUploads.forEach(item => {
         texts.push(item.value);
 
@@ -24,7 +29,7 @@ async function uploadData(){
     data.language = language;
     data.theme = theme;
     data.images = images;
-    saveData(data);
+    networkHandler.sendData(data, `/save/pictures/${gameType}`, networkHandler.redirectHome );
 }
 
 function imageUploader(file, text) {
@@ -40,13 +45,3 @@ function imageUploader(file, text) {
     return promise;
 }
 
-function saveData(data) {
-         fetch('/memory-game-upload', {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: {"Content-type": "application/json; charset=UTF-8"}
-            })
-                .then(response => response.json())
-                .then(json => console.log(json))
-                .catch(err => console.log(err));
-}

@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Memória játék feltöltés</title>
-    <link rel="stylesheet" href="/static/matching-game.css">
-    <script src="../static/js/matchingGameSaver.js" defer></script>
+    <title>Összekötő feltöltés</title>
+    <script type="module" src="{{ url_for('static', filename='js/pictureGameSaver.js') }}" defer></script>
 </head>
 <body>
 <div class="circle1"></div>
 <div class="circle2"></div>
-<div class="form-container">
+<div class="form-container" id="{{game_type}}">
 <label for="language"> Nyelv: </label>
 <input type="text" id="language" name="language" required><br><br>
 <label for="theme"> Téma: </label>

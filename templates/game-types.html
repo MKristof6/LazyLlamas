@@ -25,12 +25,12 @@
                         </div>
                     {% else %}
 
-                        <div class="exercise-type" id="game-list/{{exercise}}/{{game.id}}"><p>{{ game.theme }}</p></div>
+                        <div class="exercise-type" id="{{exercise}}/{{game.id}}"><p>{{ game.theme }}</p></div>
                     {% endif %}
                 {% endfor %}
             {% else %}
                 {% for game in games %}
-                    <div class="exercise-type" id="game-list/{{exercise}}/{{game.id}}"><p>{{ game.theme }}</p></div>
+                    <div class="exercise-type" id="play-game/{{exercise}}/{{game.id}}"><p>{{ game.theme }}</p></div>
                 {% endfor %}
             {% endif %}
         </div>
