@@ -22,25 +22,23 @@
                 {% for game in games %}
                     {% if game[0] -%}
                         <div class="exercise-type" id="{{ exercise }}/{{ game[0].game_id }}"><p>{{ game[0].theme }}</p>
-                        <a href="/send/{{ exercise }}/{{ game.id }}">
+                            <a href="/send/{{ exercise }}/{{ game.id }}"><button> Küldés diáknak</button></a>
                         </div>
                     {% else %}
-
-                        <div class="exercise-type" id="{{exercise}}/{{game.id}}"><p>{{ game.theme }}</p></div>
-                        <a href="/send/{{ exercise }}/{{ game.id }}">
-        {% endif %}
+                        <div class="exercise-type" id="{{exercise}}/{{game.id}}"><p>{{ game.theme }}</p>
+                            <a href="/send/{{ exercise }}/{{ game.id }}"><button> Küldés diáknak</button></a>
+                        </div>
+                {% endif %}
                 {% endfor %}
             {% else %}
-        {% for game in games %}
-            <div class="exercise-type" id="play-game/{{ exercise }}/{{ game.id }}">
-                <p>{{ game.theme }}</p>
-                <a href="/send/{{ exercise }}/{{ game.id }}">
-                    <button> Küldés diáknak</button>
-                </a>
-            </div>
-        {% endfor %}
+                {% for game in games %}
+                    <div class="exercise-type" id="play-game/{{ exercise }}/{{ game.id }}">
+                    <p>{{ game.theme }}</p>
+                        <a href="/send/{{ exercise }}/{{ game.id }}"><button> Küldés diáknak</button></a>
+                    </div>
+                    {% endfor %}
         {% endif %}
-    </div>
+                </div>
 
 </div>
 </body>
