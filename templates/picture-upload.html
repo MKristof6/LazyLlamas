@@ -3,27 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Összekötő feltöltés</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/navigation.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/picture_upload.css') }}">
+
     <script type="module" src="{{ url_for('static', filename='js/pictureGameSaver.js') }}" defer></script>
 </head>
 <body>
+{% include "navigation.html" %}
 <div class="circle1"></div>
 <div class="circle2"></div>
-<div class="form-container" id="{{game_type}}">
-<label for="language"> Nyelv: </label>
-<input type="text" id="language" name="language" required><br><br>
-<label for="theme"> Téma: </label>
-<input type="text" id="theme" name="theme" required><br><br>
+<div class="main">
+    <div class="form-container" id="{{ game_type }}">
+        <div class="exercise-head">
+            <div class="head-content">
+                <label for="language"><h2> Nyelv </h2></label>
+                <input type="text" id="language" name="language" required>
+            </div>
+            <div class="head-content">
+                <label for="theme"><h2> Téma </h2></label>
+                <input type="text" id="theme" name="theme" required>
+            </div>
+        </div>
 
-{% for n in range(6) %}
-<label for="fileId"> Kép: </label>
-<input type="file" name="" id="fileId" class="image" required><br><br>
-<label for="text"> Szöveg: </label>
-<input type="text" id="text" class="text" name="text" required><br><br>
-
-{% endfor %}
-<button id="save">
-   Mentés
-</button>
+        {% for n in range(6) %}
+            <div class="upload">
+                <div class="upload-content">
+                    <label for="fileId"> Kép </label>
+                    <input type="file" name="" id="fileId" class="image" required>
+                    </div>
+                    <div class="upload-content">
+                    <label for="text"> Szöveg </label>
+                    <input type="text" id="text" class="text" name="text" required>
+                </div>
+            </div>
+        {% endfor %}
+        <button id="save">
+            Mentés
+        </button>
+    </div>
 </div>
 </body>
 </html>
