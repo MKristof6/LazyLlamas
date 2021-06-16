@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS public.exercise_type;
 DROP TABLE IF EXISTS public.filling_game;
 DROP TABLE IF EXISTS public.filling_game_solution;
 DROP TABLE IF EXISTS public.sorting_game_solution;
-DROP TABLE IF EXISTS public.filling_gaps;
+
 
 CREATE OR REPLACE FUNCTION
 student_age( birthday date )
